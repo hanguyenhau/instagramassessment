@@ -5,13 +5,19 @@ import 'package:instagram_assessment/constants/views/dimension.dart';
 import 'package:instagram_assessment/constants/views/text_messages.dart';
 
 class HorizontalDevider extends StatelessWidget {
-  const HorizontalDevider({super.key});
+  final double padding;
+  final bool containOr;
+  const HorizontalDevider({
+    super.key,
+    this.padding = 0.0,
+    this.containOr = false,
+  });
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-        padding: const EdgeInsets.all(
-          Dimension.height30,
+        padding: EdgeInsets.all(
+          padding,
         ),
         child: Row(
           children: [
@@ -22,25 +28,25 @@ class HorizontalDevider extends StatelessWidget {
                   right: Dimension.width10,
                 ),
                 child: Divider(
-                  color: Color(AppColor.dividerColor),
+                  color: AppColor.dividerColor,
                   thickness: 0.2,
                 ),
               ),
             ),
-            Text(
+            if(containOr) Text(
               TextMessage.or,
               style: TextStyle(
-                color: Color(AppColor.dividerTextColor),
-              ),
+                color: AppColor.dividerTextColor,
+              )
             ),
-            Expanded(
+            if(containOr) Expanded(
               child: Container(
                 padding: const EdgeInsets.only(
                   left: Dimension.width10,
                   right: Dimension.width10,
                 ),
                 child: Divider(
-                  color: Color(AppColor.dividerColor),
+                  color: AppColor.dividerColor,
                   thickness: 0.2,
                 ),
               ),

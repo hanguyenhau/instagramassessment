@@ -6,9 +6,10 @@ import 'package:instagram_assessment/constants/views/assets_path.dart';
 import 'package:instagram_assessment/constants/views/dimension.dart';
 import 'package:instagram_assessment/constants/views/text_messages.dart';
 import 'package:instagram_assessment/views/util/rich_text_two_part_view.dart';
-import 'package:instagram_assessment/views/view/login/facebook_button_view.dart';
-import 'package:instagram_assessment/views/view/login/google_button_view.dart';
-import 'package:instagram_assessment/views/view/login/horizontal_divider_view.dart';
+import 'package:instagram_assessment/views/view/home/home_main_view.dart';
+import 'package:instagram_assessment/views/view/login/stateless_widget_view/facebook_button_view.dart';
+import 'package:instagram_assessment/views/view/login/stateless_widget_view/google_button_view.dart';
+import 'package:instagram_assessment/views/view/login/stateless_widget_view/horizontal_divider_view.dart';
 
 class SignInView extends StatefulWidget {
   const SignInView({super.key});
@@ -31,7 +32,7 @@ class _SignInViewState extends State<SignInView> {
                 child: Column(
                   children: [
                     Image.asset(
-                      AssetsPath.instagram_icon,
+                      AssetsPath.instagram,
                     ),
                     const SizedBox(
                       height: Dimension.height15,
@@ -48,23 +49,30 @@ class _SignInViewState extends State<SignInView> {
                     TextButton(
                       onPressed: () {},
                       style: TextButton.styleFrom(
-                        backgroundColor: Color(
-                          AppColor.facebookColor,
-                        ),
-                        foregroundColor: AppColor.textWhiteColor,
+                        backgroundColor: AppColor.facebookColor,
+                        foregroundColor: AppColor.whiteColor,
                       ),
                       child: const FacebookButtonView(),
                     ),
-                    const HorizontalDevider(),
+                    const HorizontalDevider(
+                      padding: Dimension.height30,
+                      containOr: true,
+                    ),
                     TextButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) {
+                              return HomePage();
+                            },
+                          ),
+                        );
+                      },
                       style: TextButton.styleFrom(
-                          backgroundColor: AppColor.textWhiteColor,
-                          foregroundColor: Color(AppColor.facebookColor),
+                          backgroundColor: AppColor.whiteColor,
+                          foregroundColor: AppColor.facebookColor,
                           side: BorderSide(
-                            color: Color(
-                              AppColor.facebookColor,
-                            ),
+                            color: AppColor.facebookColor,
                             width: 1,
                           )),
                       child: const GoogleButtonView(),

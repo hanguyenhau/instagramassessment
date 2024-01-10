@@ -66,7 +66,20 @@ flutter:
 
   assets:
   - assets/images/logos_instagram.png
-
+  - assets/images/add_rectangle_icon.png
+  - assets/images/comment_icon.png
+  - assets/images/favorite_icon.png
+  - assets/images/home_icon.png
+  - assets/images/message_icon.png
+  - assets/images/reel_icon.png
+  - assets/images/save_icon.png
+  - assets/images/search_icon.png
+  - assets/images/share_icon.png
+  - assets/images/shop_icon.png
+  - assets/images/test_post_image.png
+  - assets/images/test_user_image.png
+  - assets/images/user_icon.png
+  - assets/images/add_icon.png
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
 

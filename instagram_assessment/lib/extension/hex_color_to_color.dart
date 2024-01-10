@@ -1,9 +1,11 @@
+import 'package:flutter/material.dart';
+
 extension HexColorToColor on String{
-  int convertHexColorToColor(){
+  Color convertHexColorToColor(){
     String currentColor = this.replaceAll('#', '');
     if(currentColor.length == 6){
       currentColor = '0xff$currentColor';
     }
-    return int.parse(currentColor);
+    return Color(int.parse(currentColor),);
   }
 }

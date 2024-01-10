@@ -10,8 +10,12 @@ class Dimension {
   static const height120 = 120.0;
   
   static const width10 = 10.0;
+  static const width20 = 20.0;
+  static const width30 = 30.0;
 
   static const padding16 = 16.0;
+
+  static const scale0dot6 = 0.6;
 
   const Dimension._();
 }
