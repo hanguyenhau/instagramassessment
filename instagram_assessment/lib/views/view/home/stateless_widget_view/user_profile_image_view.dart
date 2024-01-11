@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:instagram_assessment/constants/views/assets_path.dart';
-import 'package:instagram_assessment/views/view/home/stateless_widget_view/elevated_button_view.dart';
+import 'package:instagram_assessment/views/util/view/elevated_button_view.dart';
 
 class UserProfileImageView extends StatelessWidget {
   final String profileImage;

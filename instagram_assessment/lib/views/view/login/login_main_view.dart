@@ -1,11 +1,9 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:instagram_assessment/constants/views/app_colors.dart';
 import 'package:instagram_assessment/constants/views/assets_path.dart';
 import 'package:instagram_assessment/constants/views/dimension.dart';
 import 'package:instagram_assessment/constants/views/text_messages.dart';
-import 'package:instagram_assessment/views/util/rich_text_two_part_view.dart';
+import 'package:instagram_assessment/views/util/view/rich_text_two_part_view.dart';
 import 'package:instagram_assessment/views/view/home/home_main_view.dart';
 import 'package:instagram_assessment/views/view/login/stateless_widget_view/facebook_button_view.dart';
 import 'package:instagram_assessment/views/view/login/stateless_widget_view/google_button_view.dart';

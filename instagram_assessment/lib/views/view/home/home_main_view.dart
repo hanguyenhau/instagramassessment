@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:instagram_assessment/constants/views/assets_path.dart';
 import 'package:instagram_assessment/constants/views/dimension.dart';
+import 'package:instagram_assessment/views/util/view/elevated_button_view.dart';
 import 'package:instagram_assessment/views/view/home/post/post_main_view.dart';
-import 'package:instagram_assessment/views/view/home/stateless_widget_view/elevated_button_view.dart';
 import 'package:instagram_assessment/views/view/home/stateless_widget_view/user_horizontal_view.dart';
 import 'package:instagram_assessment/views/view/login/stateless_widget_view/horizontal_divider_view.dart';
 
@@ -44,12 +44,15 @@ class _HomePageState extends State<HomePage> {
           )
         ],
       ),
-      body: const Column(
-        children: [
-          UserHorizontalView(),
-          HorizontalDevider(),
-          PostMainView(),
-        ],
+      body: const SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            UserHorizontalView(),
+            HorizontalDevider(),
+            PostMainView(),
+          ],
+        ),
       ),
     );
   }
