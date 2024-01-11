@@ -14,6 +14,8 @@ class AppColor{
   static final redLinear858 = 'ED5858'.convertHexColorToColor();
   static final blueLinearDF4 = 'C39DF4'.convertHexColorToColor();
   static final callToActionText = '8A8A8A'.convertHexColorToColor();
+  static final callToActionButton = 'DFDFDF'.convertHexColorToColor();
+  static final borderFavorite = '7E7E7E'.convertHexColorToColor();
 
   const AppColor._();
 }

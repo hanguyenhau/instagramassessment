@@ -2,7 +2,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:instagram_assessment/views/view/home/home_main_view.dart';
+import 'package:instagram_assessment/views/view/user/user_main_view.dart';
 
 void main() {
   runApp(
@@ -24,6 +24,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
+      debugShowCheckedModeBanner: false,
       scrollBehavior: const MaterialScrollBehavior().copyWith(
         dragDevices: {
           PointerDeviceKind.mouse,
@@ -32,7 +33,7 @@ class MyApp extends StatelessWidget {
           PointerDeviceKind.unknown
         },
       ),
-      home: const HomePage(),
+      home: const UserMainView(),
     );
   }
 }

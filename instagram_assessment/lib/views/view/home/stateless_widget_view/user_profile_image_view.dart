@@ -4,7 +4,12 @@ import 'package:instagram_assessment/views/util/view/elevated_button_view.dart';
 
 class UserProfileImageView extends StatelessWidget {
   final String profileImage;
-  const UserProfileImageView({super.key, required this.profileImage});
+  final bool includeAddButton;
+  const UserProfileImageView({
+    super.key,
+    required this.profileImage,
+    this.includeAddButton = true,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +28,7 @@ class UserProfileImageView extends StatelessWidget {
                   fit: BoxFit.cover,
                 )),
               ),
-              Positioned(
+              includeAddButton ? Positioned(
                 right: 0,
                 bottom: 0,
                 child: Container(
@@ -39,7 +44,7 @@ class UserProfileImageView extends StatelessWidget {
                     iconName: AssetsPath.addStoryButton,
                   ),
                 ),
-              ),
+              ) : const SizedBox(),
             ],
           ),
         ),

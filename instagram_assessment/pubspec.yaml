@@ -83,6 +83,9 @@ flutter:
   - assets/images/test_user_image.png
   - assets/images/user_icon.png
   - assets/images/add_icon.png
+  - assets/images/personal_icon.png
+  - assets/images/export_menu_icon.png
+  - assets/images/add_friend_icon.png
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
 

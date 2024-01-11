@@ -17,6 +17,8 @@ class AssetsPath{
   static const testUserImage = 'assets/images/test_user_image.png';
   static const userButton = 'assets/images/user_icon.png';
   static const addStoryButton = 'assets/images/add_icon.png';
+  static const exportMenuButton = 'assets/images/export_menu_icon.png';
+  static const addFriendButton = 'assets/images/add_friend_icon.png';
 
   const AssetsPath._();
 }
