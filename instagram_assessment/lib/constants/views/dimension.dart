@@ -17,5 +17,8 @@ class Dimension {
 
   static const scale0dot6 = 0.6;
 
+  static const subCharacter0 = 0;
+  static const subCharacter100 = 100;
+
   const Dimension._();
 }

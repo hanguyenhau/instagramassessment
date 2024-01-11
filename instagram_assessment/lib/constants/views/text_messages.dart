@@ -8,6 +8,12 @@ class TextMessage{
   static const alreadyHaveAccount = 'Already have an account?';
   static const signIn = 'Sign in';
   static const or = 'Or';
+  static const showLess = '...less';
+  static const showMore = '...more';
+  static const likedBy = 'Liked by';
+  static const and = 'and';
+  static const others = 'others';
+  
 
  const TextMessage._();
 }

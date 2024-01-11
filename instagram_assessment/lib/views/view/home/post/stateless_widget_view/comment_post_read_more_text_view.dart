@@ -1,54 +1,53 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:instagram_assessment/constants/views/app_colors.dart';
+import 'package:instagram_assessment/constants/views/dimension.dart';
+import 'package:instagram_assessment/constants/views/text_messages.dart';
+import 'package:instagram_assessment/views/view/home/post/provider/toggle_comment_provider.dart';
 
-class CommentPostReadMoreTextView extends StatefulWidget {
+class CommentPostReadMoreTextView extends ConsumerWidget {
   final String lastUserName;
   final String lastComment;
-  final BuildContext context;
+
   const CommentPostReadMoreTextView({
     super.key,
     required this.lastUserName,
     required this.lastComment,
-    required this.context,
   });
-
   @override
-  State<CommentPostReadMoreTextView> createState() => _MyWidgetState();
-}
+  Widget build(BuildContext context, WidgetRef ref) {
+    final showMore = ref.watch(toggleCommentProvider);
 
-class _MyWidgetState extends State<CommentPostReadMoreTextView> {
-  bool showFullComment = false;
-
-  @override
-  Widget build(BuildContext context) {
     return RichText(
       text: TextSpan(style: DefaultTextStyle.of(context).style, children: [
         TextSpan(
-          text: widget.lastUserName,
+          text: lastUserName,
           style: const TextStyle(
             fontWeight: FontWeight.bold,
           ),
         ),
         TextSpan(
-          text: showFullComment || widget.lastComment.length < 100
-              ? ' ${widget.lastComment}'
-              : ' ${widget.lastComment.substring(0, 100)}',
+          text:
+              //if true show all else show 100 first letters
+              showMore
+                  ? ' $lastComment'
+                  : ' ${lastComment.substring(
+                      Dimension.subCharacter0,
+                      Dimension.subCharacter100,
+                    )}',
         ),
-        widget.lastComment.length > 100 && !showFullComment
-            ? TextSpan(
-                text: ' ...more',
-                style: TextStyle(color: AppColor.callToActionText),
-                recognizer: TapGestureRecognizer()
-                  ..onTap = () {
-                    setState(() {
-                      showFullComment = !showFullComment;
-                    });
-                  },
-              )
-            : const TextSpan(),
+        TextSpan(
+          text: showMore
+              ? ' ${TextMessage.showLess}'
+              : ' ${TextMessage.showMore}',
+          style: TextStyle(color: AppColor.callToActionText),
+          recognizer: TapGestureRecognizer()
+            ..onTap = () {
+              ref.read(toggleCommentProvider.notifier).toggleShowMore();
+            },
+        )
       ]),
     );
-    ;
   }
 }

@@ -1,9 +1,7 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:instagram_assessment/constants/views/app_colors.dart';
 import 'package:instagram_assessment/constants/views/assets_path.dart';
 import 'package:instagram_assessment/views/util/view/elevated_button_view.dart';
-import 'package:instagram_assessment/views/util/view/rich_text_two_part_view.dart';
 import 'package:instagram_assessment/views/view/home/post/stateless_widget_view/comment_post_read_more_text_view.dart';
 import 'package:instagram_assessment/views/view/home/post/stateless_widget_view/liked_by_rich_text_view.dart';
 import 'package:instagram_assessment/views/view/home/stateless_widget_view/other_user_profile_image_view.dart';
@@ -96,16 +94,28 @@ class PostMainView extends StatelessWidget {
           ),
           child: LikedByRichTextView(uName: 'Hau ha', nLiked: 20),
         ),
-        Padding(
-            padding: const EdgeInsets.only(
+        const Padding(
+            padding: EdgeInsets.only(
+              top: 7,
               left: 20,
               right: 20,
             ),
             child: CommentPostReadMoreTextView(
-              context: context,
               lastUserName: 'Hau Ha',
-              lastComment: 'sjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjssssssssssssssaaaaaaaaaaaaaaaaaaaaa',
+              lastComment:
+                  'sjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjssssssssssssssaaaaaaaaaaaaaaaaaaaaa',
             )),
+        Padding(
+          padding: const EdgeInsets.only(
+            left: 20,
+            right: 20,
+            top: 7,
+          ),
+          child: Text(
+            'View all 103 comments',
+            style: TextStyle(color: AppColor.callToActionText),
+          ),
+        ),
         const SizedBox(
           height: 30,
         ),
