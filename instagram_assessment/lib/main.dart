@@ -2,7 +2,8 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:instagram_assessment/views/view/user/user_main_view.dart';
+import 'package:instagram_assessment/views/view/text.dart';
+import 'package:instagram_assessment/views/view/user/user_detail_main_views.dart';
 
 void main() {
   runApp(
@@ -33,7 +34,7 @@ class MyApp extends StatelessWidget {
           PointerDeviceKind.unknown
         },
       ),
-      home: const UserMainView(),
+      home: const UserDetailsMainView(),
     );
   }
 }

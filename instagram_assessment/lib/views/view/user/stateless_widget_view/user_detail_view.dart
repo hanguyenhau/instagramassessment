@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:instagram_assessment/constants/views/app_colors.dart';
 import 'package:instagram_assessment/constants/views/assets_path.dart';
 import 'package:instagram_assessment/views/view/home/stateless_widget_view/user_profile_image_view.dart';
 
@@ -16,11 +15,11 @@ class _UserDetailViewState extends State<UserDetailView> {
     return Container(
       color: Colors.white,
       padding: const EdgeInsets.all(10.0),
-      child: Row(
+      child: const Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          const Padding(
+          Padding(
             padding: EdgeInsets.only(right: 70),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -42,7 +41,7 @@ class _UserDetailViewState extends State<UserDetailView> {
               ],
             ),
           ),
-          const Column(
+          Column(
             mainAxisSize: MainAxisSize.min,
             children: [
               Text(
@@ -60,7 +59,7 @@ class _UserDetailViewState extends State<UserDetailView> {
               )
             ],
           ),
-          const Column(
+          Column(
             children: [
               Text(
                 '60K',
@@ -79,14 +78,14 @@ class _UserDetailViewState extends State<UserDetailView> {
           ),
           Column(
             children: [
-              const Text(
+              Text(
                 '4',
                 style: TextStyle(
                   fontSize: 15,
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              const Text(
+              Text(
                 'Following',
                 style: TextStyle(
                   fontSize: 12,

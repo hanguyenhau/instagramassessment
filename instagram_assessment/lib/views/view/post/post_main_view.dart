@@ -20,16 +20,16 @@ class PostMainView extends StatelessWidget {
             const Row(
               mainAxisSize: MainAxisSize.min,
               children: [
-                SizedBox(
-                  width: 20,
-                ),
-                OtherUserProfileImageView(
-                  profileImage: AssetsPath.testUserImage,
-                  dimensionImage: 50,
-                  borderWeight: 2,
-                ),
-                SizedBox(
-                  width: 5,
+                Padding(
+                  padding: EdgeInsets.only(
+                    left: 20,
+                    right: 5,
+                  ),
+                  child: OtherUserProfileImageView(
+                    profileImage: AssetsPath.testUserImage,
+                    dimensionImage: 50,
+                    borderWeight: 2,
+                  ),
                 ),
                 Text(
                   'data',
