@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:instagram_assessment/constants/views/app_colors.dart';
 import 'package:instagram_assessment/constants/views/assets_path.dart';
+import 'package:instagram_assessment/constants/views/dimension.dart';
 import 'package:instagram_assessment/views/util/view/elevated_button_view.dart';
-import 'package:instagram_assessment/views/view/post/stateless_widget_view/comment_post_read_more_text_view.dart';
-import 'package:instagram_assessment/views/view/post/stateless_widget_view/liked_by_rich_text_view.dart';
 import 'package:instagram_assessment/views/view/home/stateless_widget_view/other_user_profile_image_view.dart';
+import 'package:instagram_assessment/views/view/post/dialog/comments_dialog.dart';
+import 'package:instagram_assessment/views/view/post/view_details_post/stateless_widget_view/comment_post_read_more_text_view.dart';
+import 'package:instagram_assessment/views/view/post/view_details_post/stateless_widget_view/liked_by_rich_text_view.dart';
 
 class PostMainView extends StatelessWidget {
   const PostMainView({super.key});
@@ -22,13 +24,13 @@ class PostMainView extends StatelessWidget {
               children: [
                 Padding(
                   padding: EdgeInsets.only(
-                    left: 20,
-                    right: 5,
+                    left: Dimension.width20,
+                    right: Dimension.width5,
                   ),
                   child: OtherUserProfileImageView(
                     profileImage: AssetsPath.testUserImage,
-                    dimensionImage: 50,
-                    borderWeight: 2,
+                    dimension: Dimension.height50,
+                    borderWeight: Dimension.borderWeight2,
                   ),
                 ),
                 Text(
@@ -48,7 +50,7 @@ class PostMainView extends StatelessWidget {
         Container(
           width: double.infinity,
           margin: const EdgeInsets.only(
-            top: 10.0,
+            top: Dimension.height10,
           ),
           child: Image.asset(
             AssetsPath.testPostImage, // Replace with your image URL
@@ -56,7 +58,10 @@ class PostMainView extends StatelessWidget {
           ),
         ),
         Padding(
-          padding: const EdgeInsets.only(left: 7, right: 20),
+          padding: const EdgeInsets.only(
+            left: Dimension.width7,
+            right: Dimension.width20,
+          ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -64,15 +69,15 @@ class PostMainView extends StatelessWidget {
                 children: [
                   ElevatedButtonView(
                     iconName: AssetsPath.favoriteButton,
-                    padding: 10,
+                    padding: Dimension.padding10,
                   ),
                   ElevatedButtonView(
                     iconName: AssetsPath.commentButton,
-                    padding: 10,
+                    padding: Dimension.padding10,
                   ),
                   ElevatedButtonView(
                     iconName: AssetsPath.shareButton,
-                    padding: 10,
+                    padding: Dimension.padding10,
                   ),
                 ],
               ),
@@ -81,7 +86,7 @@ class PostMainView extends StatelessWidget {
                 icon: const Icon(
                   Icons.bookmark_border,
                   color: Colors.black,
-                  size: 30,
+                  size: Dimension.iconSize30,
                 ),
               ),
             ],
@@ -89,16 +94,16 @@ class PostMainView extends StatelessWidget {
         ),
         const Padding(
           padding: EdgeInsets.only(
-            left: 20,
-            right: 20,
+            left: Dimension.width20,
+            right: Dimension.width20,
           ),
           child: LikedByRichTextView(uName: 'Hau ha', nLiked: 20),
         ),
         const Padding(
             padding: EdgeInsets.only(
-              top: 7,
-              left: 20,
-              right: 20,
+              top: Dimension.height7,
+              left: Dimension.width20,
+              right: Dimension.width20,
             ),
             child: CommentPostReadMoreTextView(
               lastUserName: 'Hau Ha',
@@ -106,18 +111,29 @@ class PostMainView extends StatelessWidget {
                   'sjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjssssssssssssssaaaaaaaaaaaaaaaaaaaaa',
             )),
         Padding(
-          padding: const EdgeInsets.only(
-            left: 20,
-            right: 20,
-            top: 7,
-          ),
-          child: Text(
-            'View all 103 comments',
-            style: TextStyle(color: AppColor.callToActionText),
-          ),
-        ),
+            padding: const EdgeInsets.only(
+              top: Dimension.height7,
+              left: Dimension.width20,
+              right: Dimension.width20,
+            ),
+            child: GestureDetector(
+              child: Text(
+                'View all 103 comments',
+                style: TextStyle(color: AppColor.callToActionText),
+              ),
+              onTap: () {
+                showModalBottomSheet(
+                  
+              backgroundColor: Colors.white,
+              context: context,
+              builder: (BuildContext context) {
+                return const CommentsDialog();
+              },
+            );
+              },
+            )),
         const SizedBox(
-          height: 30,
+          height: Dimension.height30,
         ),
       ],
     );

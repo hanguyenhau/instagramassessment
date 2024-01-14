@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:instagram_assessment/constants/views/assets_path.dart';
+import 'package:instagram_assessment/constants/views/dimension.dart';
 import 'package:instagram_assessment/views/view/home/stateless_widget_view/other_user_profile_image_view.dart';
 
 class UserFavoriteActivitiesListView extends StatelessWidget {
@@ -27,17 +28,17 @@ class UserFavoriteActivitiesListView extends StatelessWidget {
         scrollDirection: Axis.horizontal,
         children: items.map((e) {
           return Padding(
-              padding: const EdgeInsets.only(right: 18.0),
+              padding: const EdgeInsets.only(right: Dimension.width18),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   OtherUserProfileImageView(
                     profileImage: e,
                     grayGradientColor: true,
-                    borderWeight: 1,
+                    borderWeight: Dimension.borderWeight1,
                   ),
                   const SizedBox(
-                    height: 5.0,
+                    height: Dimension.height5,
                   ),
                   const Text('data'),
                 ],

@@ -2,8 +2,10 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:instagram_assessment/views/view/home/home_main_view.dart';
+import 'package:instagram_assessment/views/view/post/create_new_post/create_new_post.dart';
+import 'package:instagram_assessment/views/view/post/view_details_post/view_post_view.dart';
 import 'package:instagram_assessment/views/view/text.dart';
-import 'package:instagram_assessment/views/view/user/user_detail_main_views.dart';
 
 void main() {
   runApp(
@@ -34,7 +36,7 @@ class MyApp extends StatelessWidget {
           PointerDeviceKind.unknown
         },
       ),
-      home: const UserDetailsMainView(),
+      home: const CreateNewPost(),
     );
   }
 }

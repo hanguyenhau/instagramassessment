@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:instagram_assessment/constants/views/assets_path.dart';
 import 'package:instagram_assessment/constants/views/dimension.dart';
 import 'package:instagram_assessment/views/util/view/elevated_button_view.dart';
-import 'package:instagram_assessment/views/view/post/post_main_view.dart';
 import 'package:instagram_assessment/views/view/home/stateless_widget_view/user_horizontal_view.dart';
 import 'package:instagram_assessment/views/view/login/stateless_widget_view/horizontal_divider_view.dart';
+import 'package:instagram_assessment/views/view/post/view_details_post/view_post_view.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});

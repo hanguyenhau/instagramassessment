@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:instagram_assessment/constants/views/assets_path.dart';
+import 'package:instagram_assessment/constants/views/dimension.dart';
+import 'package:instagram_assessment/constants/views/text_messages.dart';
 import 'package:instagram_assessment/views/view/home/stateless_widget_view/user_profile_image_view.dart';
 
 class UserDetailView extends StatefulWidget {
@@ -14,13 +16,15 @@ class _UserDetailViewState extends State<UserDetailView> {
   Widget build(BuildContext context) {
     return Container(
       color: Colors.white,
-      padding: const EdgeInsets.all(10.0),
+      padding: const EdgeInsets.all(Dimension.padding10),
       child: const Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Padding(
-            padding: EdgeInsets.only(right: 70),
+            padding: EdgeInsets.only(
+              right: Dimension.width70,
+            ),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -29,12 +33,12 @@ class _UserDetailViewState extends State<UserDetailView> {
                   includeAddButton: false,
                 ),
                 SizedBox(
-                  height: 7,
+                  height: Dimension.height7,
                 ),
                 Text(
                   'Wallpaers 4k',
                   style: TextStyle(
-                    fontSize: 14,
+                    fontSize: Dimension.fontSize14,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
@@ -47,14 +51,14 @@ class _UserDetailViewState extends State<UserDetailView> {
               Text(
                 '1000',
                 style: TextStyle(
-                  fontSize: 15,
+                  fontSize: Dimension.fontSize15,
                   fontWeight: FontWeight.bold,
                 ),
               ),
               Text(
-                'Posts',
+                TextMessage.posts,
                 style: TextStyle(
-                  fontSize: 12,
+                  fontSize: Dimension.fontSize12,
                 ),
               )
             ],
@@ -62,16 +66,16 @@ class _UserDetailViewState extends State<UserDetailView> {
           Column(
             children: [
               Text(
-                '60K',
+                '60',
                 style: TextStyle(
-                  fontSize: 15,
+                  fontSize: Dimension.fontSize15,
                   fontWeight: FontWeight.bold,
                 ),
               ),
               Text(
-                'Followers',
+                TextMessage.followers,
                 style: TextStyle(
-                  fontSize: 12,
+                  fontSize: Dimension.fontSize12,
                 ),
               ),
             ],
@@ -81,17 +85,16 @@ class _UserDetailViewState extends State<UserDetailView> {
               Text(
                 '4',
                 style: TextStyle(
-                  fontSize: 15,
+                  fontSize: Dimension.fontSize15,
                   fontWeight: FontWeight.bold,
                 ),
               ),
               Text(
-                'Following',
+                TextMessage.following,
                 style: TextStyle(
-                  fontSize: 12,
+                  fontSize: Dimension.fontSize12,
                 ),
               ),
-             
             ],
           )
         ],

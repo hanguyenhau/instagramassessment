@@ -8,11 +8,25 @@ class TextMessage{
   static const alreadyHaveAccount = 'Already have an account?';
   static const signIn = 'Sign in';
   static const or = 'Or';
+
   static const showLess = '...less';
   static const showMore = '...more';
+
   static const likedBy = 'Liked by';
   static const and = 'and';
   static const others = 'others';
+
+  static const follow = 'Follow';
+  static const message = 'Message';
+  static const posts = 'Posts';
+  static const followers = 'Followers';
+  static const following = 'Following';
+
+  static const createNewPost = 'Create New Post';
+  static const writeCaption = 'Write captions...';
+  static const tagOthers = 'Tag others';
+  static const object = 'Object';
+  static const share = 'Share';
   
 
  const TextMessage._();

@@ -1,24 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:instagram_assessment/constants/views/app_colors.dart';
+import 'package:instagram_assessment/constants/views/dimension.dart';
 
 class OtherUserProfileImageView extends StatelessWidget {
   final String profileImage;
-  final double dimensionImage;
+  final double dimension;
   final double borderWeight;
   final bool grayGradientColor;
   const OtherUserProfileImageView({
     super.key,
     required this.profileImage,
-    this.dimensionImage = 75,
-    this.borderWeight = 3.0,
+    this.dimension = Dimension.height75,
+    this.borderWeight = Dimension.borderWeight3,
     this.grayGradientColor = false,
   });
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: dimensionImage,
-      width: dimensionImage,
+      height: dimension,
+      width: dimension,
       decoration: BoxDecoration(
         gradient: grayGradientColor
             ? LinearGradient(
@@ -45,10 +46,10 @@ class OtherUserProfileImageView extends StatelessWidget {
           decoration: BoxDecoration(
             border: Border.all(
               color: Colors.white,
-              width: 2.2,
+              width: Dimension.width2dot2,
             ),
             borderRadius: const BorderRadius.all(
-              Radius.circular(100),
+              Radius.circular(Dimension.circular100),
             ),
           ),
           child: ClipOval(

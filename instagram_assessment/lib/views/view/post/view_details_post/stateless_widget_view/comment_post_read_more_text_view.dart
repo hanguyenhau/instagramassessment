@@ -4,7 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:instagram_assessment/constants/views/app_colors.dart';
 import 'package:instagram_assessment/constants/views/dimension.dart';
 import 'package:instagram_assessment/constants/views/text_messages.dart';
-import 'package:instagram_assessment/views/view/post/provider/toggle_comment_provider.dart';
+import 'package:instagram_assessment/views/view/post/view_details_post/provider/toggle_comment_provider.dart';
 
 class CommentPostReadMoreTextView extends ConsumerWidget {
   final String lastUserName;
@@ -33,8 +33,8 @@ class CommentPostReadMoreTextView extends ConsumerWidget {
               showMore
                   ? ' $lastComment'
                   : ' ${lastComment.substring(
-                      Dimension.subCharacter0,
-                      Dimension.subCharacter100,
+                      Dimension.subString0Sequence,
+                      Dimension.subString100Sequence,
                     )}',
         ),
         TextSpan(

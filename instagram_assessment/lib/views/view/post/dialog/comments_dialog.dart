@@ -4,42 +4,8 @@ import 'package:instagram_assessment/constants/views/app_colors.dart';
 import 'package:instagram_assessment/constants/views/assets_path.dart';
 import 'package:instagram_assessment/views/view/login/stateless_widget_view/horizontal_divider_view.dart';
 
-
-class Test extends StatefulWidget {
-  const Test({super.key});
-
-  @override
-  State<Test> createState() => _TestState();
-}
-
-class _TestState extends State<Test> {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Full Width Dialog with Scroll Example'),
-      ),
-      body: Center(
-        child: ElevatedButton(
-          onPressed: () {
-            showModalBottomSheet(
-              backgroundColor: Colors.white,
-              context: context,
-              isScrollControlled: false,
-              builder: (BuildContext context) {
-                return const FullWidthDialogWidget();
-              },
-            );
-          },
-          child: const Text('Heeloo'),
-        ),
-      ),
-    );
-  }
-}
-
-class FullWidthDialogWidget extends StatelessWidget {
-  const FullWidthDialogWidget({super.key});
+class CommentsDialog extends StatelessWidget {
+  const CommentsDialog({super.key});
 
   @override
   Widget build(BuildContext context) {
