@@ -51,6 +51,7 @@ class _HomePageState extends State<HomePage> {
             UserHorizontalView(),
             HorizontalDevider(),
             PostMainView(),
+            PostMainView(),
           ],
         ),
       ),

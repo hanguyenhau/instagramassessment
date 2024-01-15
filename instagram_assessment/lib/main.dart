@@ -1,13 +1,19 @@
 import 'dart:ui';
 
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:instagram_assessment/firebase_options.dart';
+import 'package:instagram_assessment/states/provider/is_logged_in_provider.dart';
 import 'package:instagram_assessment/views/view/home/home_main_view.dart';
+import 'package:instagram_assessment/views/view/login/login_main_view.dart';
 import 'package:instagram_assessment/views/view/post/create_new_post/create_new_post.dart';
-import 'package:instagram_assessment/views/view/post/view_details_post/view_post_view.dart';
-import 'package:instagram_assessment/views/view/text.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(
     const ProviderScope(
       child: MyApp(),
@@ -15,12 +21,12 @@ void main() {
   );
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends ConsumerWidget {
   const MyApp({super.key});
 
   // This widget is the root of your application.
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
@@ -36,7 +42,8 @@ class MyApp extends StatelessWidget {
           PointerDeviceKind.unknown
         },
       ),
-      home: const CreateNewPost(),
+      home:
+          ref.watch(isLoggedInProvider) ? const HomePage() : const SignInView(),
     );
   }
 }

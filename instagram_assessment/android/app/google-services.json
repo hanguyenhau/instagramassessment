@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "42776420283",
+    "project_id": "instagramassessment-52520",
+    "storage_bucket": "instagramassessment-52520.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:42776420283:android:be87243ebda86712f86e9e",
+        "android_client_info": {
+          "package_name": "com.example.instagram_assessment"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAKEw2lYjLQi_xLXKOalmd4vFykkLzo_gE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
