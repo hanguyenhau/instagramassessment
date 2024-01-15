@@ -5,7 +5,8 @@ import 'package:instagram_assessment/states/auth/authenticator.dart';
 
 class AuthStateNotifier extends StateNotifier<AuthState> {
   final _authenticator = const Authenticator();
-  AuthStateNotifier() : super(AuthState.unknown()) {
+
+  AuthStateNotifier() : super(const AuthState.unknown()) {
     if (_authenticator.isAlreadyLoggedIn) {
       AuthState(
         authResult: AuthResult.success,
@@ -16,7 +17,8 @@ class AuthStateNotifier extends StateNotifier<AuthState> {
   }
 
   Future<void> loginWithGoogle() async {
-    final result = await _authenticator.signInWithGoogle();
+    state = state.coppiedWithIsLoading(true);
+    final result = await _authenticator.loginWithGoogle();
     state = AuthState(
       userid: _authenticator.userId,
       authResult: result,
@@ -25,7 +27,8 @@ class AuthStateNotifier extends StateNotifier<AuthState> {
   }
 
   Future<void> logOut () async{
-    _authenticator.signOut();
-    state = AuthState.unknown();
+    state = state.coppiedWithIsLoading(true);
+    await _authenticator.signOut();
+    state = const AuthState.unknown();
   }
 }

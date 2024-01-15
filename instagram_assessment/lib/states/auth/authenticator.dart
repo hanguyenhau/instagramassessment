@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:instagram_assessment/constants/state/constants.dart';
 import 'package:instagram_assessment/models/auth_result.dart';
 import 'package:instagram_assessment/typedef/user_id.dart';
 
@@ -10,23 +11,22 @@ class Authenticator {
   bool get isAlreadyLoggedIn => userId != null;
 
   //Sign in with google
-  Future<AuthResult> signInWithGoogle() async {
-    FirebaseAuth auth = FirebaseAuth.instance;
-    GoogleSignIn googleSignIn = GoogleSignIn();
+  Future<AuthResult> loginWithGoogle() async {
+    final GoogleSignIn googleSignIn =
+        GoogleSignIn(scopes: [Constants.emailScope]);
+
+    final signInAccount = await googleSignIn.signIn();
+    if (signInAccount == null) {
+      return AuthResult.aborted;
+    }
+    //signInAccount.authentication chứa thông tin xác thực bao gồm accessTojen và idToken
+    //accessToken: là là chuỗi token sử dụng thực hiện yêu cầu các dịch vụ của Google
+    //idToken: là chuỗi JWT(Json Web Token) chứa thông tin về người dùng và quyển truy cập
+    final googleAuth = await signInAccount.authentication;
+    final oauthCredentials = GoogleAuthProvider.credential(
+        accessToken: googleAuth.accessToken, idToken: googleAuth.idToken);
     try {
-      final GoogleSignInAccount? googleSignInAccount =
-          await googleSignIn.signIn();
-      if (googleSignInAccount == null) return AuthResult.aborted;
-
-      final GoogleSignInAuthentication googleSignInAuthentication =
-          await googleSignInAccount.authentication;
-
-      final AuthCredential credential = GoogleAuthProvider.credential(
-        accessToken: googleSignInAuthentication.accessToken,
-        idToken: googleSignInAuthentication.idToken,
-      );
-
-      await auth.signInWithCredential(credential);
+      await FirebaseAuth.instance.signInWithCredential(oauthCredentials);
       return AuthResult.success;
     } catch (e) {
       return AuthResult.failure;

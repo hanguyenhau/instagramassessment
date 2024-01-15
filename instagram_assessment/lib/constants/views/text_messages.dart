@@ -28,6 +28,7 @@ class TextMessage{
   static const object = 'Object';
   static const share = 'Share';
   
+  static const loading = 'Loading';
 
  const TextMessage._();
 }

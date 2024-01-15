@@ -1,21 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:instagram_assessment/constants/views/assets_path.dart';
 import 'package:instagram_assessment/constants/views/dimension.dart';
-import 'package:instagram_assessment/views/util/view/elevated_button_view.dart';
+import 'package:instagram_assessment/states/provider/auth_state_provider.dart';
 import 'package:instagram_assessment/views/view/home/stateless_widget_view/user_horizontal_view.dart';
 import 'package:instagram_assessment/views/view/login/stateless_widget_view/horizontal_divider_view.dart';
 import 'package:instagram_assessment/views/view/post/view_details_post/view_post_view.dart';
 
-class HomePage extends StatefulWidget {
+class HomePage extends ConsumerWidget {
   const HomePage({super.key});
 
   @override
-  State<HomePage> createState() => _HomePageState();
-}
-
-class _HomePageState extends State<HomePage> {
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       appBar: AppBar(
         title: Transform.scale(
@@ -26,22 +22,36 @@ class _HomePageState extends State<HomePage> {
           ),
         ),
         automaticallyImplyLeading: false,
-        actions: const <Widget>[
-          ElevatedButtonView(
-            iconName: AssetsPath.addButton,
-            padding: 10,
+        actions: <Widget>[
+          const SizedBox(
+            width: 10,
           ),
-          ElevatedButtonView(
-            iconName: AssetsPath.favoriteButton,
-            padding: 10,
+          TextButton(
+            onPressed: () {},
+            child: Image.asset(
+              AssetsPath.addButton,
+              width: Dimension.width30,
+              height: Dimension.height30,
+            ),
           ),
-          ElevatedButtonView(
-            iconName: AssetsPath.messageButton,
-            padding: 10,
+          TextButton(
+            onPressed: () {},
+            child: Image.asset(
+              AssetsPath.favoriteButton,
+              width: Dimension.width30,
+              height: Dimension.height30,
+            ),
           ),
-          SizedBox(
-            width: 20,
-          )
+          TextButton(
+            onPressed: () {
+              ref.watch(authStateProvider.notifier).logOut();
+            },
+            child: Image.asset(
+              AssetsPath.messageButton,
+              width: Dimension.width30,
+              height: Dimension.height30,
+            ),
+          ),
         ],
       ),
       body: const SingleChildScrollView(
@@ -50,7 +60,6 @@ class _HomePageState extends State<HomePage> {
           children: [
             UserHorizontalView(),
             HorizontalDevider(),
-            PostMainView(),
             PostMainView(),
           ],
         ),

@@ -53,16 +53,16 @@ class SignInView extends ConsumerWidget {
                       containOr: true,
                     ),
                     TextButton(
-                      onPressed: () async {
-                        ref.read(authStateProvider.notifier).loginWithGoogle();
-                        // Navigator.of(context).push(
-                        //   MaterialPageRoute(
-                        //     builder: (context) {
-                        //       return const HomePage();
-                        //     },
-                        //   ),
-                        // );
-                      },
+                      onPressed:
+                          ref.read(authStateProvider.notifier).loginWithGoogle,
+                      // Navigator.of(context).push(
+                      //   MaterialPageRoute(
+                      //     builder: (context) {
+                      //       return const HomePage();
+                      //     },
+                      //   ),
+                      // );
+
                       style: TextButton.styleFrom(
                           backgroundColor: AppColor.whiteColor,
                           foregroundColor: AppColor.facebookColor,
