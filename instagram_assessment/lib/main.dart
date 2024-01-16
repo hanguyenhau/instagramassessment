@@ -59,7 +59,6 @@ class MyApp extends ConsumerWidget {
           );
 
           final isLoggedIn = ref.watch(isLoggedInProvider);
-          print('Main2: $isLoggedIn');
           return isLoggedIn ? const HomePage() : const SignInView();
         },
       ),

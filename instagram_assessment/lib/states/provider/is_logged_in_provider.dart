@@ -6,9 +6,7 @@ import 'package:instagram_assessment/states/provider/auth_state_provider.dart';
 final isLoggedInProvider = Provider<bool>(
   (ref) {
     final authState = ref.watch(authStateProvider);
-    print(
-      'isLoggedInProvider: ${FirebaseAuth.instance.currentUser?.displayName} and bool is ${authState.authResult == AuthResult.success}',
-    );
+
     return authState.authResult == AuthResult.success;
   },
 );

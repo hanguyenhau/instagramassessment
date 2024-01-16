@@ -23,7 +23,5 @@ class AuthState {
         isLoading: isLoading,
       );
 
-  //AuthState unknowns() {
-  //  return AuthState(userid: null, authResult: null, isLoading: false);
-  //}
+
 }

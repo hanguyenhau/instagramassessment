@@ -19,9 +19,7 @@ class Authenticator {
     if (signInAccount == null) {
       return AuthResult.aborted;
     }
-    //signInAccount.authentication chứa thông tin xác thực bao gồm accessTojen và idToken
-    //accessToken: là là chuỗi token sử dụng thực hiện yêu cầu các dịch vụ của Google
-    //idToken: là chuỗi JWT(Json Web Token) chứa thông tin về người dùng và quyển truy cập
+    
     final googleAuth = await signInAccount.authentication;
     final oauthCredentials = GoogleAuthProvider.credential(
         accessToken: googleAuth.accessToken, idToken: googleAuth.idToken);

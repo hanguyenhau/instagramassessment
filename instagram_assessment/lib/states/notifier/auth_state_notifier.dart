@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:instagram_assessment/models/auth_result.dart';
 import 'package:instagram_assessment/models/auth_state.dart';
@@ -8,7 +9,7 @@ class AuthStateNotifier extends StateNotifier<AuthState> {
 
   AuthStateNotifier() : super(const AuthState.unknown()) {
     if (_authenticator.isAlreadyLoggedIn) {
-      AuthState(
+      state = AuthState(
         authResult: AuthResult.success,
         isLoading: false,
         userid: _authenticator.userId,
@@ -26,7 +27,7 @@ class AuthStateNotifier extends StateNotifier<AuthState> {
     );
   }
 
-  Future<void> logOut () async{
+  Future<void> logOut() async {
     state = state.coppiedWithIsLoading(true);
     await _authenticator.signOut();
     state = const AuthState.unknown();
