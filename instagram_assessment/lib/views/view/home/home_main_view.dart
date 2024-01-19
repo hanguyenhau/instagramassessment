@@ -1,19 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:instagram_assessment/states/auth/provider/auth_state_provider.dart';
 import 'package:instagram_assessment/states/upload_image/helpers/image_picker_helper.dart';
+import 'package:instagram_assessment/states/upload_image/models/file_type.dart';
 import 'package:instagram_assessment/views/constants/assets_path.dart';
 import 'package:instagram_assessment/views/constants/dimension.dart';
+import 'package:instagram_assessment/views/view/create_post/create_new_post.dart';
 import 'package:instagram_assessment/views/view/home/user_horizontal_view.dart';
 import 'package:instagram_assessment/views/view/login/horizontal_divider_view.dart';
-import 'package:instagram_assessment/views/view/post/view_details_post/view_post_view.dart';
+import 'package:instagram_assessment/views/view/post/view_post_view.dart';
 
-class HomePage extends ConsumerWidget {
-  const HomePage({super.key});
+class HomePage extends ConsumerStatefulWidget {
+  const HomePage({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends ConsumerState<HomePage> {
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Transform.scale(
@@ -28,9 +34,31 @@ class HomePage extends ConsumerWidget {
           const SizedBox(
             width: 10,
           ),
-          TextButton(
-            onPressed: () {
 
+          //Add new Post
+          TextButton(
+            onPressed: () async {
+              final imageFile = await ImagePickerHelper.pickImageFromGallery();
+              if (imageFile == null) {
+                return;
+              }
+
+              if (!mounted) {
+                return;
+              }
+
+              // go to create new post
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (_) {
+                    return CreateNewPost(
+                      fileToPost: imageFile,
+                      fileType: FileType.image,
+                    );
+                  },
+                ),
+              );
             },
             child: Image.asset(
               AssetsPath.addButton,
@@ -38,16 +66,18 @@ class HomePage extends ConsumerWidget {
               height: Dimension.height30,
             ),
           ),
+
+          //Favorite post
           TextButton(
-            onPressed: () {
-              final imageFile = ImagePickerHelper.pickImageFromGallery();
-            },
+            onPressed: () {},
             child: Image.asset(
               AssetsPath.favoriteButton,
               width: Dimension.width30,
               height: Dimension.height30,
             ),
           ),
+
+          //Chat App
           TextButton(
             onPressed: () {
               ref.watch(authStateProvider.notifier).logOut();
@@ -73,3 +103,5 @@ class HomePage extends ConsumerWidget {
     );
   }
 }
+
+

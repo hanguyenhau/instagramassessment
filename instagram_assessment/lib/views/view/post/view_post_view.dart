@@ -5,9 +5,9 @@ import 'package:instagram_assessment/views/constants/assets_path.dart';
 import 'package:instagram_assessment/views/constants/dimension.dart';
 import 'package:instagram_assessment/views/util/view/elevated_button_view.dart';
 import 'package:instagram_assessment/views/view/home/other_user_profile_image_view.dart';
+import 'package:instagram_assessment/views/view/post/comment_post_read_more_text_view.dart';
 import 'package:instagram_assessment/views/view/post/dialog/comments_dialog.dart';
-import 'package:instagram_assessment/views/view/post/view_details_post/comment_post_read_more_text_view.dart';
-import 'package:instagram_assessment/views/view/post/view_details_post/liked_by_rich_text_view.dart';
+import 'package:instagram_assessment/views/view/post/liked_by_rich_text_view.dart';
 
 class PostMainView extends ConsumerWidget {
   const PostMainView({super.key});

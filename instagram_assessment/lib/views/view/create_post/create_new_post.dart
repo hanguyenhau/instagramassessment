@@ -1,21 +1,26 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:instagram_assessment/states/upload_image/models/file_type.dart';
 import 'package:instagram_assessment/views/constants/app_colors.dart';
 import 'package:instagram_assessment/views/constants/assets_path.dart';
 import 'package:instagram_assessment/views/constants/dimension.dart';
 import 'package:instagram_assessment/views/constants/text_messages.dart';
 import 'package:instagram_assessment/views/view/login/horizontal_divider_view.dart';
 
-class CreateNewPost extends StatefulWidget {
-  const CreateNewPost({super.key});
-
+class CreateNewPost extends ConsumerWidget {
+  final File fileToPost;
+  final FileType fileType;
+  const CreateNewPost({
+    super.key,
+    required this.fileToPost,
+    required this.fileType,
+  });
+  
   @override
-  State<CreateNewPost> createState() => _CreateNewPostState();
-}
-
-class _CreateNewPostState extends State<CreateNewPost> {
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
