@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:instagram_assessment/constants/views/app_colors.dart';
-import 'package:instagram_assessment/constants/views/assets_path.dart';
-import 'package:instagram_assessment/constants/views/dimension.dart';
-import 'package:instagram_assessment/constants/views/text_messages.dart';
+import 'package:instagram_assessment/views/constants/app_colors.dart';
+import 'package:instagram_assessment/views/constants/assets_path.dart';
+import 'package:instagram_assessment/views/constants/dimension.dart';
+import 'package:instagram_assessment/views/constants/text_messages.dart';
 import 'package:instagram_assessment/views/util/view/elevated_button_view.dart';
-import 'package:instagram_assessment/views/view/user/stateless_widget_view/grid_view_user_image.dart';
-import 'package:instagram_assessment/views/view/user/stateless_widget_view/user_favorite_activities_listview.dart';
-import 'package:instagram_assessment/views/view/user/stateless_widget_view/user_detail_view.dart';
+import 'package:instagram_assessment/views/view/user/grid_view_user_image.dart';
+import 'package:instagram_assessment/views/view/user/user_detail_view.dart';
+import 'package:instagram_assessment/views/view/user/user_favorite_activities_listview.dart';
 
 class UserDetailsMainView extends StatefulWidget {
   const UserDetailsMainView({super.key});

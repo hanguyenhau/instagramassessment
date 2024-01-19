@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:instagram_assessment/constants/views/app_colors.dart';
-import 'package:instagram_assessment/constants/views/assets_path.dart';
-import 'package:instagram_assessment/constants/views/dimension.dart';
-import 'package:instagram_assessment/states/provider/auth_state_provider.dart';
+import 'package:instagram_assessment/views/constants/app_colors.dart';
+import 'package:instagram_assessment/views/constants/assets_path.dart';
+import 'package:instagram_assessment/views/constants/dimension.dart';
 import 'package:instagram_assessment/views/util/view/elevated_button_view.dart';
-import 'package:instagram_assessment/views/view/home/stateless_widget_view/other_user_profile_image_view.dart';
+import 'package:instagram_assessment/views/view/home/other_user_profile_image_view.dart';
 import 'package:instagram_assessment/views/view/post/dialog/comments_dialog.dart';
-import 'package:instagram_assessment/views/view/post/view_details_post/stateless_widget_view/comment_post_read_more_text_view.dart';
-import 'package:instagram_assessment/views/view/post/view_details_post/stateless_widget_view/liked_by_rich_text_view.dart';
+import 'package:instagram_assessment/views/view/post/view_details_post/comment_post_read_more_text_view.dart';
+import 'package:instagram_assessment/views/view/post/view_details_post/liked_by_rich_text_view.dart';
 
 class PostMainView extends ConsumerWidget {
   const PostMainView({super.key});

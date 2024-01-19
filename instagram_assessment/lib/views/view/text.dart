@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:instagram_assessment/constants/views/app_colors.dart';
-import 'package:instagram_assessment/constants/views/assets_path.dart';
-import 'package:instagram_assessment/views/view/login/stateless_widget_view/horizontal_divider_view.dart';
+import 'package:instagram_assessment/views/constants/app_colors.dart';
+import 'package:instagram_assessment/views/constants/assets_path.dart';
+import 'package:instagram_assessment/views/view/login/horizontal_divider_view.dart';
 
 
 class Test extends StatefulWidget {
