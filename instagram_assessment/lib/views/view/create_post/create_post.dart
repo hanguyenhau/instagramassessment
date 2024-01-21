@@ -8,40 +8,23 @@ import 'package:instagram_assessment/views/constants/app_colors.dart';
 import 'package:instagram_assessment/views/constants/assets_path.dart';
 import 'package:instagram_assessment/views/constants/dimension.dart';
 import 'package:instagram_assessment/views/constants/text_messages.dart';
+import 'package:instagram_assessment/views/view/create_post/create_post_appbar.dart';
 import 'package:instagram_assessment/views/view/login/horizontal_divider_view.dart';
 
-class CreateNewPost extends ConsumerWidget {
+class CreatePost extends ConsumerWidget {
   final File fileToPost;
   final FileType fileType;
-  const CreateNewPost({
+  const CreatePost({
     super.key,
     required this.fileToPost,
     required this.fileType,
   });
-  
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(
-          onPressed: () {},
-          icon: const Icon(
-            Icons.keyboard_arrow_left,
-          ),
-        ),
-        flexibleSpace: const FlexibleSpaceBar(
-          centerTitle: true,
-          title: Center(
-            child: Text(
-              TextMessage.createNewPost,
-              style: TextStyle(
-                color: Colors.black,
-                fontSize: Dimension.fontSize15,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ),
-        ),
+      appBar: CreatePostAppbar(
+        context: context,
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -79,61 +62,34 @@ class CreateNewPost extends ConsumerWidget {
               ),
             ),
             //
-            Padding(
-              padding: const EdgeInsets.only(
-                left: Dimension.width20,
-                right: Dimension.width20,
+            ListTile(
+              title: const Text(
+                TextMessage.tagOthers,
               ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Image.asset(
-                    AssetsPath.personalButton,
-                  ),
-                  const Padding(
-                    padding: EdgeInsets.only(left: Dimension.width20),
-                    child: Text(
-                      TextMessage.tagOthers,
-                    ),
-                  ),
-                  const Spacer(),
-                  IconButton(
-                    onPressed: () {},
-                    icon: const Icon(
-                      Icons.chevron_right_outlined,
-                    ),
-                  ),
-                ],
+              leading: Image.asset(
+                AssetsPath.personalButton,
+              ),
+              trailing: IconButton(
+                onPressed: () {},
+                icon: const Icon(
+                  Icons.chevron_right_outlined,
+                ),
               ),
             ),
             const HorizontalDevider(),
-            Padding(
-              padding: const EdgeInsets.only(
-                left: Dimension.width20,
-                right: Dimension.width20,
+            //
+            ListTile(
+              title: const Text(
+                TextMessage.object,
               ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  const FaIcon(FontAwesomeIcons.eye),
-                  const Padding(
-                    padding: EdgeInsets.only(left: Dimension.width20),
-                    child: Text(
-                      TextMessage.object,
-                    ),
-                  ),
-                  const Spacer(),
-                  IconButton(
-                    onPressed: () {},
-                    icon: const Icon(
-                      Icons.chevron_right_outlined,
-                    ),
-                  ),
-                ],
+              leading: const FaIcon(FontAwesomeIcons.eye),
+              trailing: IconButton(
+                onPressed: () {},
+                icon: const Icon(
+                  Icons.chevron_right_outlined,
+                ),
               ),
-            )
+            ),
           ],
         ),
       ),
