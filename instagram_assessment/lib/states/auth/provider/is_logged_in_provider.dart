@@ -1,4 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:instagram_assessment/models/auth_result.dart';
 import 'package:instagram_assessment/states/auth/provider/auth_state_provider.dart';

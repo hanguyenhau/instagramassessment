@@ -5,7 +5,7 @@ import 'package:instagram_assessment/states/upload_image/helpers/image_picker_he
 import 'package:instagram_assessment/states/upload_image/models/file_type.dart';
 import 'package:instagram_assessment/views/constants/assets_path.dart';
 import 'package:instagram_assessment/views/constants/dimension.dart';
-import 'package:instagram_assessment/views/view/create_post/create_post.dart';
+import 'package:instagram_assessment/views/view/create_post/create_new_post.dart';
 import 'package:instagram_assessment/views/view/home/user_horizontal_view.dart';
 import 'package:instagram_assessment/views/view/login/horizontal_divider_view.dart';
 import 'package:instagram_assessment/views/view/post/view_post_view.dart';
@@ -52,7 +52,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                 context,
                 MaterialPageRoute(
                   builder: (_) {
-                    return CreatePost(
+                    return CreateNewPost(
                       fileToPost: imageFile,
                       fileType: FileType.image,
                     );
