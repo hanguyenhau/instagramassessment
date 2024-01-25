@@ -5,12 +5,14 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:instagram_assessment/states/auth/provider/user_id_provider.dart';
 import 'package:instagram_assessment/states/upload_image/models/file_type.dart';
+import 'package:instagram_assessment/states/upload_image/models/thumbnail_request.dart';
 import 'package:instagram_assessment/states/upload_image/provider/image_upload_provider.dart';
 import 'package:instagram_assessment/views/constants/app_colors.dart';
 import 'package:instagram_assessment/views/constants/assets_path.dart';
 import 'package:instagram_assessment/views/constants/dimension.dart';
 import 'package:instagram_assessment/views/constants/text_messages.dart';
 import 'package:instagram_assessment/views/view/create_post/create_post_appbar.dart';
+import 'package:instagram_assessment/views/view/create_post/thumbnail_image_view.dart';
 import 'package:instagram_assessment/views/view/login/horizontal_divider_view.dart';
 
 class CreateNewPost extends ConsumerWidget {
@@ -26,6 +28,10 @@ class CreateNewPost extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final _postController = TextEditingController();
+    final thumbnailRequest = ThumbnailRequest(
+      fileToPost: fileToPost,
+      fileType: fileType,
+    );
 
     return Scaffold(
       appBar: CreatePostAppbar(
@@ -36,10 +42,7 @@ class CreateNewPost extends ConsumerWidget {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Center(
-              child: Image.asset(
-                AssetsPath.testPostImage,
-                scale: Dimension.scale1dot2,
-              ),
+              child: ThumbnailImageView(thumbnailRequest: thumbnailRequest),
             ),
             //text field
             Padding(
@@ -118,7 +121,7 @@ class CreateNewPost extends ConsumerWidget {
                 .upload(
                     file: fileToPost,
                     filetype: fileType,
-                    messenger: '',
+                    messenger: _postController.text,
                     userId: userId);
 
             if (isUpload && context.mounted) {
