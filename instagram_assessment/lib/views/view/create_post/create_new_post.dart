@@ -106,18 +106,24 @@ class CreateNewPost extends ConsumerWidget {
         ),
       ),
       bottomNavigationBar: TextButton(
-          onPressed: () {
+          onPressed: () async {
             final userId = ref.read(userIdProvider);
             if (userId == null) {
               return;
             }
 
             //save post to firebase
-            final isUpload = ref.watch(imageUploadProvider.notifier).upload(
-                file: widget.fil,
-                filetype: filetype,
-                messenger: messenger,
-                userId: userId);
+            final isUpload = await ref
+                .watch(imageUploadProvider.notifier)
+                .upload(
+                    file: fileToPost,
+                    filetype: fileType,
+                    messenger: '',
+                    userId: userId);
+
+            if (isUpload && context.mounted) {
+              Navigator.of(context).pop();
+            }
           },
           child: Container(
             alignment: Alignment.center,

@@ -1,4 +1,3 @@
-import 'dart:html';
 
 import 'package:instagram_assessment/states/upload_image/models/file_type.dart';
 
