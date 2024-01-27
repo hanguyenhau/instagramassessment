@@ -13,6 +13,8 @@ import 'package:instagram_assessment/views/constants/assets_path.dart';
 import 'package:instagram_assessment/views/constants/dimension.dart';
 import 'package:instagram_assessment/views/constants/text_messages.dart';
 import 'package:instagram_assessment/views/view/create_post/create_post_appbar.dart';
+import 'package:instagram_assessment/views/view/create_post/styles/create_new_post_style.dart';
+import 'package:instagram_assessment/views/view/create_post/styles/custom_textfield.dart';
 import 'package:instagram_assessment/views/view/create_post/thumbnail_image_view.dart';
 import 'package:instagram_assessment/views/view/login/horizontal_divider_view.dart';
 
@@ -63,39 +65,16 @@ class _CreateNewPostViewState extends ConsumerState<CreateNewPost> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
+            //Thumnail Image
             Center(
               child: ThumbnailImageView(thumbnailRequest: thumbnailRequest),
             ),
             //text field
             Padding(
-              padding: const EdgeInsets.only(
-                  right: Dimension.width10,
-                  left: Dimension.width10,
-                  top: Dimension.height7,
-                  bottom: Dimension.height7),
-              child: TextField(
+              padding: const EdgeInsets.all(10),
+              child: CustomTextField(
                 controller: postController,
-                autofocus: true,
-                maxLines: Dimension.maxLines4,
-                maxLength: Dimension.maxLength200,
-                decoration: InputDecoration(
-                  hintText: TextMessage.writeCaption,
-                  hintStyle: TextStyle(
-                    color: AppColor.callToActionText,
-                  ),
-                  focusedBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(
-                      color: AppColor.callToActionButton,
-                    ),
-                  ),
-                  enabledBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(
-                      color: AppColor.callToActionButton,
-                    ),
-                  ),
-                  counterText: '',
-                ),
-                cursorColor: AppColor.facebookColor,
+                hintText: TextMessage.writeCaption,
               ),
             ),
             //
