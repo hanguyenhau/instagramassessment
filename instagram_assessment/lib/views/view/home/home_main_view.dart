@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:instagram_assessment/states/auth/provider/auth_state_provider.dart';
 import 'package:instagram_assessment/states/upload_image/helpers/image_picker_helper.dart';
 import 'package:instagram_assessment/states/upload_image/models/file_type.dart';
+import 'package:instagram_assessment/states/upload_image/provider/image_picker_provider.dart';
 import 'package:instagram_assessment/views/constants/assets_path.dart';
 import 'package:instagram_assessment/views/constants/dimension.dart';
 import 'package:instagram_assessment/views/view/create_post/create_new_post.dart';
@@ -38,7 +39,9 @@ class _HomePageState extends ConsumerState<HomePage> {
           //Add new Post
           TextButton(
             onPressed: () async {
-              final imageFile = await ImagePickerHelper.pickImageFromGallery();
+              final imageFile =
+                  await ref.watch(imagePickerProvider.notifier).getFile();
+
               if (imageFile == null) {
                 return;
               }
@@ -48,17 +51,19 @@ class _HomePageState extends ConsumerState<HomePage> {
               }
 
               // go to create new post
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (_) {
-                    return CreateNewPost(
-                      fileToPost: imageFile,
-                      fileType: FileType.image,
-                    );
-                  },
-                ),
-              );
+              Future.delayed(Duration.zero, () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (_) {
+                      return CreateNewPost(
+                        fileToPost: imageFile,
+                        fileType: FileType.image,
+                      );
+                    },
+                  ),
+                );
+              });
             },
             child: Image.asset(
               AssetsPath.addButton,
@@ -103,5 +108,3 @@ class _HomePageState extends ConsumerState<HomePage> {
     );
   }
 }
-
-

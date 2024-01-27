@@ -8,13 +8,11 @@ import 'package:instagram_assessment/states/auth/provider/user_id_provider.dart'
 import 'package:instagram_assessment/states/upload_image/models/file_type.dart';
 import 'package:instagram_assessment/states/upload_image/models/thumbnail_request.dart';
 import 'package:instagram_assessment/states/upload_image/provider/image_upload_provider.dart';
-import 'package:instagram_assessment/views/constants/app_colors.dart';
 import 'package:instagram_assessment/views/constants/assets_path.dart';
-import 'package:instagram_assessment/views/constants/dimension.dart';
 import 'package:instagram_assessment/views/constants/text_messages.dart';
 import 'package:instagram_assessment/views/view/create_post/create_post_appbar.dart';
-import 'package:instagram_assessment/views/view/create_post/styles/create_new_post_style.dart';
 import 'package:instagram_assessment/views/view/create_post/styles/custom_textfield.dart';
+import 'package:instagram_assessment/views/view/create_post/styles/share_text_button_custom.dart';
 import 'package:instagram_assessment/views/view/create_post/thumbnail_image_view.dart';
 import 'package:instagram_assessment/views/view/login/horizontal_divider_view.dart';
 
@@ -42,9 +40,7 @@ class _CreateNewPostViewState extends ConsumerState<CreateNewPost> {
     );
 
     final postController = useTextEditingController();
-
     final isPostButtonEnable = useState(false);
-
     useEffect(() {
       void listener() {
         isPostButtonEnable.value = postController.text.isNotEmpty;
@@ -116,7 +112,6 @@ class _CreateNewPostViewState extends ConsumerState<CreateNewPost> {
                   if (userId == null) {
                     return;
                   }
-
                   //save post to firebase
                   final isUpload = await ref
                       .watch(imageUploadProvider.notifier)
@@ -131,30 +126,8 @@ class _CreateNewPostViewState extends ConsumerState<CreateNewPost> {
                   }
                 }
               : null,
-          child: Container(
-            alignment: Alignment.center,
-            width: double.infinity,
-            height: Dimension.height40,
-            margin: const EdgeInsets.only(
-                bottom: Dimension.height20, top: Dimension.height20),
-            decoration: BoxDecoration(
-              color: isPostButtonEnable.value
-                  ? AppColor.facebookColor
-                  : AppColor.callToActionButton,
-              borderRadius: const BorderRadius.all(
-                Radius.circular(
-                  Dimension.circular10,
-                ),
-              ),
-            ),
-            child: Text(
-              TextMessage.share,
-              style: TextStyle(
-                color: isPostButtonEnable.value
-                    ? AppColor.whiteColor
-                    : AppColor.callToActionText,
-              ),
-            ),
+          child: ShareTextButtonCustom(
+            isPostButtonEnable: isPostButtonEnable.value,
           )),
     );
   }

@@ -18,19 +18,22 @@ import 'package:uuid/uuid.dart';
 class ImageUploadNotifier extends StateNotifier<bool> {
   ImageUploadNotifier() : super(false);
 
+  set isLoading(bool value) => state = value;
   Future<bool> upload({
     required File file,
     required FileType filetype,
     required String messenger,
     required UserId userId,
   }) async {
-    late Uint8List thumbnailUint8List;
+    isLoading = true;
 
+    late Uint8List thumbnailUint8List;
     switch (filetype) {
       //Type Image
       case FileType.image:
         final fileAsImage = img.decodeImage(file.readAsBytesSync());
         if (fileAsImage == null) {
+          isLoading = false;
           throw const CouldNotBuildThumbnailException();
         }
 
@@ -97,6 +100,8 @@ class ImageUploadNotifier extends StateNotifier<bool> {
       return true;
     } catch (e) {
       return false;
+    } finally{
+      isLoading = false;
     }
   }
 }
