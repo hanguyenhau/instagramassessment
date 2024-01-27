@@ -1,8 +1,9 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:instagram_assessment/states/auth/provider/user_id_provider.dart';
 import 'package:instagram_assessment/states/upload_image/models/file_type.dart';
 import 'package:instagram_assessment/states/upload_image/models/thumbnail_request.dart';
@@ -15,7 +16,7 @@ import 'package:instagram_assessment/views/view/create_post/create_post_appbar.d
 import 'package:instagram_assessment/views/view/create_post/thumbnail_image_view.dart';
 import 'package:instagram_assessment/views/view/login/horizontal_divider_view.dart';
 
-class CreateNewPost extends ConsumerWidget {
+class CreateNewPost extends StatefulHookConsumerWidget {
   final File fileToPost;
   final FileType fileType;
 
@@ -26,12 +27,33 @@ class CreateNewPost extends ConsumerWidget {
   });
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final _postController = TextEditingController();
+  ConsumerState<ConsumerStatefulWidget> createState() =>
+      _CreateNewPostViewState();
+}
+
+class _CreateNewPostViewState extends ConsumerState<CreateNewPost> {
+  @override
+  Widget build(BuildContext context) {
     final thumbnailRequest = ThumbnailRequest(
-      fileToPost: fileToPost,
-      fileType: fileType,
+      fileToPost: widget.fileToPost,
+      fileType: widget.fileType,
     );
+
+    final postController = useTextEditingController();
+
+    final isPostButtonEnable = useState(false);
+
+    useEffect(() {
+      void listener() {
+        isPostButtonEnable.value = postController.text.isNotEmpty;
+      }
+
+      postController.addListener(listener);
+
+      return () {
+        postController.removeListener(listener);
+      };
+    }, [postController]);
 
     return Scaffold(
       appBar: CreatePostAppbar(
@@ -52,7 +74,7 @@ class CreateNewPost extends ConsumerWidget {
                   top: Dimension.height7,
                   bottom: Dimension.height7),
               child: TextField(
-                controller: _postController,
+                controller: postController,
                 autofocus: true,
                 maxLines: Dimension.maxLines4,
                 maxLength: Dimension.maxLength200,
@@ -109,25 +131,27 @@ class CreateNewPost extends ConsumerWidget {
         ),
       ),
       bottomNavigationBar: TextButton(
-          onPressed: () async {
-            final userId = ref.read(userIdProvider);
-            if (userId == null) {
-              return;
-            }
+          onPressed: isPostButtonEnable.value
+              ? () async {
+                  final userId = ref.read(userIdProvider);
+                  if (userId == null) {
+                    return;
+                  }
 
-            //save post to firebase
-            final isUpload = await ref
-                .watch(imageUploadProvider.notifier)
-                .upload(
-                    file: fileToPost,
-                    filetype: fileType,
-                    messenger: _postController.text,
-                    userId: userId);
+                  //save post to firebase
+                  final isUpload = await ref
+                      .watch(imageUploadProvider.notifier)
+                      .upload(
+                          file: widget.fileToPost,
+                          filetype: widget.fileType,
+                          messenger: postController.text,
+                          userId: userId);
 
-            if (isUpload && context.mounted) {
-              Navigator.of(context).pop();
-            }
-          },
+                  if (isUpload && context.mounted) {
+                    Navigator.of(context).pop();
+                  }
+                }
+              : null,
           child: Container(
             alignment: Alignment.center,
             width: double.infinity,
@@ -135,17 +159,21 @@ class CreateNewPost extends ConsumerWidget {
             margin: const EdgeInsets.only(
                 bottom: Dimension.height20, top: Dimension.height20),
             decoration: BoxDecoration(
-              color: AppColor.facebookColor,
+              color: isPostButtonEnable.value
+                  ? AppColor.facebookColor
+                  : AppColor.callToActionButton,
               borderRadius: const BorderRadius.all(
                 Radius.circular(
                   Dimension.circular10,
                 ),
               ),
             ),
-            child: const Text(
+            child: Text(
               TextMessage.share,
               style: TextStyle(
-                color: AppColor.whiteColor,
+                color: isPostButtonEnable.value
+                    ? AppColor.whiteColor
+                    : AppColor.callToActionText,
               ),
             ),
           )),
