@@ -30,7 +30,7 @@ class AllPostRefreshView extends ConsumerWidget {
               itemBuilder: (context, index) {
                 final post = posts.elementAt(index);
                 log('fileName here: '+post.fileName);
-                return PostDetailsView(post: post);
+                return PostDetailsView();
               },
             );
           },
