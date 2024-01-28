@@ -4,4 +4,6 @@ import 'package:flutter/foundation.dart';
 class Constants{
   //for photo
   static const imageThumbnailWidth = 150;
+
+  const Constants._();
 }

@@ -12,7 +12,7 @@ import 'package:instagram_assessment/states/upload_image/exception/could_not_bui
 import 'package:instagram_assessment/states/upload_image/extensions/get_collection_file_type_name.dart';
 import 'package:instagram_assessment/states/upload_image/extensions/get_image_data_aspect_ratio.dart';
 import 'package:instagram_assessment/states/upload_image/models/file_type.dart';
-import 'package:instagram_assessment/states/upload_image/models/post_payload.dart';
+import 'package:instagram_assessment/states/post/models/post_payload.dart';
 import 'package:uuid/uuid.dart';
 
 class ImageUploadNotifier extends StateNotifier<bool> {

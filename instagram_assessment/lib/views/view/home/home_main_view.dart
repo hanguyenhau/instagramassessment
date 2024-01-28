@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:instagram_assessment/states/auth/provider/auth_state_provider.dart';
-import 'package:instagram_assessment/states/upload_image/helpers/image_picker_helper.dart';
 import 'package:instagram_assessment/states/upload_image/models/file_type.dart';
 import 'package:instagram_assessment/states/upload_image/provider/image_picker_provider.dart';
 import 'package:instagram_assessment/views/constants/assets_path.dart';
@@ -9,7 +8,7 @@ import 'package:instagram_assessment/views/constants/dimension.dart';
 import 'package:instagram_assessment/views/view/create_post/create_new_post.dart';
 import 'package:instagram_assessment/views/view/home/user_horizontal_view.dart';
 import 'package:instagram_assessment/views/view/login/horizontal_divider_view.dart';
-import 'package:instagram_assessment/views/view/post/view_post_view.dart';
+import 'package:instagram_assessment/views/view/post_listing/all_post_refresh_view.dart';
 
 class HomePage extends ConsumerStatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -95,15 +94,17 @@ class _HomePageState extends ConsumerState<HomePage> {
           ),
         ],
       ),
-      body: const SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            UserHorizontalView(),
-            HorizontalDevider(),
-            PostMainView(),
-          ],
-        ),
+      body: const CustomScrollView(
+        slivers: [
+          SliverToBoxAdapter(
+            child: UserHorizontalView(),
+          ),
+          SliverToBoxAdapter(
+            child: HorizontalDevider(),
+          ),
+          
+          AllPostRefreshView(),
+        ],
       ),
     );
   }
