@@ -3,10 +3,10 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:instagram_assessment/states/upload_image/models/thumbnail_request.dart';
 import 'package:instagram_assessment/states/upload_image/provider/thumbnail_provider.dart';
 
-class ThumbnailImageView extends ConsumerWidget {
+class ThumbnailPostImage extends ConsumerWidget {
   final ThumbnailRequest thumbnailRequest;
 
-  const ThumbnailImageView({
+  const ThumbnailPostImage({
     super.key,
     required this.thumbnailRequest,
   });

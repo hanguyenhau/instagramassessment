@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:instagram_assessment/views/constants/app_colors.dart';
 import 'package:instagram_assessment/views/view/create_post/styles/app_style.dart';
 
-class CustomTextField extends StatelessWidget {
+class WriteCaptionTextField extends StatelessWidget {
   final TextEditingController controller;
   final String hintText;
   final int maxLines;
   final int maxLength;
 
-  const CustomTextField({
+  const WriteCaptionTextField({
     Key? key,
     required this.controller,
     required this.hintText,

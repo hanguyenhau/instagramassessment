@@ -3,9 +3,9 @@ import 'package:instagram_assessment/views/constants/app_colors.dart';
 import 'package:instagram_assessment/views/constants/dimension.dart';
 import 'package:instagram_assessment/views/constants/text_messages.dart';
 
-class ShareTextButtonCustom extends StatelessWidget {
+class SharePostButton extends StatelessWidget {
   final bool isPostButtonEnable;
-  const ShareTextButtonCustom({
+  const SharePostButton({
     super.key,
     required this.isPostButtonEnable,
   });
