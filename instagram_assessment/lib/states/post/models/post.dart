@@ -35,4 +35,34 @@ class Post {
         aspectRatio = json[PostKey.aspectRatio],
         thumbnailStorageId = json[PostKey.thumbnailStorageId],
         originalFileStorageId = json[PostKey.originalFileStorageId];
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is Post &&
+          runtimeType == other.runtimeType &&
+          userId == other.userId &&
+          postId == other.postId &&
+          message == other.message &&
+          createAt == other.createAt &&
+          thumbnailUrl == other.thumbnailUrl &&
+          fileUrl == other.fileUrl &&
+          fileType == other.fileType &&
+          fileName == other.fileName &&
+          aspectRatio == other.aspectRatio &&
+          thumbnailStorageId == other.thumbnailStorageId &&
+          originalFileStorageId == other.originalFileStorageId;
+  @override
+  int get hashCode => Object.hashAll([
+        userId,
+        postId,
+        message,
+        createAt,
+        thumbnailUrl,
+        fileType,
+        fileName,
+        aspectRatio,
+        thumbnailStorageId,
+        originalFileStorageId,
+      ]);
 }

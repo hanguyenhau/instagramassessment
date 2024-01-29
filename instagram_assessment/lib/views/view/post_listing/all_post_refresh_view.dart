@@ -12,6 +12,8 @@ class AllPostRefreshView extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final posts = ref.watch(allPostsProvider);
 
+    log('Posts: $posts');
+
     return SliverToBoxAdapter(
       child: RefreshIndicator(
         onRefresh: () {
@@ -22,14 +24,15 @@ class AllPostRefreshView extends ConsumerWidget {
         },
         child: posts.when(
           data: (posts) {
-            log('Posts: '+posts.toString());
             return ListView.builder(
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
               itemCount: posts.length,
               itemBuilder: (context, index) {
                 final post = posts.elementAt(index);
-                return PostDetailsView(post: post,);
+                return PostDetailsView(
+                  post: post,
+                );
               },
             );
           },

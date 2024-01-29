@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -14,6 +15,7 @@ import 'package:instagram_assessment/views/view/create_post/create_post_appbar.d
 import 'package:instagram_assessment/views/view/create_post/styles/custom_textfield.dart';
 import 'package:instagram_assessment/views/view/create_post/styles/share_text_button_custom.dart';
 import 'package:instagram_assessment/views/view/create_post/thumbnail_image_view.dart';
+import 'package:instagram_assessment/views/view/home/home_main_view.dart';
 import 'package:instagram_assessment/views/view/login/horizontal_divider_view.dart';
 
 class CreateNewPost extends StatefulHookConsumerWidget {
@@ -122,6 +124,7 @@ class _CreateNewPostViewState extends ConsumerState<CreateNewPost> {
                           userId: userId);
 
                   if (isUpload && context.mounted) {
+                    log('Upload success');
                     Navigator.of(context).pop();
                   }
                 }
