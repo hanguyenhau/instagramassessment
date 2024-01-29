@@ -24,7 +24,8 @@ class Post {
     required Map<String, dynamic> json,
   })  : userId = json[PostKey.userId],
         message = json[PostKey.message],
-        createAt = (json[PostKey.createAt] as Timestamp).toDate(),
+        createAt =
+            (json[PostKey.createAt] as Timestamp?)?.toDate() ?? DateTime.now(),
         thumbnailUrl = json[PostKey.thumbnailUrl],
         fileUrl = json[PostKey.fileUrl],
         fileType = FileType.values.firstWhere(
@@ -35,34 +36,4 @@ class Post {
         aspectRatio = json[PostKey.aspectRatio],
         thumbnailStorageId = json[PostKey.thumbnailStorageId],
         originalFileStorageId = json[PostKey.originalFileStorageId];
-
-  @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      other is Post &&
-          runtimeType == other.runtimeType &&
-          userId == other.userId &&
-          postId == other.postId &&
-          message == other.message &&
-          createAt == other.createAt &&
-          thumbnailUrl == other.thumbnailUrl &&
-          fileUrl == other.fileUrl &&
-          fileType == other.fileType &&
-          fileName == other.fileName &&
-          aspectRatio == other.aspectRatio &&
-          thumbnailStorageId == other.thumbnailStorageId &&
-          originalFileStorageId == other.originalFileStorageId;
-  @override
-  int get hashCode => Object.hashAll([
-        userId,
-        postId,
-        message,
-        createAt,
-        thumbnailUrl,
-        fileType,
-        fileName,
-        aspectRatio,
-        thumbnailStorageId,
-        originalFileStorageId,
-      ]);
 }

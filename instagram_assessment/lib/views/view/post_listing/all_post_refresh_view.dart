@@ -12,33 +12,31 @@ class AllPostRefreshView extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final posts = ref.watch(allPostsProvider);
 
-    log('Posts: $posts');
+    log('Posts: ${posts.value?.first.createAt}');
 
-    return SliverToBoxAdapter(
-      child: RefreshIndicator(
-        onRefresh: () {
-          ref.refresh(allPostsProvider);
-          return Future.delayed(
-            const Duration(seconds: 1),
+    return RefreshIndicator(
+      onRefresh: () {
+        ref.refresh(allPostsProvider);
+        return Future.delayed(
+          const Duration(seconds: 1),
+        );
+      },
+      child: posts.when(
+        data: (posts) {
+          return ListView.builder(
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            itemCount: posts.length,
+            itemBuilder: (context, index) {
+              final post = posts.elementAt(index);
+              return PostDetailsView(
+                post: post,
+              );
+            },
           );
         },
-        child: posts.when(
-          data: (posts) {
-            return ListView.builder(
-              shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
-              itemCount: posts.length,
-              itemBuilder: (context, index) {
-                final post = posts.elementAt(index);
-                return PostDetailsView(
-                  post: post,
-                );
-              },
-            );
-          },
-          error: (error, stackTrace) => const Text('data'),
-          loading: () => const Text('data'),
-        ),
+        error: (error, stackTrace) => const Text('data'),
+        loading: () => const Text('data'),
       ),
     );
   }

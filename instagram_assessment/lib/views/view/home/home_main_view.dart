@@ -102,8 +102,9 @@ class _HomePageState extends ConsumerState<HomePage> {
           SliverToBoxAdapter(
             child: HorizontalDevider(),
           ),
-          
-          AllPostRefreshView(),
+          SliverToBoxAdapter(
+            child: AllPostRefreshView(),
+          ),
         ],
       ),
     );
