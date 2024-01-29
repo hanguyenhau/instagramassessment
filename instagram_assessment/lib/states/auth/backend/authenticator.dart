@@ -11,6 +11,7 @@ class Authenticator {
   bool get isAlreadyLoggedIn => userId != null;
   String get displayName => FirebaseAuth.instance.currentUser?.displayName ?? '';
   String? get email => FirebaseAuth.instance.currentUser?.email;
+  String? get image => FirebaseAuth.instance.currentUser?.photoURL;
 
   //Sign in with google
   Future<AuthResult> loginWithGoogle() async {

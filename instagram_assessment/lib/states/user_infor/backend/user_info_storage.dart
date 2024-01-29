@@ -13,6 +13,7 @@ class UserInfoStorage {
     required UserId uId,
     required String uName,
     required String? uEmail,
+    required String? uImage,
   }) async {
     try {
       //check if user id existed
@@ -31,6 +32,7 @@ class UserInfoStorage {
         userId: uId,
         displayName: uName,
         email: uEmail,
+        image: uImage
       );
       await FirebaseFirestore.instance
           .collection(FirebaseCollectionName.users)

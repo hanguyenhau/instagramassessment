@@ -22,13 +22,14 @@ class AllPostRefreshView extends ConsumerWidget {
         },
         child: posts.when(
           data: (posts) {
+            log('Posts: '+posts.toString());
             return ListView.builder(
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
               itemCount: posts.length,
               itemBuilder: (context, index) {
                 final post = posts.elementAt(index);
-                return const PostDetailsView();
+                return PostDetailsView(post: post,);
               },
             );
           },

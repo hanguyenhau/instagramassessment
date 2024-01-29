@@ -9,9 +9,11 @@ class UserPayLoad extends MapView<String, String> {
     required String userId,
     required String? displayName,
     required String? email,
+    required String? image
   }) : super({
           FirebaseFieldName.userId: userId,
           FirebaseFieldName.displayName: displayName ?? '',
           FirebaseFieldName.email: email ?? '',
+          FirebaseFieldName.image: image ?? '',
         });  
 }

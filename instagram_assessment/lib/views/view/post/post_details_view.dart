@@ -44,8 +44,8 @@ class PostDetailsView extends ConsumerWidget {
           margin: const EdgeInsets.only(
             top: Dimension.height10,
           ),
-          child: Image.asset(
-            AssetsPath.testPostImage, // Replace with your image URL
+          child: Image.network(
+            post.thumbnailUrl, // Replace with your image URL
             fit: BoxFit.cover, // Adjusts the height proportionally
           ),
         ),

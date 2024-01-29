@@ -6,6 +6,7 @@ class FirebaseFieldName{
   static const displayName = 'display_name';
   static const email = 'email';
   static const createAt = 'createAt';
+  static const image = 'image';
 
   const FirebaseFieldName._();
 }

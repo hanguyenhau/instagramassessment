@@ -11,10 +11,10 @@ final allPostsProvider = StreamProvider.autoDispose<Iterable<Post>>(
 
     final sub = FirebaseFirestore.instance
         .collection(FirebaseCollectionName.posts)
-        .orderBy(
-          FirebaseFieldName.createAt,
-          descending: true,
-        )
+        // .orderBy(
+        //   FirebaseFieldName.createAt,
+        //   descending: true,
+        // )
         .snapshots()
         .listen((snapshot) {
       final posts = snapshot.docs.map(
