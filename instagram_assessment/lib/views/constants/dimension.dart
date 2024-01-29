@@ -67,7 +67,7 @@ class Dimension {
 
   //substring sequense
   static const subString0Sequence = 0;
-  static const subString100Sequence = 100;
+  static const subString80Sequence = 80;
 
   //tab length
   static const tabLengthDefault = 3;

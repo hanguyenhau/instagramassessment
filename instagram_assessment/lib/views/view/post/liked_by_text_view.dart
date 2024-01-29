@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:instagram_assessment/views/constants/app_colors.dart';
 import 'package:instagram_assessment/views/constants/text_messages.dart';
 
 class LikedByTextView extends StatelessWidget {
@@ -11,8 +12,9 @@ class LikedByTextView extends StatelessWidget {
     return RichText(
         textAlign: TextAlign.left,
         text: TextSpan(children: [
-          const TextSpan(
+          TextSpan(
             text: TextMessage.likedBy,
+            style: TextStyle(color: AppColor.callToActionText),
           ),
           TextSpan(
               text: ' $uName',
@@ -20,8 +22,9 @@ class LikedByTextView extends StatelessWidget {
                 fontWeight: FontWeight.bold,
                 color: Colors.black,
               )),
-          const TextSpan(
+          TextSpan(
             text: ' ${TextMessage.and}',
+            style: TextStyle(color: AppColor.callToActionText),
           ),
           TextSpan(
             text: ' $nLiked ${TextMessage.others}',

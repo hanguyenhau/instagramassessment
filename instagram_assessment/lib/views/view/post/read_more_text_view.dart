@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -31,22 +33,24 @@ class ReadMoreTextView extends ConsumerWidget {
           text:
               //if true show all else show 100 first letters
               showMore
-                  ? ' $lastComment'
-                  : ' ${lastComment.substring(
+                  ? ' ${lastComment.substring(
                       Dimension.subString0Sequence,
-                      Dimension.subString100Sequence,
-                    )}',
+                      min(Dimension.subString80Sequence, lastComment.length),
+                    )}'
+                  : ' $lastComment',
         ),
-        TextSpan(
-          text: showMore
-              ? ' ${TextMessage.showLess}'
-              : ' ${TextMessage.showMore}',
-          style: TextStyle(color: AppColor.callToActionText),
-          recognizer: TapGestureRecognizer()
-            ..onTap = () {
-              ref.read(toggleCommentProvider.notifier).toggleShowMore();
-            },
-        )
+        lastComment.length > Dimension.subString80Sequence
+            ? TextSpan(
+                text: showMore
+                    ? ' ${TextMessage.showMore}'
+                    : ' ${TextMessage.showLess}',
+                style: TextStyle(color: AppColor.callToActionText),
+                recognizer: TapGestureRecognizer()
+                  ..onTap = () {
+                    ref.read(toggleCommentProvider.notifier).toggleShowMore();
+                  },
+              )
+            : const TextSpan()
       ]),
     );
   }
