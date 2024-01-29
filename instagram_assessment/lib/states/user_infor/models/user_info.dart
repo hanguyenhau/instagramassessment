@@ -10,7 +10,7 @@ class UserInfo extends MapView<String, String?> {
   final String userId;
   final String displayName;
   final String? email;
-  final String? image;
+  final String image;
 
   UserInfo({
     required this.image,

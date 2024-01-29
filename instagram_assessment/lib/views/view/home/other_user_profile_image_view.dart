@@ -53,7 +53,7 @@ class OtherUserProfileImageView extends StatelessWidget {
             ),
           ),
           child: ClipOval(
-              child: Image.asset(
+              child: Image.network(
             profileImage,
             fit: BoxFit.cover,
           )),
