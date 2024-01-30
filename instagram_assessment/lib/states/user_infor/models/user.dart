@@ -2,7 +2,6 @@ import 'dart:collection';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:instagram_assessment/states/auth/typedef/user_id.dart';
 import 'package:instagram_assessment/states/constants/firebase_field_name.dart';
 
 @immutable
@@ -24,9 +23,9 @@ class User extends MapView<String, String?> {
           FirebaseFieldName.image: image,
         });
 
-  User.fromJson({required Map<String, dynamic> json, required UserId userId})
+  User.fromJson({required Map<String, dynamic> json})
       : this(
-          userId: userId,
+          userId: json[FirebaseFieldName.userId],
           displayName: json[FirebaseFieldName.displayName] ?? '',
           email: json[FirebaseFieldName.email],
           image: json[FirebaseFieldName.image],

@@ -15,7 +15,6 @@ final allUsersProvider = StreamProvider.autoDispose<Iterable<User>>(
         .listen((snapshot) {
       final users = snapshot.docs.map(
         (doc) => User.fromJson(
-          userId: doc.id,
           json: doc.data(),
         ),
       );

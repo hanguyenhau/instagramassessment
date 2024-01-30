@@ -21,7 +21,6 @@ final userInfoProvider = StreamProvider.family.autoDispose<User, UserId>(
       final json = doc.data();
       final userInfo = User.fromJson(
         json: json,
-        userId: userId,
       );
       controller.add(userInfo);
     });

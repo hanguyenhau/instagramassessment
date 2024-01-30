@@ -6,7 +6,7 @@ import 'package:instagram_assessment/states/upload_image/provider/image_picker_p
 import 'package:instagram_assessment/views/constants/assets_path.dart';
 import 'package:instagram_assessment/views/constants/dimension.dart';
 import 'package:instagram_assessment/views/view/create_post/create_new_post.dart';
-import 'package:instagram_assessment/views/view/home/user_horizontal_view.dart';
+import 'package:instagram_assessment/views/view/user/horizontal/user_horizontal_view.dart';
 import 'package:instagram_assessment/views/view/login/horizontal_divider_view.dart';
 import 'package:instagram_assessment/views/view/post_listing/all_post_refresh_view.dart';
 
