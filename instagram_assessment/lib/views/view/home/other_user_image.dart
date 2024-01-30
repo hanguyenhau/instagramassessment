@@ -2,12 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:instagram_assessment/views/constants/app_colors.dart';
 import 'package:instagram_assessment/views/constants/dimension.dart';
 
-class OtherUserProfileImageView extends StatelessWidget {
+class OtherUserImage extends StatelessWidget {
   final String profileImage;
   final double dimension;
   final double borderWeight;
   final bool grayGradientColor;
-  const OtherUserProfileImageView({
+  
+  const OtherUserImage({
     super.key,
     required this.profileImage,
     this.dimension = Dimension.height75,

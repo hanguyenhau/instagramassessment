@@ -1,9 +1,7 @@
 import 'dart:async';
-import 'dart:developer';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:instagram_assessment/states/constants/firebase_collection_name.dart';
-import 'package:instagram_assessment/states/constants/firebase_field_name.dart';
 import 'package:instagram_assessment/states/post/models/post.dart';
 
 final allPostsProvider = StreamProvider.autoDispose<Iterable<Post>>(
@@ -14,7 +12,7 @@ final allPostsProvider = StreamProvider.autoDispose<Iterable<Post>>(
         .collection(FirebaseCollectionName.posts)
         // .orderBy(
         //   FirebaseFieldName.createAt,
-        //   descending: true,
+        //   descending: true
         // )
         .snapshots()
         .listen((snapshot) {

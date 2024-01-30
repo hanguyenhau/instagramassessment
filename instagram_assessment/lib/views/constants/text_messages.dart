@@ -30,5 +30,7 @@ class TextMessage{
   
   static const loading = 'Loading';
 
+  static const yourStory = 'Your story';
+
  const TextMessage._();
 }

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:instagram_assessment/views/constants/assets_path.dart';
 import 'package:instagram_assessment/views/constants/dimension.dart';
 import 'package:instagram_assessment/views/constants/text_messages.dart';
-import 'package:instagram_assessment/views/view/home/user_profile_image_view.dart';
+import 'package:instagram_assessment/views/view/home/current_user_image.dart';
 
 class UserDetailView extends StatefulWidget {
   const UserDetailView({super.key});
@@ -28,7 +28,7 @@ class _UserDetailViewState extends State<UserDetailView> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                UserProfileImageView(
+                CurrentUserImage(
                   profileImage: AssetsPath.testUserImage,
                   includeAddButton: false,
                 ),

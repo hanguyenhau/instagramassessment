@@ -6,13 +6,13 @@ import 'package:instagram_assessment/states/auth/typedef/user_id.dart';
 import 'package:instagram_assessment/states/constants/firebase_field_name.dart';
 
 @immutable
-class UserInfo extends MapView<String, String?> {
+class User extends MapView<String, String?> {
   final String userId;
   final String displayName;
   final String? email;
   final String image;
 
-  UserInfo({
+  User({
     required this.image,
     required this.userId,
     required this.displayName,
@@ -24,7 +24,7 @@ class UserInfo extends MapView<String, String?> {
           FirebaseFieldName.image: image,
         });
 
-  UserInfo.fromJson(Map<String, dynamic> json, {required UserId userId})
+  User.fromJson({required Map<String, dynamic> json, required UserId userId})
       : this(
           userId: userId,
           displayName: json[FirebaseFieldName.displayName] ?? '',
@@ -35,7 +35,7 @@ class UserInfo extends MapView<String, String?> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is UserInfo &&
+      other is User &&
           runtimeType == other.runtimeType &&
           userId == other.userId &&
           displayName == other.displayName &&

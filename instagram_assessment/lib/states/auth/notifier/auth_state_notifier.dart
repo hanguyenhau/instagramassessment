@@ -1,6 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:instagram_assessment/models/auth_result.dart';
-import 'package:instagram_assessment/models/auth_state.dart';
+import 'package:instagram_assessment/states/auth/models/auth_result.dart';
+import 'package:instagram_assessment/states/auth/models/auth_state.dart';
 import 'package:instagram_assessment/states/auth/backend/authenticator.dart';
 import 'package:instagram_assessment/states/auth/typedef/user_id.dart';
 import 'package:instagram_assessment/states/user_infor/backend/user_info_storage.dart';

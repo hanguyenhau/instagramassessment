@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:instagram_assessment/views/constants/assets_path.dart';
 import 'package:instagram_assessment/views/util/view/elevated_button_view.dart';
 
-class UserProfileImageView extends StatelessWidget {
+class CurrentUserImage extends StatelessWidget {
   final String profileImage;
   final bool includeAddButton;
-  const UserProfileImageView({
+  const CurrentUserImage({
     super.key,
     required this.profileImage,
     this.includeAddButton = true,
@@ -23,7 +23,7 @@ class UserProfileImageView extends StatelessWidget {
             children: [
               Positioned.fill(
                 child: ClipOval(
-                    child: Image.asset(
+                    child: Image.network(
                   profileImage,
                   fit: BoxFit.cover,
                 )),

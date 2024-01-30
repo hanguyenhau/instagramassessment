@@ -1,5 +1,5 @@
 import 'package:flutter/foundation.dart';
-import 'package:instagram_assessment/models/auth_result.dart';
+import 'package:instagram_assessment/states/auth/models/auth_result.dart';
 
 @immutable
 class AuthState {

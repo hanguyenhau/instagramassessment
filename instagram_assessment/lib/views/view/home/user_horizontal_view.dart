@@ -1,52 +1,61 @@
 import 'package:flutter/material.dart';
-import 'package:instagram_assessment/views/constants/assets_path.dart';
-import 'package:instagram_assessment/views/view/home/other_user_profile_image_view.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:instagram_assessment/states/auth/provider/auth_state_provider.dart';
+import 'package:instagram_assessment/states/user_infor/provider/all_users_provider.dart';
+import 'package:instagram_assessment/views/constants/text_messages.dart';
+import 'package:instagram_assessment/views/view/home/other_user_image.dart';
 
-import 'package:instagram_assessment/views/view/home/user_profile_image_view.dart';
+import 'package:instagram_assessment/views/view/home/current_user_image.dart';
 
-class UserHorizontalView extends StatelessWidget {
+class UserHorizontalView extends ConsumerWidget {
   const UserHorizontalView({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    final List<String> items = [
-      AssetsPath.testPostImage,
-      AssetsPath.testUserImage,
-      AssetsPath.testUserImage,
-      AssetsPath.testUserImage,
-      AssetsPath.testUserImage,
-      AssetsPath.testUserImage,
-      AssetsPath.testUserImage,
-      AssetsPath.testUserImage,
-      AssetsPath.testUserImage,
-      AssetsPath.testUserImage,
-    ];
-    return Container(
-      height: 120,
-      margin: const EdgeInsets.only(left: 20),
-      child: ListView(
-        shrinkWrap: true,
-        scrollDirection: Axis.horizontal,
-        children: items.map((e) {
-          return Padding(
-              padding: const EdgeInsets.only(right: 18.0),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  e == AssetsPath.testPostImage
-                      ? const UserProfileImageView(
-                          profileImage: AssetsPath.testPostImage,
-                        )
-                      : OtherUserProfileImageView(
-                          profileImage: e,
-                        ),
-                  const SizedBox(
-                    height: 5.0,
+  Widget build(BuildContext context, WidgetRef ref) {
+    final users = ref.watch(allUsersProvider);
+    final currentUserId = ref.read(authStateProvider).userid;
+
+    return RefreshIndicator(
+      onRefresh: () {
+        ref.refresh(allUsersProvider);
+        return Future.delayed(
+          const Duration(seconds: 1),
+        );
+      },
+      child: users.when(
+        data: (allUsers) {
+          return Container(
+            height: 120,
+            margin: const EdgeInsets.only(left: 20),
+            child: ListView(
+              shrinkWrap: true,
+              scrollDirection: Axis.horizontal,
+              children: allUsers.map((user) {
+                return Padding(
+                  padding: const EdgeInsets.only(right: 18.0),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      user.userId == currentUserId
+                          ? CurrentUserImage(
+                              profileImage: user.image,
+                            )
+                          : OtherUserImage(
+                              profileImage: user.image,
+                            ),
+                      const SizedBox(
+                        height: 5.0,
+                      ),
+                      const Text(TextMessage.yourStory),
+                    ],
                   ),
-                  const Text('data'),
-                ],
-              ));
-        }).toList(),
+                );
+              }).toList(),
+            ),
+          );
+        },
+        error: (error, stackTrace) => const Text('Error'),
+        loading: () => const Text('IsLoading'),
       ),
     );
   }

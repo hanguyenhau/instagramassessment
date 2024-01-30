@@ -5,11 +5,11 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:instagram_assessment/states/auth/typedef/user_id.dart';
 import 'package:instagram_assessment/states/constants/firebase_collection_name.dart';
 import 'package:instagram_assessment/states/constants/firebase_field_name.dart';
-import 'package:instagram_assessment/states/user_infor/models/user_info.dart';
+import 'package:instagram_assessment/states/user_infor/models/user.dart';
 
-final userInfoProvider = StreamProvider.family.autoDispose<UserInfo, UserId>(
+final userInfoProvider = StreamProvider.family.autoDispose<User, UserId>(
   (ref, UserId userId) {
-    final controller = StreamController<UserInfo>();
+    final controller = StreamController<User>();
 
     final sub = FirebaseFirestore.instance
         .collection(FirebaseCollectionName.users)
@@ -19,8 +19,8 @@ final userInfoProvider = StreamProvider.family.autoDispose<UserInfo, UserId>(
         .listen((snapshot) {
       final doc = snapshot.docs.first;
       final json = doc.data();
-      final userInfo = UserInfo.fromJson(
-        json,
+      final userInfo = User.fromJson(
+        json: json,
         userId: userId,
       );
       controller.add(userInfo);
