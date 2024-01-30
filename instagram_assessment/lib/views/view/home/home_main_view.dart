@@ -66,8 +66,8 @@ class _HomePageState extends ConsumerState<HomePage> {
             },
             child: Image.asset(
               AssetsPath.addButton,
-              width: Dimension.width30,
-              height: Dimension.height30,
+              width: Dimension.width26,
+              height: Dimension.height26,
             ),
           ),
 
@@ -88,8 +88,8 @@ class _HomePageState extends ConsumerState<HomePage> {
             },
             child: Image.asset(
               AssetsPath.messageButton,
-              width: Dimension.width30,
-              height: Dimension.height30,
+              width: Dimension.width26,
+              height: Dimension.height26,
             ),
           ),
         ],

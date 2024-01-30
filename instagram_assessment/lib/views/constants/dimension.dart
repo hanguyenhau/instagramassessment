@@ -11,6 +11,8 @@ class Dimension {
   static const height15 = 15.0;
   static const height20 = 20.0;
   static const height21 = 21.0;
+  static const height23 = 23.0;
+  static const height26 = 26.0;
   static const height30 = 30.0;
   static const height35 = 35.0;
   static const height40 = 40.0;
@@ -27,6 +29,8 @@ class Dimension {
   static const width18 = 18.0;
   static const width20 = 20.0;
   static const width21 = 21.0;
+  static const width26 = 26.0;
+  static const width23 = 23.0;
   static const width30 = 30.0;
   static const width60 = 60.0;
   static const width70 = 70.0;

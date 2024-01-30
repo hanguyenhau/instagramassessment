@@ -5,6 +5,7 @@ import 'package:instagram_assessment/states/user_infor/provider/user_info_provid
 import 'package:instagram_assessment/views/constants/app_colors.dart';
 import 'package:instagram_assessment/views/constants/assets_path.dart';
 import 'package:instagram_assessment/views/constants/dimension.dart';
+import 'package:instagram_assessment/views/view/like/like_button.dart';
 import 'package:instagram_assessment/views/view/user/horizontal/other_user_image.dart';
 import 'package:instagram_assessment/views/view/post/dialog/comments_dialog.dart';
 import 'package:instagram_assessment/views/view/post/styles/liked_by_text_view.dart';
@@ -32,7 +33,7 @@ class PostDetailsView extends ConsumerWidget {
                 dimension: Dimension.height50,
                 borderWeight: Dimension.borderWeight2,
               ),
-              title:  Text(
+              title: Text(
                 userInfo.displayName,
                 style: const TextStyle(
                   fontWeight: FontWeight.bold,
@@ -57,28 +58,23 @@ class PostDetailsView extends ConsumerWidget {
               leading: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  TextButton(
-                    onPressed: () {},
-                    child: Image.asset(
-                      AssetsPath.favoriteButton,
-                      width: Dimension.width21,
-                      height: Dimension.height21,
-                    ),
-                  ),
+                  LikeButton(postId: post.postId),
                   TextButton(
                     onPressed: () {},
                     child: Image.asset(
                       AssetsPath.commentButton,
-                      width: Dimension.width30,
-                      height: Dimension.height30,
+                      width: Dimension.width23,
+                      height: Dimension.height23,
                     ),
                   ),
                   TextButton(
                     onPressed: () {},
                     child: Image.asset(
                       AssetsPath.shareButton,
-                      width: Dimension.width20,
-                      height: Dimension.width20,
+                      width: Dimension.width26,
+                      height: Dimension.height26,
+                      color: Colors.black,
+                      filterQuality: FilterQuality.high,
                     ),
                   ),
                 ],

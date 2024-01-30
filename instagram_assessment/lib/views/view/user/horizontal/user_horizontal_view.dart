@@ -1,8 +1,5 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:instagram_assessment/states/auth/provider/auth_state_provider.dart';
 import 'package:instagram_assessment/states/auth/provider/user_id_provider.dart';
 import 'package:instagram_assessment/states/user_infor/provider/all_users_provider.dart';
 import 'package:instagram_assessment/views/view/user/horizontal/other_user_image.dart';
@@ -33,7 +30,7 @@ class UserHorizontalView extends ConsumerWidget {
                 shrinkWrap: true,
                 scrollDirection: Axis.horizontal,
                 children:
-                    //sort the users so that the one with user.userid == currentUser.id
+                    //sort the users so that the one with user.userid == currentUser.id show first
                     [
                   ...allUsers
                       .where((user) => user.userId == currentUserId)
