@@ -8,7 +8,7 @@ import 'package:instagram_assessment/views/constants/dimension.dart';
 import 'package:instagram_assessment/views/view/like/like_button.dart';
 import 'package:instagram_assessment/views/view/like/like_total_and_userinfo_text.dart';
 import 'package:instagram_assessment/views/view/user/horizontal/other_user_image.dart';
-import 'package:instagram_assessment/views/view/post/dialog/comments_dialog.dart';
+import 'package:instagram_assessment/views/view/comment/comments_dialog.dart';
 import 'package:instagram_assessment/views/view/post/read_more_text_view.dart';
 
 class PostDetailsView extends ConsumerWidget {

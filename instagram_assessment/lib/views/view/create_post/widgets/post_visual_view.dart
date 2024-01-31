@@ -24,8 +24,8 @@ class PostVisualView extends StatelessWidget {
         Center(
           child: ThumbnailPostImage(thumbnailRequest: thumbnailRequest),
         ),
+        
         //text field
-
         WriteCaptionTextField(
           controller: postController,
           hintText: TextMessage.writeCaption,

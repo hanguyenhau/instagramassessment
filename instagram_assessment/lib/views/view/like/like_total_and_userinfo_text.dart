@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:instagram_assessment/states/like/provider/like_total_provider.dart';
 import 'package:instagram_assessment/states/post/typedef/post_id.dart';
 import 'package:instagram_assessment/views/constants/dimension.dart';
-import 'package:instagram_assessment/views/view/post/styles/liked_by_text_view.dart';
+import 'package:instagram_assessment/views/view/like/liked_by_text_view.dart';
 
 class LikeTotalAndUserInfoText extends ConsumerWidget {
   final PostId postId;
