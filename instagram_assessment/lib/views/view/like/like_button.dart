@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:instagram_assessment/states/auth/provider/user_id_provider.dart';
 import 'package:instagram_assessment/states/like/models/like_request.dart';
+import 'package:instagram_assessment/states/like/provider/has_like_provider.dart';
 import 'package:instagram_assessment/states/like/provider/like_dislike_provider.dart';
 import 'package:instagram_assessment/states/post/typedef/post_id.dart';
 import 'package:instagram_assessment/views/constants/assets_path.dart';
@@ -19,21 +20,34 @@ class LikeButton extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return TextButton(
-      onPressed: () {
-        final userId = ref.read(userIdProvider);
-        if (userId == null) {
-          return;
-        }
-        final likeRequest = LikeRequest(likedBy: userId, postId: postId);
-        final value = ref.read(likeDislikeProvider(likeRequest));
-        log('Liked: $value');
+    final hasLike = ref.watch(hasLikeProvider(postId));
+    return hasLike.when(
+      data: (hasLike) {
+        return TextButton(
+          onPressed: () {
+            final userId = ref.read(userIdProvider);
+            if (userId == null) {
+              return;
+            }
+            final likeRequest = LikeRequest(likedBy: userId, postId: postId);
+            final value = ref.read(likeDislikeProvider(likeRequest));
+            log('Liked: $value');
+          },
+          child: hasLike
+              ? Image.asset(
+                  AssetsPath.hasFavoritedButton,
+                  width: Dimension.height26,
+                  height: Dimension.width26,
+                )
+              : Image.asset(
+                  AssetsPath.favoriteButton,
+                  width: Dimension.width26,
+                  height: Dimension.height26,
+                ),
+        );
       },
-      child: Image.asset(
-        AssetsPath.favoriteButton,
-        width: Dimension.width26,
-        height: Dimension.height26,
-      ),
+      error: (error, stackTrace) => const Text('Error'),
+      loading: () => const Text('Loading'),
     );
   }
 }

@@ -20,6 +20,7 @@ class AssetsPath{
   static const exportMenuButton = 'assets/images/export_menu_icon.png';
   static const addFriendButton = 'assets/images/add_friend_icon.png';
   static const personalButton = 'assets/images/personal_icon.png';
+  static const hasFavoritedButton = 'assets/images/favorite_filled_icon.png';
 
   const AssetsPath._();
 }

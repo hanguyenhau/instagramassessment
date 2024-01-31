@@ -98,6 +98,8 @@ flutter:
   - assets/images/export_menu_icon.png
   - assets/images/add_friend_icon.png
   - assets/images/personal_icon.png
+  - assets/images/favorite_filled_icon.png
+  
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
 
