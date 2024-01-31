@@ -4,10 +4,10 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:instagram_assessment/states/constants/firebase_collection_name.dart';
 import 'package:instagram_assessment/states/constants/firebase_field_name.dart';
-import 'package:instagram_assessment/states/like/models/like.dart';
+import 'package:instagram_assessment/states/like/models/like_payload.dart';
 import 'package:instagram_assessment/states/like/models/like_request.dart';
 
-final likeDislikeProvider =
+final likeDislikeActionProvider =
     FutureProvider.family.autoDispose<bool, LikeRequest>(
   (ref, LikeRequest likeRequest) async {
     final query = FirebaseFirestore.instance
@@ -37,10 +37,9 @@ final likeDislikeProvider =
       }
     } else {
       //post liked
-      final like = Like(
+      final like = LikePayLoad(
         userId: likeRequest.likedBy,
         postId: likeRequest.postId,
-        createAt: DateTime.now(),
       );
       try {
         await FirebaseFirestore.instance

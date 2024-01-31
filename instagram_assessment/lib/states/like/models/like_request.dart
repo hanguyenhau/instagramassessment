@@ -7,5 +7,8 @@ class LikeRequest {
   final PostId postId;
   final UserId likedBy;
 
-  const LikeRequest({required this.postId, required this.likedBy});
+  const LikeRequest({
+    required this.postId,
+    required this.likedBy,
+  });
 }

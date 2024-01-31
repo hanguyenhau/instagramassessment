@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:instagram_assessment/states/like/models/total_like_request.dart';
 import 'package:instagram_assessment/views/constants/app_colors.dart';
 import 'package:instagram_assessment/views/constants/text_messages.dart';
 
 class LikedByTextView extends StatelessWidget {
-  final String uName;
-  final int nLiked;
-  const LikedByTextView({super.key, required this.uName, required this.nLiked});
+  final TotalLikeRequest totalLikeRequest;
+  const LikedByTextView({super.key, required this.totalLikeRequest});
 
   @override
   Widget build(BuildContext context) {
+    final likeRemaining = totalLikeRequest.totalLike - 1;
     return RichText(
         textAlign: TextAlign.left,
         text: TextSpan(children: [
@@ -17,22 +18,27 @@ class LikedByTextView extends StatelessWidget {
             style: TextStyle(color: AppColor.callToActionText),
           ),
           TextSpan(
-              text: ' $uName',
-              style: const TextStyle(
-                fontWeight: FontWeight.bold,
-                color: Colors.black,
-              )),
-          TextSpan(
-            text: ' ${TextMessage.and}',
-            style: TextStyle(color: AppColor.callToActionText),
-          ),
-          TextSpan(
-            text: ' $nLiked ${TextMessage.others}',
+            text: ' ${totalLikeRequest.likedBy}',
             style: const TextStyle(
               fontWeight: FontWeight.bold,
               color: Colors.black,
             ),
-          )
+          ),
+          likeRemaining > 0
+              ? TextSpan(
+                  text: ' ${TextMessage.and}',
+                  style: TextStyle(color: AppColor.callToActionText),
+                )
+              : const TextSpan(),
+          likeRemaining > 0
+              ? TextSpan(
+                  text: ' $likeRemaining ${TextMessage.others}',
+                  style: const TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black,
+                  ),
+                )
+              : const TextSpan(),
         ]));
   }
 }

@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:instagram_assessment/states/post/models/post.dart';
-import 'package:instagram_assessment/states/user_infor/provider/user_info_provider.dart';
+import 'package:instagram_assessment/states/user_infor/provider/user_provider.dart';
 import 'package:instagram_assessment/views/constants/app_colors.dart';
 import 'package:instagram_assessment/views/constants/assets_path.dart';
 import 'package:instagram_assessment/views/constants/dimension.dart';
 import 'package:instagram_assessment/views/view/like/like_button.dart';
+import 'package:instagram_assessment/views/view/like/like_total_and_userinfo_text.dart';
 import 'package:instagram_assessment/views/view/user/horizontal/other_user_image.dart';
 import 'package:instagram_assessment/views/view/post/dialog/comments_dialog.dart';
 import 'package:instagram_assessment/views/view/post/styles/liked_by_text_view.dart';
@@ -20,7 +21,7 @@ class PostDetailsView extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final userInfo = ref.watch(userInfoProvider(post.userId));
+    final userInfo = ref.watch(userProvider(post.userId));
     return userInfo.when(
       data: (userInfo) {
         return Column(
@@ -88,13 +89,9 @@ class PostDetailsView extends ConsumerWidget {
                 ),
               ),
             ),
-            const Padding(
-              padding: EdgeInsets.only(
-                left: Dimension.width20,
-                right: Dimension.width20,
-              ),
-              child: LikedByTextView(uName: 'Hau Hau', nLiked: 20),
-            ),
+            //Text Like total and last user info
+            LikeTotalAndUserInfoText(postId: post.postId,),
+            
             const Padding(
               padding: EdgeInsets.only(
                 top: Dimension.height5,

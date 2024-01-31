@@ -3,6 +3,7 @@ import 'package:flutter/foundation.dart';
 @immutable 
 class PostKey{
   static const userId = 'uid';
+  static const postId = 'post_id';
   static const message = 'message';
   static const createAt = 'created_at';
   static const thumbnailUrl = 'thumbnail_url';

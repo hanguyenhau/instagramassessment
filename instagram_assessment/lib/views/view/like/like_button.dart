@@ -5,7 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:instagram_assessment/states/auth/provider/user_id_provider.dart';
 import 'package:instagram_assessment/states/like/models/like_request.dart';
 import 'package:instagram_assessment/states/like/provider/has_like_provider.dart';
-import 'package:instagram_assessment/states/like/provider/like_dislike_provider.dart';
+import 'package:instagram_assessment/states/like/provider/like_dislike_action_provider.dart';
 import 'package:instagram_assessment/states/post/typedef/post_id.dart';
 import 'package:instagram_assessment/views/constants/assets_path.dart';
 import 'package:instagram_assessment/views/constants/dimension.dart';
@@ -30,8 +30,7 @@ class LikeButton extends ConsumerWidget {
               return;
             }
             final likeRequest = LikeRequest(likedBy: userId, postId: postId);
-            final value = ref.read(likeDislikeProvider(likeRequest));
-            log('Liked: $value');
+            ref.watch(likeDislikeActionProvider(likeRequest));
           },
           child: hasLike
               ? Image.asset(
