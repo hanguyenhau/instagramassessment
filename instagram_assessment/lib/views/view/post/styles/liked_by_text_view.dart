@@ -11,34 +11,34 @@ class LikedByTextView extends StatelessWidget {
   Widget build(BuildContext context) {
     final likeRemaining = totalLikeRequest.totalLike - 1;
     return RichText(
-        textAlign: TextAlign.left,
-        text: TextSpan(children: [
-          TextSpan(
-            text: TextMessage.likedBy,
-            style: TextStyle(color: AppColor.callToActionText),
-          ),
-          TextSpan(
-            text: ' ${totalLikeRequest.likedBy}',
-            style: const TextStyle(
-              fontWeight: FontWeight.bold,
-              color: Colors.black,
-            ),
-          ),
-          likeRemaining > 0
-              ? TextSpan(
-                  text: ' ${TextMessage.and}',
-                  style: TextStyle(color: AppColor.callToActionText),
-                )
-              : const TextSpan(),
-          likeRemaining > 0
-              ? TextSpan(
-                  text: ' $likeRemaining ${TextMessage.others}',
-                  style: const TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black,
-                  ),
-                )
-              : const TextSpan(),
-        ]));
+            textAlign: TextAlign.left,
+            text: TextSpan(children: [
+              TextSpan(
+                text: TextMessage.likedBy,
+                style: TextStyle(color: AppColor.callToActionText),
+              ),
+              TextSpan(
+                text: ' ${totalLikeRequest.likedBy}',
+                style: const TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black,
+                ),
+              ),
+              likeRemaining > 0
+                  ? TextSpan(
+                      text: ' ${TextMessage.and}',
+                      style: TextStyle(color: AppColor.callToActionText),
+                    )
+                  : const TextSpan(),
+              likeRemaining > 0
+                  ? TextSpan(
+                      text: ' $likeRemaining ${TextMessage.others}',
+                      style: const TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black,
+                      ),
+                    )
+                  : const TextSpan(),
+            ]));
   }
 }

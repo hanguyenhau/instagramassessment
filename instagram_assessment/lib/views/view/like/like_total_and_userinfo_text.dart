@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:instagram_assessment/states/like/provider/like_total_provider.dart';
@@ -16,15 +14,16 @@ class LikeTotalAndUserInfoText extends ConsumerWidget {
     final totalLikeRequest = ref.watch(
       likeTotalProvider(postId),
     );
-    log('totalLikeRequest: $totalLikeRequest');
-    return totalLikeRequest != null
-        ? Padding(
-            padding: const EdgeInsets.only(
-              left: Dimension.width20,
-              right: Dimension.width20,
-            ),
-            child: LikedByTextView(totalLikeRequest: totalLikeRequest),
-          )
-        : const SizedBox();
+    if (totalLikeRequest != null) {
+      return Padding(
+        padding: const EdgeInsets.only(
+          left: Dimension.width20,
+          right: Dimension.width20,
+        ),
+        child: LikedByTextView(totalLikeRequest: totalLikeRequest),
+      );
+    } else {
+      return const SizedBox(); // Return an empty widget when totalLikeRequest is null
+    }
   }
 }

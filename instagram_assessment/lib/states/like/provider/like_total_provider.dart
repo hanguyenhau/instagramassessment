@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:instagram_assessment/states/auth/provider/user_id_provider.dart';
 import 'package:instagram_assessment/states/like/models/total_like_request.dart';
@@ -15,16 +13,15 @@ final likeTotalProvider =
 
     return likes.when(
       data: (like) {
-        if (like.isEmpty) {
+        if (like == null || like.isEmpty) {
           return null;
         }
-        if (like.last.userId == currentUserId) {
-          return TotalLikeRequest(likedBy: 'me', totalLike: like.length);
-        }
-        final userName = ref.watch(userNameProvider(like.last.userId));
-        if (userName != null) {
-          return TotalLikeRequest(likedBy: userName, totalLike: like.length);
-        }
+        final isCurrentUserLiked = like.last.userId == currentUserId;
+        final likedBy = isCurrentUserLiked
+            ? 'you'
+            : ref.watch(userNameProvider(like.last.userId));
+
+        return TotalLikeRequest(likedBy: likedBy ?? '', totalLike: like.length);
       },
       error: (error, stackTrace) => null,
       loading: () => null,

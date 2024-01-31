@@ -7,23 +7,24 @@ import 'package:instagram_assessment/states/like/models/like.dart';
 import 'package:instagram_assessment/states/post/typedef/post_id.dart';
 import 'package:riverpod/riverpod.dart';
 
-final likeProvider = StreamProvider.family.autoDispose<Iterable<Like>, PostId>(
-  (ref, PostId postId) {
-    final controller = StreamController<Iterable<Like>>();
+final likeProvider = StreamProvider.family.autoDispose<Iterable<Like>?, PostId>(
+  (ref, PostId postId) async* {
+    final controller = StreamController<Iterable<Like>?>();
 
     final sub = FirebaseFirestore.instance
         .collection(FirebaseCollectionName.likes)
         .where(FirebaseFieldName.postId, isEqualTo: postId)
         .snapshots()
         .listen((snapshot) {
-      if (snapshot.docs.isNotEmpty) {
-        final likes = snapshot.docs.map(
-          (doc) => Like(
-            json: doc.data(),
-          ),
-        );
-        controller.sink.add(likes);
-      }
+      final likes = snapshot.docs.isNotEmpty
+          ? snapshot.docs.map(
+              (doc) => Like(
+                json: doc.data(),
+              ),
+            )
+          : null;
+
+      controller.sink.add(likes);
     });
 
     ref.onDispose(() {
@@ -31,6 +32,6 @@ final likeProvider = StreamProvider.family.autoDispose<Iterable<Like>, PostId>(
       sub.cancel();
     });
 
-    return controller.stream;
+    yield* controller.stream;
   },
 );
