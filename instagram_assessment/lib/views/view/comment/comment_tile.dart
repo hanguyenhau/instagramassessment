@@ -3,8 +3,8 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:instagram_assessment/views/constants/app_colors.dart';
 import 'package:instagram_assessment/views/constants/assets_path.dart';
 
-class CommentList extends StatelessWidget {
-  const CommentList({super.key});
+class CommentTile extends StatelessWidget {
+  const CommentTile({super.key});
 
   @override
   Widget build(BuildContext context) {

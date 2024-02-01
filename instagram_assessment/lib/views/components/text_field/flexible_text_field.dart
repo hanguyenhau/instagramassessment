@@ -1,25 +1,27 @@
 import 'package:flutter/material.dart';
+import 'package:instagram_assessment/views/components/text_field/styles/flexible_text_field_style.dart';
 import 'package:instagram_assessment/views/constants/app_colors.dart';
-import 'package:instagram_assessment/views/view/create_post/styles/app_style.dart';
 
-class WriteCaptionTextField extends StatelessWidget {
+class FlexibleTextView extends StatelessWidget {
   final TextEditingController controller;
   final String hintText;
   final int maxLines;
   final int maxLength;
+  final double padding;
 
-  const WriteCaptionTextField({
+  const FlexibleTextView({
     Key? key,
     required this.controller,
     required this.hintText,
     this.maxLines = 1,
     this.maxLength = 200,
+    this.padding = 10,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(10),
+      padding: EdgeInsets.all(padding),
       child: TextField(
         controller: controller,
         autofocus: true,
@@ -27,9 +29,9 @@ class WriteCaptionTextField extends StatelessWidget {
         maxLength: maxLength,
         decoration: InputDecoration(
           hintText: hintText,
-          hintStyle: CreateNewPostStyles.hintTextStyle,
-          focusedBorder: CreateNewPostStyles.focusedInputBorder,
-          enabledBorder: CreateNewPostStyles.focusedInputBorder,
+          hintStyle: FlexibleTextViewStyle.hintTextStyle,
+          focusedBorder: FlexibleTextViewStyle.focusedInputBorder,
+          enabledBorder: FlexibleTextViewStyle.focusedInputBorder,
           counterText: '',
         ),
         cursorColor: AppColor.facebookColor,

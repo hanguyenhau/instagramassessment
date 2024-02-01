@@ -2,12 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:instagram_assessment/states/auth/provider/user_id_provider.dart';
 import 'package:instagram_assessment/states/user_infor/provider/all_users_provider.dart';
+import 'package:instagram_assessment/views/view/user/horizontal/current_user_image_with_add_button.dart';
 import 'package:instagram_assessment/views/view/user/horizontal/other_user_image.dart';
 
-import 'package:instagram_assessment/views/view/user/horizontal/current_user_image.dart';
-
-class UserHorizontalView extends ConsumerWidget {
-  const UserHorizontalView({super.key});
+class UserHorizontalListView extends ConsumerWidget {
+  const UserHorizontalListView({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -35,7 +34,7 @@ class UserHorizontalView extends ConsumerWidget {
                   ...allUsers
                       .where((user) => user.userId == currentUserId)
                       .map((currentUser) =>
-                          CurrentUserImage(profileImage: currentUser.image))
+                          CurrentUserImageWithAddButton(profileImage: currentUser.image))
                       .toList(),
                   ...allUsers
                       .where((user) => user.userId != currentUserId)

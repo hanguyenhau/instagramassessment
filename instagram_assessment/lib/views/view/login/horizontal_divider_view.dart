@@ -27,7 +27,7 @@ class HorizontalDevider extends StatelessWidget {
                   right: Dimension.width10,
                 ),
                 child: Divider(
-                  color: AppColor.dividerColor,
+                  color: AppColor.borderFavorite,
                   thickness: 0.2,
                 ),
               ),

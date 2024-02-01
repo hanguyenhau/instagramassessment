@@ -3,11 +3,11 @@ import 'package:instagram_assessment/views/constants/assets_path.dart';
 import 'package:instagram_assessment/views/constants/text_messages.dart';
 import 'package:instagram_assessment/views/util/view/elevated_button_view.dart';
 
-class CurrentUserImage extends StatelessWidget {
+class CurrentUserImageWithAddButton extends StatelessWidget {
   final String profileImage;
   final bool includeAddButton;
 
-  const CurrentUserImage({
+  const CurrentUserImageWithAddButton({
     super.key,
     required this.profileImage,
     this.includeAddButton = true,
@@ -19,7 +19,8 @@ class CurrentUserImage extends StatelessWidget {
       padding: const EdgeInsets.only(
         right: 15,
       ),
-      child: Column(
+      child: 
+      Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           SizedBox(

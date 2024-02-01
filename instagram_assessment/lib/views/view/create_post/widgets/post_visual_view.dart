@@ -4,7 +4,7 @@ import 'package:instagram_assessment/views/constants/text_messages.dart';
 import 'package:instagram_assessment/views/view/create_post/widgets/image/thumbnail_post_image.dart';
 import 'package:instagram_assessment/views/view/create_post/widgets/list_tile/object_other_tile.dart';
 import 'package:instagram_assessment/views/view/create_post/widgets/list_tile/tag_other_tile.dart';
-import 'package:instagram_assessment/views/view/create_post/widgets/text_field/write_caption_textfield.dart';
+import 'package:instagram_assessment/views/components/text_field/flexible_text_field.dart';
 import 'package:instagram_assessment/views/view/login/horizontal_divider_view.dart';
 
 class PostVisualView extends StatelessWidget {
@@ -26,7 +26,7 @@ class PostVisualView extends StatelessWidget {
         ),
         
         //text field
-        WriteCaptionTextField(
+        FlexibleTextView(
           controller: postController,
           hintText: TextMessage.writeCaption,
         ),

@@ -32,5 +32,7 @@ class TextMessage{
 
   static const yourStory = 'Your story';
 
+  static const commentWithName = 'Comment with name ';
+
  const TextMessage._();
 }
