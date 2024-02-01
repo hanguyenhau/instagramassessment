@@ -2,14 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:instagram_assessment/states/post/models/post.dart';
 import 'package:instagram_assessment/states/user_infor/provider/user_provider.dart';
-import 'package:instagram_assessment/views/constants/app_colors.dart';
-import 'package:instagram_assessment/views/constants/assets_path.dart';
 import 'package:instagram_assessment/views/constants/dimension.dart';
-import 'package:instagram_assessment/views/view/like/like_button.dart';
 import 'package:instagram_assessment/views/view/like/like_total_and_userinfo_text.dart';
-import 'package:instagram_assessment/views/view/user/horizontal/other_user_image.dart';
-import 'package:instagram_assessment/views/view/comment/comments_dialog.dart';
-import 'package:instagram_assessment/views/view/post/read_more_text_view.dart';
+import 'package:instagram_assessment/views/view/post/widgets/text/last_post_comment.dart';
+import 'package:instagram_assessment/views/view/post/widgets/text/view_more_post_comment.dart';
+import 'package:instagram_assessment/views/view/post/widgets/tiles/post_actions_tile.dart';
+import 'package:instagram_assessment/views/view/post/widgets/tiles/user_details_tile.dart';
 
 class PostDetailsView extends ConsumerWidget {
   final Post post;
@@ -27,23 +25,9 @@ class PostDetailsView extends ConsumerWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            ListTile(
-              leading: OtherUserImage(
-                profileImage: userInfo.image,
-                dimension: Dimension.height50,
-                borderWeight: Dimension.borderWeight2,
-              ),
-              title: Text(
-                userInfo.displayName,
-                style: const TextStyle(
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              trailing: IconButton(
-                onPressed: () {},
-                icon: const Icon(Icons.more_vert),
-              ),
-            ),
+            //user info
+            UserDetailsTile(userInfo: userInfo),
+            
             Container(
               width: double.infinity,
               margin: const EdgeInsets.only(
@@ -54,81 +38,23 @@ class PostDetailsView extends ConsumerWidget {
                 fit: BoxFit.cover, // Adjusts the height proportionally
               ),
             ),
-            ListTile(
-              leading: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  LikeButton(postId: post.postId),
-                  TextButton(
-                    onPressed: () {},
-                    child: Image.asset(
-                      AssetsPath.commentButton,
-                      width: Dimension.width23,
-                      height: Dimension.height23,
-                    ),
-                  ),
-                  TextButton(
-                    onPressed: () {},
-                    child: Image.asset(
-                      AssetsPath.shareButton,
-                      width: Dimension.width26,
-                      height: Dimension.height26,
-                      color: Colors.black,
-                      filterQuality: FilterQuality.high,
-                    ),
-                  ),
-                ],
-              ),
-              trailing: IconButton(
-                onPressed: () {},
-                icon: const Icon(
-                  Icons.bookmark_border,
-                  color: Colors.black,
-                  size: Dimension.iconSize30,
-                ),
-              ),
-            ),
+            
+            //all actions: likes, comments, share
+            PostActionsTile(postId: post.postId),
+
             //Text Like total and last user info
             LikeTotalAndUserInfoText(
               postId: post.postId,
             ),
 
-            const Padding(
-              padding: EdgeInsets.only(
-                top: Dimension.height5,
-                left: Dimension.width20,
-                right: Dimension.width20,
-              ),
-              child: ReadMoreTextView(
-                lastUserName: 'Hau Ha',
-                lastComment:
-                    'Start your countdown to the glorious arrival of Marvel Studios Start your countdown to the glorious arrival of Marvel Studios',
-              ),
-            ),
-            Padding(
-                padding: const EdgeInsets.only(
-                  top: Dimension.height7,
-                  left: Dimension.width20,
-                  right: Dimension.width20,
-                ),
-                child: GestureDetector(
-                  child: Text(
-                    'View all 103 comments',
-                    style: TextStyle(color: AppColor.callToActionText),
-                  ),
-                  onTap: () {
-                    showModalBottomSheet(
-                      backgroundColor: Colors.white,
-                      context: context,
-                      isScrollControlled: true,
-                      builder: (BuildContext context) {
-                        return const CommentsDialog();
-                      },
-                    );
-                  },
-                )),
+            //last comment of post
+            const LastPostComment(),
+            
+            //view more comment action
+            ViewMorePostComment(postId: post.postId),
+
             const SizedBox(
-              height: Dimension.height30,
+              height: Dimension.height15,
             ),
           ],
         );

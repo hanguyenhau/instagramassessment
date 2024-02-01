@@ -8,6 +8,7 @@ class FirebaseFieldName{
   static const createAt = 'create_at';
   static const image = 'image';
   static const postId = 'post_id';
+  static const comment = 'comment';
 
   const FirebaseFieldName._();
 }
