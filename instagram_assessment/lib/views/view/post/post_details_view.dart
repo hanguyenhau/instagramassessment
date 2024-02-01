@@ -120,6 +120,7 @@ class PostDetailsView extends ConsumerWidget {
                     showModalBottomSheet(
                       backgroundColor: Colors.white,
                       context: context,
+                      isScrollControlled: true,
                       builder: (BuildContext context) {
                         return const CommentsDialog();
                       },
