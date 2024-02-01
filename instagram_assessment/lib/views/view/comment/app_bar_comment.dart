@@ -6,24 +6,17 @@ class AppBarComment extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const SliverAppBar(
-      automaticallyImplyLeading: false,
-      pinned: true,
-      flexibleSpace: FlexibleSpaceBar(
-        centerTitle: true,
-        title: Text(
-          'Comments',
-          style: TextStyle(
-            fontSize: 15.0,
-            color: Colors.black,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
+    return const Text(
+      'Comments',
+      style: TextStyle(
+        fontSize: 15.0,
+        color: Colors.black,
+        fontWeight: FontWeight.bold,
       ),
-      bottom: PreferredSize(
-        preferredSize: Size.fromHeight(0.0),
-        child: HorizontalDevider(),
-      ),
+      // bottom: PreferredSize(
+      //   preferredSize: Size.fromHeight(0.0),
+      //   child: HorizontalDevider(),
+      // ),
     );
   }
 }

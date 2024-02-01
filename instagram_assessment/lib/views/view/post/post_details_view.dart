@@ -89,7 +89,9 @@ class PostDetailsView extends ConsumerWidget {
               ),
             ),
             //Text Like total and last user info
-            LikeTotalAndUserInfoText(postId: post.postId,),
+            LikeTotalAndUserInfoText(
+              postId: post.postId,
+            ),
 
             const Padding(
               padding: EdgeInsets.only(
