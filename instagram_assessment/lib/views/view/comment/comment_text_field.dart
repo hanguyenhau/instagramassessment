@@ -8,11 +8,12 @@ import 'package:instagram_assessment/views/constants/app_colors.dart';
 import 'package:instagram_assessment/views/constants/text_messages.dart';
 import 'package:instagram_assessment/views/view/comment/extension/dismiss_keyboard.dart';
 
-class CommentTextField extends ConsumerWidget {
+class CommentInputTextField extends ConsumerWidget {
   final TextEditingController commentController;
   final bool hasText;
   final PostId postId;
-  const CommentTextField({
+  
+  const CommentInputTextField({
     required this.postId,
     required this.hasText,
     required this.commentController,

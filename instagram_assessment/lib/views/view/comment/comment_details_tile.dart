@@ -1,13 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:instagram_assessment/states/comment/models/comment.dart';
+import 'package:instagram_assessment/states/user_infor/provider/user_detail_info_provider.dart';
 import 'package:instagram_assessment/views/constants/app_colors.dart';
-import 'package:instagram_assessment/views/constants/assets_path.dart';
 
-class CommentTile extends StatelessWidget {
-  const CommentTile({super.key});
+class CommentDetailsTile extends ConsumerWidget {
+  final Comment comment;
+
+  const CommentDetailsTile({super.key, required this.comment});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final userInfo = useState(
+      ref.watch(
+        userDetailInfoProvider(comment.userId),
+      ),
+    );
+
     return ListTile(
       contentPadding: const EdgeInsets.only(
         top: 5,
@@ -15,22 +26,22 @@ class CommentTile extends StatelessWidget {
         left: 15,
         right: 15,
       ),
-      title: const Text(
-        'Hau Ha',
-        style: TextStyle(
+      title: Text(
+        userInfo.value?.displayName ?? '',
+        style: const TextStyle(
           fontWeight: FontWeight.bold,
           fontSize: 10,
         ),
       ),
-      leading: Image.asset(AssetsPath.testUserImage),
+      leading: Image.network(userInfo.value?.image ?? ''),
       subtitle: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(
-            'You are so beutiful',
+          Text(
+            comment.comment,
             maxLines: 2,
-            style: TextStyle(
+            style: const TextStyle(
               fontSize: 14,
             ),
           ),

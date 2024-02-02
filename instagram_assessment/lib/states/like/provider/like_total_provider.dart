@@ -3,7 +3,7 @@ import 'package:instagram_assessment/states/auth/provider/user_id_provider.dart'
 import 'package:instagram_assessment/states/like/models/total_like_request.dart';
 import 'package:instagram_assessment/states/like/provider/like_provider.dart';
 import 'package:instagram_assessment/states/post/typedef/post_id.dart';
-import 'package:instagram_assessment/states/user_infor/provider/user_detail_provider.dart';
+import 'package:instagram_assessment/states/user_infor/provider/user_detail_info_provider.dart';
 
 final likeTotalProvider =
     Provider.family.autoDispose<TotalLikeRequest?, PostId>(
@@ -19,7 +19,7 @@ final likeTotalProvider =
         final isCurrentUserLiked = like.last.userId == currentUserId;
         final likedBy = isCurrentUserLiked
             ? 'you'
-            : ref.watch(userNameProvider(like.last.userId));
+            : ref.watch(userDetailInfoProvider(like.last.userId))?.displayName;
 
         return TotalLikeRequest(likedBy: likedBy ?? '', totalLike: like.length);
       },
