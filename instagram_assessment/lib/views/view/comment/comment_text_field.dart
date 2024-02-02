@@ -1,16 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:instagram_assessment/states/comment/provider/send_comment_provider.dart';
+import 'package:instagram_assessment/states/post/typedef/post_id.dart';
 import 'package:instagram_assessment/states/user_infor/provider/current_user_detail_provider.dart';
 import 'package:instagram_assessment/views/components/text_field/flexible_text_field.dart';
 import 'package:instagram_assessment/views/constants/app_colors.dart';
 import 'package:instagram_assessment/views/constants/text_messages.dart';
+import 'package:instagram_assessment/views/view/comment/extension/dismiss_keyboard.dart';
 
 class CommentTextField extends ConsumerWidget {
-  const CommentTextField({super.key});
+  final TextEditingController commentController;
+  final bool hasText;
+  final PostId postId;
+  const CommentTextField({
+    required this.postId,
+    required this.hasText,
+    required this.commentController,
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final commentController = TextEditingController();
     final user = ref.read(currentUserDetailProvider);
     if (user == null) {
       return const SizedBox();
@@ -28,18 +38,36 @@ class CommentTextField extends ConsumerWidget {
               width: 50,
             ),
           ),
+          //TextField get comment
           title: FlexibleTextView(
             controller: commentController,
             hintText: "${TextMessage.commentWithName}${user.displayName}",
             padding: 5,
           ),
+          //send button
           trailing: IconButton(
-            onPressed: () {},
+            onPressed: () async {
+              if (hasText) {
+                final isSent =
+                    await ref.read(sendCommentProvider.notifier).sendComment(
+                          userId: user.userId,
+                          postId: postId,
+                          comment: commentController.text,
+                        );
+
+                if (isSent) {
+                  commentController.clear();
+                  dismissKeyboard();
+                }
+              }
+            },
             icon: const Icon(Icons.arrow_upward),
-            color: AppColor.whiteColor,
+            color: hasText ? AppColor.whiteColor : AppColor.callToActionText,
             style: ButtonStyle(
                 backgroundColor: MaterialStateProperty.resolveWith<Color>(
-                    (states) => AppColor.facebookColor)),
+                    (states) => hasText
+                        ? AppColor.facebookColor
+                        : AppColor.callToActionButton)),
           ),
         ));
   }
