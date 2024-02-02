@@ -27,7 +27,7 @@ class PostDetailsView extends ConsumerWidget {
           children: [
             //user info
             UserDetailsTile(userInfo: userInfo),
-            
+
             Container(
               width: double.infinity,
               margin: const EdgeInsets.only(
@@ -38,7 +38,7 @@ class PostDetailsView extends ConsumerWidget {
                 fit: BoxFit.cover, // Adjusts the height proportionally
               ),
             ),
-            
+
             //all actions: likes, comments, share
             PostActionsTile(postId: post.postId),
 
@@ -49,9 +49,11 @@ class PostDetailsView extends ConsumerWidget {
 
             //last comment of post
             const LastPostComment(),
-            
+
             //view more comment action
-            ViewMorePostComment(postId: post.postId),
+            ViewMorePostComment(
+              postId: post.postId,
+            ),
 
             const SizedBox(
               height: Dimension.height15,

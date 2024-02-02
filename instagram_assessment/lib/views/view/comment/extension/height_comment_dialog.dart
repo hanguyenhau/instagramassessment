@@ -1,6 +1,6 @@
 import 'package:instagram_assessment/views/view/comment/extension/dialog_height_constant.dart';
 
-extension GetHeightCommentDialog on int {
+extension GetHeightCommentDialog on num {
   double getHeightCommentDialog() {
     switch (this) {
       case 1:

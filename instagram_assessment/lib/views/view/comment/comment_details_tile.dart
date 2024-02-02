@@ -13,10 +13,8 @@ class CommentDetailsTile extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final userInfo = useState(
-      ref.watch(
-        userDetailInfoProvider(comment.userId),
-      ),
+    final userInfo = ref.watch(
+      userDetailInfoProvider(comment.userId),
     );
 
     return ListTile(
@@ -27,13 +25,20 @@ class CommentDetailsTile extends ConsumerWidget {
         right: 15,
       ),
       title: Text(
-        userInfo.value?.displayName ?? '',
+        userInfo?.displayName ?? '',
         style: const TextStyle(
           fontWeight: FontWeight.bold,
-          fontSize: 10,
+          fontSize: 12,
         ),
       ),
-      leading: Image.network(userInfo.value?.image ?? ''),
+      leading: ClipOval(
+        child: Image.network(
+          userInfo?.image ?? '',
+          fit: BoxFit.cover,
+          height: 50,
+          width: 50,
+        ),
+      ),
       subtitle: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,

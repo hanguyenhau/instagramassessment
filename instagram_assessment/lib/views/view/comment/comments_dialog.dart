@@ -1,19 +1,22 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:instagram_assessment/states/comment/models/comment_post_request.dart';
+import 'package:instagram_assessment/states/comment/provider/comments_post_provider.dart';
 import 'package:instagram_assessment/states/post/typedef/post_id.dart';
+import 'package:instagram_assessment/states/user_infor/provider/user_detail_info_provider.dart';
 import 'package:instagram_assessment/views/view/comment/app_bar_comment.dart';
+import 'package:instagram_assessment/views/view/comment/comment_details_tile.dart';
 import 'package:instagram_assessment/views/view/comment/comment_list_by_request.dart';
 import 'package:instagram_assessment/views/view/comment/comment_text_field.dart';
+import 'package:instagram_assessment/views/view/comment/extension/height_comment_dialog.dart';
 
 class CommentsDialog extends HookConsumerWidget {
   final PostId postId;
 
-  const CommentsDialog({
-    required this.postId,
-    Key? key
-  }) : super(key: key);
+  const CommentsDialog({required this.postId, Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -22,6 +25,12 @@ class CommentsDialog extends HookConsumerWidget {
     final hasText = useState(false);
 
     final request = useState(CommentPostRequest(postId: postId));
+
+    final comments = ref.watch(
+      commentsPostProvider(
+        request.value,
+      ),
+    );
 
     useEffect(() {
       void listener() {
@@ -42,9 +51,7 @@ class CommentsDialog extends HookConsumerWidget {
           const AppBarComment(),
 
           //comment list
-          CommentListByRequest(
-            request: request.value,
-          ),
+          CommentListByRequest(comments: comments, postId: postId),
 
           //Comment textField
           CommentInputTextField(
