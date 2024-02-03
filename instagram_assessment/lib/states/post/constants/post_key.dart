@@ -15,6 +15,8 @@ class PostKey{
   static const originalFileStorageId = 'original_file_storage_id';
 
   static const comment = 'comment';
+  static const likes = 'likes';
+  static const response = 'responses';
 
   const PostKey._();
 }

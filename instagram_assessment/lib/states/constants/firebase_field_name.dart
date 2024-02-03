@@ -9,6 +9,8 @@ class FirebaseFieldName{
   static const image = 'image';
   static const postId = 'post_id';
   static const comment = 'comment';
+  static const commentId = 'comment_id';
+  static const likes = 'likes';
 
   const FirebaseFieldName._();
 }

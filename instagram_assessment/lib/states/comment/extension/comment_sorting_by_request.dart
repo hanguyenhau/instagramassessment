@@ -1,6 +1,6 @@
 import 'package:instagram_assessment/states/comment/models/comment.dart';
 import 'package:instagram_assessment/states/comment/models/comment_post_request.dart';
-import 'package:instagram_assessment/states/comment/models/date_sorting.dart';
+import 'package:instagram_assessment/states/comment/models/enum/date_sorting.dart';
 
 extension CommentSortingByRequest on Iterable<Comment> {
   Iterable<Comment> applySortingFrom(CommentPostRequest request) {

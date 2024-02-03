@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -9,7 +8,7 @@ import 'package:instagram_assessment/states/comment/models/comment_post_request.
 import 'package:instagram_assessment/states/constants/firebase_collection_name.dart';
 import 'package:instagram_assessment/states/constants/firebase_field_name.dart';
 
-final commentsPostProvider = StreamProvider.family
+final allCommentsPostProvider = StreamProvider.family
     .autoDispose<Iterable<Comment>, CommentPostRequest>(
         (ref, CommentPostRequest request) async* {
   final controller = StreamController<Iterable<Comment>>();
@@ -24,6 +23,7 @@ final commentsPostProvider = StreamProvider.family
         document.where((doc) => !doc.metadata.hasPendingWrites).map(
               (document) => Comment(
                 json: document.data(),
+                commentId: document.id,
               ),
             );
 

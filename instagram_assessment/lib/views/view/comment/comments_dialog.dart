@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:instagram_assessment/states/comment/models/comment_post_request.dart';
-import 'package:instagram_assessment/states/comment/provider/comments_post_provider.dart';
+import 'package:instagram_assessment/states/comment/provider/all_comments_post_provider.dart';
 import 'package:instagram_assessment/states/post/typedef/post_id.dart';
 import 'package:instagram_assessment/states/user_infor/provider/user_detail_info_provider.dart';
 import 'package:instagram_assessment/views/view/comment/app_bar_comment.dart';
@@ -27,7 +27,7 @@ class CommentsDialog extends HookConsumerWidget {
     final request = useState(CommentPostRequest(postId: postId));
 
     final comments = ref.watch(
-      commentsPostProvider(
+      allCommentsPostProvider(
         request.value,
       ),
     );
