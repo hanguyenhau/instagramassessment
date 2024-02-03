@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:instagram_assessment/states/auth/provider/user_id_provider.dart';
 import 'package:instagram_assessment/states/comment/likes_comment/models/like_comment_request.dart';
 import 'package:instagram_assessment/states/comment/likes_comment/provider/like_dislike_comment_provider.dart';
 import 'package:instagram_assessment/states/comment/models/comment.dart';
+import 'package:instagram_assessment/states/comment/models/comment_post_request.dart';
+import 'package:instagram_assessment/states/comment/provider/all_comments_post_provider.dart';
 import 'package:instagram_assessment/states/user_infor/provider/user_detail_info_provider.dart';
 import 'package:instagram_assessment/views/constants/app_colors.dart';
 
@@ -18,7 +21,9 @@ class CommentDetailsTile extends ConsumerWidget {
       userDetailInfoProvider(comment.userId),
     );
 
-    if (userInfo == null) {
+    final currentUserId = ref.watch(userIdProvider);
+
+    if (userInfo == null || currentUserId == null) {
       return const SizedBox();
     }
 
@@ -73,9 +78,11 @@ class CommentDetailsTile extends ConsumerWidget {
               ref.watch(likeDislikeCommentProvider(
                 LikeCommentRequest(
                   comment: comment,
-                  likedBy: userInfo.userId,
+                  likedBy: currentUserId,
                 ),
               ));
+              ref.refresh(allCommentsPostProvider(
+                  CommentPostRequest(postId: comment.postId)));
             },
             child: const FaIcon(
               FontAwesomeIcons.heart,
