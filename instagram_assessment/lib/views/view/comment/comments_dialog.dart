@@ -6,12 +6,9 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:instagram_assessment/states/comment/models/comment_post_request.dart';
 import 'package:instagram_assessment/states/comment/provider/all_comments_post_provider.dart';
 import 'package:instagram_assessment/states/post/typedef/post_id.dart';
-import 'package:instagram_assessment/states/user_infor/provider/user_detail_info_provider.dart';
 import 'package:instagram_assessment/views/view/comment/app_bar_comment.dart';
-import 'package:instagram_assessment/views/view/comment/comment_details_tile.dart';
 import 'package:instagram_assessment/views/view/comment/comment_list_by_request.dart';
 import 'package:instagram_assessment/views/view/comment/comment_text_field.dart';
-import 'package:instagram_assessment/views/view/comment/extension/height_comment_dialog.dart';
 
 class CommentsDialog extends HookConsumerWidget {
   final PostId postId;

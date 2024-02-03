@@ -29,7 +29,10 @@ class CommentListByRequest extends ConsumerWidget {
           child: RefreshIndicator(
             onRefresh: () {
               ref.refresh(
-                  allCommentsPostProvider(CommentPostRequest(postId: postId)));
+                allCommentsPostProvider(
+                  CommentPostRequest(postId: postId),
+                ),
+              );
               return Future.delayed(
                 const Duration(seconds: 1),
               );

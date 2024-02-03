@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:instagram_assessment/states/auth/provider/user_id_provider.dart';
 import 'package:instagram_assessment/states/comment/likes_comment/models/like_comment_request.dart';
+import 'package:instagram_assessment/states/comment/likes_comment/provider/has_like_comment_provider.dart';
 import 'package:instagram_assessment/states/comment/likes_comment/provider/like_dislike_comment_provider.dart';
 import 'package:instagram_assessment/states/comment/models/comment.dart';
-import 'package:instagram_assessment/states/comment/models/comment_post_request.dart';
-import 'package:instagram_assessment/states/comment/provider/all_comments_post_provider.dart';
 import 'package:instagram_assessment/states/user_infor/provider/user_detail_info_provider.dart';
-import 'package:instagram_assessment/views/constants/app_colors.dart';
+import 'package:instagram_assessment/views/constants/dimension.dart';
+import 'package:instagram_assessment/views/constants/text_messages.dart';
+import 'package:instagram_assessment/views/view/comment/style/comment_details_tile_styles.dart';
 
 class CommentDetailsTile extends ConsumerWidget {
   final Comment comment;
@@ -23,56 +24,51 @@ class CommentDetailsTile extends ConsumerWidget {
 
     final currentUserId = ref.watch(userIdProvider);
 
+    final hasLike = ref.watch(hasLikeCommentProvider(comment));
+
     if (userInfo == null || currentUserId == null) {
       return const SizedBox();
     }
 
     return ListTile(
-      contentPadding: const EdgeInsets.only(
-        top: 5,
-        bottom: 5,
-        left: 15,
-        right: 15,
-      ),
+      contentPadding: CommentDetailTileStyles.contentPaddingUserInfo,
+      // owner comment display name
       title: Text(
         userInfo.displayName,
-        style: const TextStyle(
-          fontWeight: FontWeight.bold,
-          fontSize: 13,
-        ),
+        style: CommentDetailTileStyles.textUserInfo,
       ),
+
+      // owner comment image
       leading: ClipOval(
         child: Image.network(
           userInfo.image,
           fit: BoxFit.cover,
-          height: 50,
-          width: 50,
+          height: Dimension.height50,
+          width: Dimension.width50,
         ),
       ),
       subtitle: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          //comment content
           Text(
             comment.comment,
-            maxLines: 2,
-            style: const TextStyle(
-              fontSize: 14,
-            ),
+            maxLines: Dimension.maxLines2,
+            style: CommentDetailTileStyles.textComment,
           ),
+
+          // replies comment
           Text(
-            'Reply',
-            style: TextStyle(
-              fontSize: 12,
-              fontWeight: FontWeight.bold,
-              color: AppColor.callToActionText,
-            ),
+            TextMessage.reply,
+            style: CommentDetailTileStyles.textReply,
           ),
         ],
       ),
       trailing: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
+          //like comments
           GestureDetector(
             onTap: () {
               ref.watch(likeDislikeCommentProvider(
@@ -81,17 +77,15 @@ class CommentDetailsTile extends ConsumerWidget {
                   likedBy: currentUserId,
                 ),
               ));
-              ref.refresh(allCommentsPostProvider(
-                  CommentPostRequest(postId: comment.postId)));
             },
-            child: const FaIcon(
-              FontAwesomeIcons.heart,
-              size: 20,
-            ),
+            child: hasLike
+                ? CommentDetailTileStyles.hasLikeImage
+                : CommentDetailTileStyles.notHasLikeImage,
           ),
-          const Text(
-            '1',
-            style: TextStyle(color: Colors.black54, fontSize: 12),
+          //like quantity
+          Text(
+            comment.likes.length.toString(),
+            style: CommentDetailTileStyles.likeQuantity,
           )
         ],
       ),

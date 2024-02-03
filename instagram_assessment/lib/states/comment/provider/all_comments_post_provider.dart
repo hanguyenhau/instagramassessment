@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -20,17 +19,14 @@ final allCommentsPostProvider = StreamProvider.family
       .snapshots()
       .listen((snapshot) {
     final document = snapshot.docs;
-    final comments =
-        document.map(
-              (document) => Comment(
-                json: document.data(),
-                commentId: document.id,
-              ),
-            );
+    final comments = document.map(
+      (document) => Comment(
+        json: document.data(),
+        commentId: document.id,
+      ),
+    );
 
     final result = comments.applySortingFrom(request);
-
-    log('All comments ${result.toList()}');
 
     controller.sink.add(result);
   });
