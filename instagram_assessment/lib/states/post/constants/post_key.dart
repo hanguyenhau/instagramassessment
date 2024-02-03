@@ -16,7 +16,7 @@ class PostKey{
 
   static const comment = 'comment';
   static const likes = 'likes';
-  static const response = 'responses';
+  static const responses = 'responses';
 
   const PostKey._();
 }

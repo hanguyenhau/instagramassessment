@@ -11,6 +11,7 @@ class FirebaseFieldName{
   static const comment = 'comment';
   static const commentId = 'comment_id';
   static const likes = 'likes';
+  static const responses = 'responses';
 
   const FirebaseFieldName._();
 }
