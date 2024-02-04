@@ -3,7 +3,9 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:instagram_assessment/states/comment/models/comment_post_request.dart';
 import 'package:instagram_assessment/states/comment/provider/all_comments_post_provider.dart';
+import 'package:instagram_assessment/states/comment/responses/provider/reply_provider.dart';
 import 'package:instagram_assessment/states/post/typedef/post_id.dart';
+import 'package:instagram_assessment/states/user_infor/provider/current_user_detail_provider.dart';
 import 'package:instagram_assessment/views/view/comment/app_bar_comment.dart';
 import 'package:instagram_assessment/views/view/comment/comment_list_by_request.dart';
 import 'package:instagram_assessment/views/view/comment/comment_input_text_field.dart';
@@ -21,6 +23,9 @@ class CommentsDialog extends HookConsumerWidget {
 
     final request = useState(CommentPostRequest(postId: postId));
 
+    final isReply = ref.watch(replyProvider).isReply;
+    final currentUser = ref.read(currentUserDetailProvider);
+
     final comments = ref.watch(
       allCommentsPostProvider(
         request.value,
@@ -29,7 +34,8 @@ class CommentsDialog extends HookConsumerWidget {
 
     useEffect(() {
       void listener() {
-        hasText.value = commentController.text.isNotEmpty;      
+        hasText.value = commentController.text.isNotEmpty;
+        isReply ? commentController.text = '@${currentUser?.displayName}' : null;
       }
 
       commentController.addListener(listener);

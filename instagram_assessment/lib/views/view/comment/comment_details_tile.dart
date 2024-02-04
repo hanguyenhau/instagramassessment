@@ -24,16 +24,22 @@ class CommentDetailsTile extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    //userInfo of comment owner info details
     final userInfo = ref.watch(
       userDetailInfoProvider(comment.userId),
     );
 
+    //current user for reply reuqest
     final currentUser = ref.read(currentUserDetailProvider);
 
     if (userInfo == null || currentUser == null) {
       return const SizedBox();
     }
 
+    //watch the isReply for setting controller
+    final isReply = ref.watch(replyProvider).isReply;
+
+    //watch the likes of comment
     final hasLike = ref.watch(hasLikeCommentProvider(comment));
 
     return ListTile(
@@ -66,11 +72,12 @@ class CommentDetailsTile extends ConsumerWidget {
 
             // replies comment
             GestureDetector(
-              onTap: () {
-                commentController.text =
-                    '@${currentUser.displayName} ${commentController.text}';
-                ref.watch(replyProvider.notifier).setReply(true, comment);
-              },
+              onTap: !isReply
+                  ? () {
+                      commentController.text = '@${currentUser.displayName} ';
+                      ref.read(replyProvider.notifier).setReply(true, comment);
+                    }
+                  : null,
               child: Text(
                 TextMessage.reply,
                 style: CommentDetailTileStyles.textReply,

@@ -48,9 +48,13 @@ class CommentInputTextField extends ConsumerWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 //Reply by
-                CommentnputTextStyles.replyByUser("Hau Ha"),
+                reply.isReply
+                    ? CommentnputTextStyles.replyByUser(commentController.text)
+                    : const SizedBox(),
                 //divider
-                CommentnputTextStyles.divider,
+                reply.isReply
+                    ? CommentnputTextStyles.divider
+                    : const SizedBox(),
 
                 Row(mainAxisAlignment: MainAxisAlignment.center, children: [
                   Expanded(
