@@ -6,6 +6,7 @@ import 'package:instagram_assessment/states/comment/provider/all_comments_post_p
 import 'package:instagram_assessment/states/post/typedef/post_id.dart';
 import 'package:instagram_assessment/views/view/comment/app_bar_comment.dart';
 import 'package:instagram_assessment/views/view/comment/comment_list_by_request.dart';
+import 'package:instagram_assessment/views/view/comment/comment_reply_gesture.dart';
 import 'package:instagram_assessment/views/view/comment/comment_text_field.dart';
 
 class CommentsDialog extends HookConsumerWidget {
@@ -29,7 +30,7 @@ class CommentsDialog extends HookConsumerWidget {
 
     useEffect(() {
       void listener() {
-        hasText.value = commentController.text.isNotEmpty;
+        hasText.value = commentController.text.isNotEmpty;      
       }
 
       commentController.addListener(listener);

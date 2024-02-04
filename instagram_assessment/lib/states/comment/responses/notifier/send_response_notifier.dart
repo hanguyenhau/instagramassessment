@@ -11,7 +11,7 @@ class SendResponseNotifier extends StateNotifier<IsLoading> {
 
   set isLoading(bool value) => state = value;
 
-  Future<void> sendResponse({
+  Future<bool> sendResponse({
     required ResponseRequest request,
   }) async {
     isLoading = true;
@@ -28,8 +28,9 @@ class SendResponseNotifier extends StateNotifier<IsLoading> {
           );
 
       isLoading = false;
+      return true;
     } catch (e) {
-      isLoading = false;
+      return false;
     } finally {
       isLoading = false;
     }

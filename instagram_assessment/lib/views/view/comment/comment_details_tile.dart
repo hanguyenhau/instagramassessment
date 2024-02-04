@@ -9,14 +9,18 @@ import 'package:instagram_assessment/states/user_infor/provider/current_user_det
 import 'package:instagram_assessment/states/user_infor/provider/user_detail_info_provider.dart';
 import 'package:instagram_assessment/views/constants/dimension.dart';
 import 'package:instagram_assessment/views/constants/text_messages.dart';
+import 'package:instagram_assessment/views/view/comment/provider/reply_provider.dart';
 import 'package:instagram_assessment/views/view/comment/style/comment_details_tile_styles.dart';
 
 class CommentDetailsTile extends ConsumerWidget {
   final Comment comment;
   final TextEditingController commentController;
 
-  const CommentDetailsTile(
-      {required this.commentController, super.key, required this.comment});
+  const CommentDetailsTile({
+    required this.commentController,
+    super.key,
+    required this.comment,
+  });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -63,7 +67,9 @@ class CommentDetailsTile extends ConsumerWidget {
             // replies comment
             GestureDetector(
               onTap: () {
-                commentController.text = '@${currentUser.displayName}';
+                commentController.text =
+                    '@${currentUser.displayName} ${commentController.text}';
+                ref.watch(replyProvider.notifier).setReply(true, comment);
               },
               child: Text(
                 TextMessage.reply,
@@ -90,10 +96,15 @@ class CommentDetailsTile extends ConsumerWidget {
                 : CommentDetailTileStyles.notHasLikeImage,
           ),
           //like quantity
-          Text(
-            comment.likes.length.toString(),
-            style: CommentDetailTileStyles.likeQuantity,
-          )
+          GestureDetector(
+            onTap: () {
+              ref.watch(replyProvider.notifier).setUnknown();
+            },
+            child: Text(
+              comment.likes.length.toString(),
+              style: CommentDetailTileStyles.likeQuantity,
+            ),
+          ),
         ],
       ),
     );
