@@ -1,4 +1,3 @@
-import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -12,9 +11,13 @@ import 'package:instagram_assessment/views/view/comment/extension/height_comment
 class CommentListByRequest extends ConsumerWidget {
   final PostId postId;
   final AsyncValue<Iterable<Comment>> comments;
+  final TextEditingController commentController;
 
   const CommentListByRequest(
-      {required this.comments, required this.postId, super.key});
+      {required this.commentController,
+      required this.comments,
+      required this.postId,
+      super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -40,6 +43,7 @@ class CommentListByRequest extends ConsumerWidget {
             child: ListView.builder(
               itemBuilder: (context, index) {
                 return CommentDetailsTile(
+                  commentController: commentController,
                   comment: comments.elementAt(index),
                 );
               },

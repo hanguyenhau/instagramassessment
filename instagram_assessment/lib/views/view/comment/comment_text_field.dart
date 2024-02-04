@@ -9,10 +9,10 @@ import 'package:instagram_assessment/views/constants/text_messages.dart';
 import 'package:instagram_assessment/views/view/comment/extension/dismiss_keyboard.dart';
 
 class CommentInputTextField extends ConsumerWidget {
-  final TextEditingController commentController;
   final bool hasText;
   final PostId postId;
-  
+  final TextEditingController commentController;
+
   const CommentInputTextField({
     required this.postId,
     required this.hasText,
@@ -23,9 +23,10 @@ class CommentInputTextField extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final user = ref.read(currentUserDetailProvider);
-    if (user == null) {
+    if (user == null ) {
       return const SizedBox();
     }
+
     return Container(
         color: Colors.white,
         padding:
@@ -57,7 +58,7 @@ class CommentInputTextField extends ConsumerWidget {
                         );
 
                 if (isSent) {
-                  commentController.clear();
+                  commentController.clear;
                   dismissKeyboard();
                 }
               }

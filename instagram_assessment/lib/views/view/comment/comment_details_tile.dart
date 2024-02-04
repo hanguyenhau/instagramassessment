@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:instagram_assessment/states/auth/provider/user_id_provider.dart';
 import 'package:instagram_assessment/states/comment/likes_comment/models/like_comment_request.dart';
 import 'package:instagram_assessment/states/comment/likes_comment/provider/has_like_comment_provider.dart';
 import 'package:instagram_assessment/states/comment/likes_comment/provider/like_dislike_comment_provider.dart';
 import 'package:instagram_assessment/states/comment/models/comment.dart';
+import 'package:instagram_assessment/states/user_infor/provider/current_user_detail_provider.dart';
 import 'package:instagram_assessment/states/user_infor/provider/user_detail_info_provider.dart';
 import 'package:instagram_assessment/views/constants/dimension.dart';
 import 'package:instagram_assessment/views/constants/text_messages.dart';
@@ -13,8 +13,10 @@ import 'package:instagram_assessment/views/view/comment/style/comment_details_ti
 
 class CommentDetailsTile extends ConsumerWidget {
   final Comment comment;
+  final TextEditingController commentController;
 
-  const CommentDetailsTile({super.key, required this.comment});
+  const CommentDetailsTile(
+      {required this.commentController, super.key, required this.comment});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -22,13 +24,13 @@ class CommentDetailsTile extends ConsumerWidget {
       userDetailInfoProvider(comment.userId),
     );
 
-    final currentUserId = ref.watch(userIdProvider);
+    final currentUser = ref.read(currentUserDetailProvider);
 
-    final hasLike = ref.watch(hasLikeCommentProvider(comment));
-
-    if (userInfo == null || currentUserId == null) {
+    if (userInfo == null || currentUser == null) {
       return const SizedBox();
     }
+
+    final hasLike = ref.watch(hasLikeCommentProvider(comment));
 
     return ListTile(
       contentPadding: CommentDetailTileStyles.contentPaddingUserInfo,
@@ -48,23 +50,28 @@ class CommentDetailsTile extends ConsumerWidget {
         ),
       ),
       subtitle: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          //comment content
-          Text(
-            comment.comment,
-            maxLines: Dimension.maxLines2,
-            style: CommentDetailTileStyles.textComment,
-          ),
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            //comment content
+            Text(
+              comment.comment,
+              maxLines: Dimension.maxLines2,
+              style: CommentDetailTileStyles.textComment,
+            ),
 
-          // replies comment
-          Text(
-            TextMessage.reply,
-            style: CommentDetailTileStyles.textReply,
-          ),
-        ],
-      ),
+            // replies comment
+            GestureDetector(
+              onTap: () {
+                commentController.text = '@${currentUser.displayName}';
+              },
+              child: Text(
+                TextMessage.reply,
+                style: CommentDetailTileStyles.textReply,
+              ),
+            )
+          ]),
+
       trailing: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -74,7 +81,7 @@ class CommentDetailsTile extends ConsumerWidget {
               ref.watch(likeDislikeCommentProvider(
                 LikeCommentRequest(
                   comment: comment,
-                  likedBy: currentUserId,
+                  likedBy: currentUser.userId,
                 ),
               ));
             },
