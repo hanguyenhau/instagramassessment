@@ -43,4 +43,6 @@ class CommentDetailTileStyles {
         color: Colors.black54,
         fontSize: Dimension.fontSize12,
       );
+
+      
 }

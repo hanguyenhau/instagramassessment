@@ -35,6 +35,7 @@ class TextMessage{
   static const commentWithName = 'Comment with name ';
 
   static const reply = 'Reply';
+  static const replyTo = 'Reply to';
 
  const TextMessage._();
 }

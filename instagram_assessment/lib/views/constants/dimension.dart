@@ -16,6 +16,7 @@ class Dimension {
   static const height30 = 30.0;
   static const height35 = 35.0;
   static const height40 = 40.0;
+  static const height45 = 45.0;
   static const height50 = 50.0;
   static const height60 = 60.0;
   static const height75 = 75.0;
@@ -23,6 +24,7 @@ class Dimension {
 
   //width
   static const width2dot2 = 2.2;
+  static const width2 = 2.0;
   static const width5 = 5.0;
   static const width7 = 7.0;
   static const width10 = 10.0;
@@ -33,17 +35,24 @@ class Dimension {
   static const width26 = 26.0;
   static const width23 = 23.0;
   static const width30 = 30.0;
+  static const width40 = 40.0;
+  static const width45 = 45.0;
   static const width50 = 50.0;
   static const width60 = 60.0;
   static const width70 = 70.0;
 
   //padding
+  static const padding5 = 5.0;
   static const padding16 = 16.0;
   static const padding10 = 10.0;
 
   //circular
   static const circular10 = 10.0;
+  static const circular20 = 20.0;
   static const circular100 = 100.0;
+
+  //thickness
+  static const thickness2 = 2.0;
 
   //border weight
   static const borderWeight1 = 1.0;
@@ -57,6 +66,7 @@ class Dimension {
   static const fontSize15 = 15.0;
 
   //max lines text
+  static const maxLines1 = 1;
   static const maxLines2 = 2;
   static const maxLines4 = 4;
 
