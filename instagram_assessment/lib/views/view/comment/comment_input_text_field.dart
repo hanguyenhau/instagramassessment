@@ -29,9 +29,12 @@ class CommentInputTextField extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final user = ref.read(currentUserDetailProvider);
-    if (user == null) {
+    final currentUser = ref.read(currentUserDetailProvider);
+    
+    if (user == null || currentUser == null) {
       return const SizedBox();
     }
+     
     final reply = ref.watch(replyProvider);
     log('reply here: ${reply.isReply}  comment: ${reply.comment?.comment}');
 
@@ -49,7 +52,7 @@ class CommentInputTextField extends ConsumerWidget {
               children: [
                 //Reply by
                 reply.isReply
-                    ? CommentnputTextStyles.replyByUser(commentController.text)
+                    ? CommentnputTextStyles.replyByUser(currentUser.displayName)
                     : const SizedBox(),
                 //divider
                 reply.isReply
