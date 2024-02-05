@@ -18,6 +18,5 @@ class CommentPayLoad extends MapView<String, dynamic> {
           FirebaseFieldName.postId: postId,
           FirebaseFieldName.userId: userId,
           FirebaseFieldName.likes: [],
-          FirebaseFieldName.responses: [],
         });
 }

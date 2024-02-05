@@ -7,7 +7,7 @@ import 'package:instagram_assessment/states/constants/firebase_field_name.dart';
 import 'package:instagram_assessment/states/post/constants/post_key.dart';
 
 @immutable
-class Response extends MapView<dynamic, dynamic> {
+class Response extends MapView<String, dynamic> {
   final String comment;
   final UserId userId;
   final DateTime createAt;

@@ -96,11 +96,10 @@ class CommentInputTextField extends ConsumerWidget {
                                             userId: user.userId,
                                             createAt: DateTime.now()),
                                         comment: reply.comment!));
-
                         if (isSent) {
-                          commentController.clear;
+                          commentController.clear();
                           dismissKeyboard();
-                          ref.watch(replyProvider.notifier).setUnknown();
+                          ref.read(replyProvider.notifier).setUnknown();
                         }
                       }
                     },

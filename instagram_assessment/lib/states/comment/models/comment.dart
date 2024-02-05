@@ -15,7 +15,6 @@ class Comment {
   final UserId userId;
   final DateTime createAt;
   final Iterable<LikedComment> likes;
-  final Iterable<Response> responses;
 
   Comment({required Map<dynamic, dynamic> json, required this.commentId})
       : comment = json[PostKey.comment],
@@ -23,8 +22,7 @@ class Comment {
         userId = json[PostKey.userId],
         createAt =
             (json[PostKey.createAt] as Timestamp?)?.toDate() ?? DateTime.now(),
-        likes = _parseLikedComments(json[PostKey.likes] as List<dynamic>),
-        responses = _parseResponse(json[PostKey.responses] as List<dynamic>);
+        likes = _parseLikedComments(json[PostKey.likes] as List<dynamic>);
 
   static Iterable<LikedComment> _parseLikedComments(List<dynamic>? likes) {
     if (likes == null) {
@@ -32,15 +30,6 @@ class Comment {
     }
     return likes.map((like) {
       return LikedComment.fromJson(json: like);
-    }).toList();
-  }
-
-  static Iterable<Response> _parseResponse(List<dynamic>? responses) {
-    if (responses == null) {
-      return [];
-    }
-    return responses.map((response) {
-      return Response.fromJson(json: response);
     }).toList();
   }
 }

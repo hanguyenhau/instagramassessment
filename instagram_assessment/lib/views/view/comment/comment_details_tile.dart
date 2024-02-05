@@ -55,8 +55,8 @@ class CommentDetailsTile extends ConsumerWidget {
         child: Image.network(
           userInfo.image,
           fit: BoxFit.cover,
-          height: Dimension.height50,
-          width: Dimension.width50,
+          height: Dimension.height40,
+          width: Dimension.height40,
         ),
       ),
       subtitle: Column(

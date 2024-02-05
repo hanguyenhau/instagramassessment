@@ -6,7 +6,7 @@ import 'package:instagram_assessment/states/auth/typedef/user_id.dart';
 import 'package:instagram_assessment/states/constants/firebase_field_name.dart';
 
 @immutable
-class LikedComment extends MapView<dynamic, dynamic> {
+class LikedComment extends MapView<String, dynamic> {
   final UserId userId;
   final DateTime createAt;
 

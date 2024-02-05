@@ -29,6 +29,7 @@ class SendCommentNotifier extends StateNotifier<IsLoading> {
           .collection(FirebaseCollectionName.comments)
           .add(payLoad);
 
+      isLoading = false;
       return true;
     } catch (_) {
       return false;
