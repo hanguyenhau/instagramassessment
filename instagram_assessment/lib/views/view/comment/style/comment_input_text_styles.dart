@@ -24,21 +24,19 @@ class CommentnputTextStyles {
   }
 
   static replyByUser(String userName) {
-    return Padding(
-      padding: const EdgeInsets.only(
-        left: Dimension.width10,
-        right: Dimension.width10,
-        top: Dimension.height10,
-      ),
-      child: Text(
-        '${TextMessage.replyTo} $userName',
-        style: TextStyle(
-          fontSize: Dimension.fontSize13,
-          color: AppColor.callToActionText,
-        ),
+    return Text(
+      '${TextMessage.replyTo} $userName',
+      style: TextStyle(
+        fontSize: Dimension.fontSize13,
+        color: AppColor.callToActionText,
       ),
     );
   }
+
+  static get iconCancel => Icon(
+        Icons.cancel,
+        color: AppColor.callToActionButton,
+      );
 
   static get divider => Divider(
         color: AppColor.callToActionButton,

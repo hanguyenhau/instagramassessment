@@ -103,14 +103,9 @@ class CommentDetailsTile extends ConsumerWidget {
                 : CommentDetailTileStyles.notHasLikeImage,
           ),
           //like quantity
-          GestureDetector(
-            onTap: () {
-              ref.watch(replyProvider.notifier).setUnknown();
-            },
-            child: Text(
-              comment.likes.length.toString(),
-              style: CommentDetailTileStyles.likeQuantity,
-            ),
+          Text(
+            comment.likes.length.toString(),
+            style: CommentDetailTileStyles.likeQuantity,
           ),
         ],
       ),

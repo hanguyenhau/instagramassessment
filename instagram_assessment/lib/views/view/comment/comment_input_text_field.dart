@@ -30,11 +30,11 @@ class CommentInputTextField extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final user = ref.read(currentUserDetailProvider);
     final currentUser = ref.read(currentUserDetailProvider);
-    
+
     if (user == null || currentUser == null) {
       return const SizedBox();
     }
-     
+
     final reply = ref.watch(replyProvider);
     log('reply here: ${reply.isReply}  comment: ${reply.comment?.comment}');
 
@@ -52,7 +52,17 @@ class CommentInputTextField extends ConsumerWidget {
               children: [
                 //Reply by
                 reply.isReply
-                    ? CommentnputTextStyles.replyByUser(currentUser.displayName)
+                    ? ListTile(
+                        title: CommentnputTextStyles.replyByUser(
+                          user.displayName,
+                        ),
+                        trailing: GestureDetector(
+                          onTap: () {
+                            ref.watch(replyProvider.notifier).setUnknown();
+                          },
+                          child: CommentnputTextStyles.iconCancel,
+                        ),
+                      )
                     : const SizedBox(),
                 //divider
                 reply.isReply
