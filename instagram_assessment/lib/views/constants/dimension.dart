@@ -35,6 +35,7 @@ class Dimension {
   static const width26 = 26.0;
   static const width23 = 23.0;
   static const width30 = 30.0;
+  static const width35 = 35.0;
   static const width40 = 40.0;
   static const width45 = 45.0;
   static const width50 = 50.0;

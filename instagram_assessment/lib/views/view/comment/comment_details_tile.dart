@@ -5,11 +5,14 @@ import 'package:instagram_assessment/states/comment/likes_comment/models/like_co
 import 'package:instagram_assessment/states/comment/likes_comment/provider/has_like_comment_provider.dart';
 import 'package:instagram_assessment/states/comment/likes_comment/provider/like_dislike_comment_provider.dart';
 import 'package:instagram_assessment/states/comment/models/comment.dart';
+import 'package:instagram_assessment/states/comment/responses/models/response.dart';
+import 'package:instagram_assessment/states/comment/responses/provider/all_response_provider.dart';
 import 'package:instagram_assessment/states/user_infor/provider/current_user_detail_provider.dart';
 import 'package:instagram_assessment/states/user_infor/provider/user_detail_info_provider.dart';
 import 'package:instagram_assessment/views/constants/dimension.dart';
 import 'package:instagram_assessment/views/constants/text_messages.dart';
 import 'package:instagram_assessment/states/comment/responses/provider/reply_provider.dart';
+import 'package:instagram_assessment/views/view/comment/reponse_details_tile.dart';
 import 'package:instagram_assessment/views/view/comment/style/comment_details_tile_styles.dart';
 
 class CommentDetailsTile extends ConsumerWidget {
@@ -42,73 +45,124 @@ class CommentDetailsTile extends ConsumerWidget {
     //watch the likes of comment
     final hasLike = ref.watch(hasLikeCommentProvider(comment));
 
-    return ListTile(
-      contentPadding: CommentDetailTileStyles.contentPaddingUserInfo,
-      // owner comment display name
-      title: Text(
-        userInfo.displayName,
-        style: CommentDetailTileStyles.textUserInfo,
-      ),
+    //get reponses from comment Id;
+    final reponses = ref.watch(allResponsesProvider(
+      comment.commentId,
+    ));
 
-      // owner comment image
-      leading: ClipOval(
-        child: Image.network(
-          userInfo.image,
-          fit: BoxFit.cover,
-          height: Dimension.height40,
-          width: Dimension.height40,
-        ),
-      ),
-      subtitle: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            //comment content
-            Text(
-              comment.comment,
-              maxLines: Dimension.maxLines2,
-              style: CommentDetailTileStyles.textComment,
+    return Flex(
+direction: Axis.vertical,
+      children: [
+        ListTile(
+          contentPadding: CommentDetailTileStyles.contentPaddingUserInfo,
+          // owner comment display name
+          title: Text(
+            userInfo.displayName,
+            style: CommentDetailTileStyles.textUserInfo,
+          ),
+
+          // owner comment image
+          leading: ClipOval(
+            child: Image.network(
+              userInfo.image,
+              fit: BoxFit.cover,
+              height: Dimension.height40,
+              width: Dimension.height40,
             ),
-
-            // replies comment
-            GestureDetector(
-              onTap: !isReply
-                  ? () {
-                      commentController.text = '@${currentUser.displayName} ';
-                      ref.read(replyProvider.notifier).setReply(true, comment);
-                    }
-                  : null,
-              child: Text(
-                TextMessage.reply,
-                style: CommentDetailTileStyles.textReply,
-              ),
-            )
-          ]),
-
-      trailing: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          //like comments
-          GestureDetector(
-            onTap: () {
-              ref.watch(likeDislikeCommentProvider(
-                LikeCommentRequest(
-                  comment: comment,
-                  likedBy: currentUser.userId,
+          ),
+          subtitle: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                //comment content
+                Text(
+                  comment.comment,
+                  maxLines: Dimension.maxLines2,
+                  style: CommentDetailTileStyles.textComment,
                 ),
-              ));
-            },
-            child: hasLike
-                ? CommentDetailTileStyles.hasLikeImage
-                : CommentDetailTileStyles.notHasLikeImage,
+
+                // replies comment
+                GestureDetector(
+                  onTap: !isReply
+                      ? () {
+                          commentController.text =
+                              '@${currentUser.displayName} ';
+                          ref
+                              .read(replyProvider.notifier)
+                              .setReply(true, comment);
+                        }
+                      : null,
+                  child: Text(
+                    TextMessage.reply,
+                    style: CommentDetailTileStyles.textReply,
+                  ),
+                ),
+              ]),
+
+          trailing: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              //like comments
+              GestureDetector(
+                onTap: () {
+                  ref.watch(likeDislikeCommentProvider(
+                    LikeCommentRequest(
+                      comment: comment,
+                      likedBy: currentUser.userId,
+                    ),
+                  ));
+                },
+                child: hasLike
+                    ? CommentDetailTileStyles.hasLikeImage
+                    : CommentDetailTileStyles.notHasLikeImage,
+              ),
+              //like quantity
+              Text(
+                comment.likes.length.toString(),
+                style: CommentDetailTileStyles.likeQuantity,
+              ),
+            ],
           ),
-          //like quantity
-          Text(
-            comment.likes.length.toString(),
-            style: CommentDetailTileStyles.likeQuantity,
-          ),
-        ],
-      ),
+        ),
+        ListView.builder(
+          shrinkWrap: true,
+          physics: const NeverScrollableScrollPhysics(),
+          itemBuilder: (context, index) {
+            return Container(
+              margin: const EdgeInsets.only(left: 55),
+              child: ResponseDetailTile(
+                commentController: commentController,
+                response: Response(
+                  comment: 'he',
+                  userId: 'wNDHlwbuShbaPO8WHObww5wNi3z1',
+                  createAt: DateTime.now(),
+                ),
+              ),
+            );
+          },
+          itemCount: 5,
+        )
+      ],
     );
   }
 }
+
+// reponses.when(
+//           data: (response) {
+//             if (response.isEmpty) {
+//               return const SizedBox();
+//             }
+//             return Expanded(
+//                 child: ListView.builder(
+//               itemBuilder: (context, index) {
+//                 return ResponseDetailTile(
+//                   commentController: commentController,
+//                   response: response.elementAt(index),
+//                 );
+//               },
+//               itemCount: response.length,
+//             ));
+//           },
+//           error: (error, stackTrace) => const Text('Error'),
+//           loading: () => const Text("Loading"),
+//         ),

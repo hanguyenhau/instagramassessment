@@ -40,6 +40,7 @@ class CommentListByRequest extends ConsumerWidget {
               );
             },
             child: ListView.builder(
+              shrinkWrap: true,
               itemBuilder: (context, index) {
                 return CommentDetailsTile(
                   commentController: commentController,

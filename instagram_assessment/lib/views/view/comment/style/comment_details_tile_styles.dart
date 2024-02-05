@@ -12,6 +12,11 @@ class CommentDetailTileStyles {
         right: Dimension.width15,
       );
 
+  static get contentPaddingResponse => const EdgeInsets.only(
+        left: Dimension.width15,
+        right: Dimension.width15,
+      );
+
   static get textUserInfo => const TextStyle(
         fontWeight: FontWeight.bold,
         fontSize: Dimension.fontSize13,
@@ -29,20 +34,18 @@ class CommentDetailTileStyles {
 
   static get hasLikeImage => Image.asset(
         AssetsPath.hasFavoritedButton,
-        width: Dimension.height26,
-        height: Dimension.width26,
+        width: Dimension.width15,
+        height: Dimension.height15,
       );
 
   static get notHasLikeImage => Image.asset(
         AssetsPath.favoriteButton,
-        width: Dimension.width26,
-        height: Dimension.height26,
+        width: Dimension.width15,
+        height: Dimension.height15,
       );
 
   static get likeQuantity => const TextStyle(
         color: Colors.black54,
         fontSize: Dimension.fontSize12,
       );
-
-      
 }
