@@ -2,17 +2,14 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:instagram_assessment/states/comment/provider/send_comment_provider.dart';
-import 'package:instagram_assessment/states/comment/responses/models/response.dart';
-import 'package:instagram_assessment/states/comment/responses/models/response_request.dart';
-import 'package:instagram_assessment/states/comment/responses/provider/send_reponse_provider.dart';
 import 'package:instagram_assessment/states/post/typedef/post_id.dart';
 import 'package:instagram_assessment/states/user_infor/provider/current_user_detail_provider.dart';
-import 'package:instagram_assessment/views/constants/app_colors.dart';
 import 'package:instagram_assessment/states/comment/responses/provider/reply_provider.dart';
-import 'package:instagram_assessment/views/view/comment/extension/dismiss_keyboard.dart';
+import 'package:instagram_assessment/views/view/comment/component/input_comment/cancel_reply_list_tile.dart';
+import 'package:instagram_assessment/views/view/comment/component/input_comment/send_comment_button.dart';
 import 'package:instagram_assessment/views/view/comment/component/input_comment/comment_text_field.dart';
 import 'package:instagram_assessment/views/view/comment/style/comment_input_text_styles.dart';
+
 class CommentInputTextField extends ConsumerWidget {
   final bool hasText;
   final PostId postId;
@@ -28,9 +25,8 @@ class CommentInputTextField extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final user = ref.read(currentUserDetailProvider);
-    final currentUser = ref.read(currentUserDetailProvider);
 
-    if (user == null || currentUser == null) {
+    if (user == null) {
       return const SizedBox();
     }
 
@@ -49,19 +45,9 @@ class CommentInputTextField extends ConsumerWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                //Reply by
+                //cancel icon if have reply
                 reply.isReply
-                    ? ListTile(
-                        title: CommentnputTextStyles.replyByUser(
-                          user.displayName,
-                        ),
-                        trailing: GestureDetector(
-                          onTap: () {
-                            ref.watch(replyProvider.notifier).setUnknown();
-                          },
-                          child: CommentnputTextStyles.iconCancel,
-                        ),
-                      )
+                    ? CancelReplyListTile(displayName: user.displayName)
                     : const SizedBox(),
                 //divider
                 reply.isReply
@@ -75,43 +61,14 @@ class CommentInputTextField extends ConsumerWidget {
                       userName: user.displayName,
                     ),
                   ),
-                  IconButton(
-                    onPressed: () async {
-                      if (hasText) {
-                        final isSent = !reply.isReply
-                            ? await ref
-                                .read(sendCommentProvider.notifier)
-                                .sendComment(
-                                  userId: user.userId,
-                                  postId: postId,
-                                  comment: commentController.text,
-                                )
-                            : await ref
-                                .read(sendResponseProvider.notifier)
-                                .sendResponse(
-                                    request: ResponseRequest(
-                                        response: Response(
-                                            comment: commentController.text,
-                                            userId: user.userId,
-                                            createAt: DateTime.now()),
-                                        comment: reply.comment!));
-                        if (isSent) {
-                          commentController.clear();
-                          dismissKeyboard();
-                          ref.read(replyProvider.notifier).setUnknown();
-                        }
-                      }
-                    },
-                    icon: const Icon(Icons.arrow_upward),
-                    color: hasText
-                        ? AppColor.whiteColor
-                        : AppColor.callToActionText,
-                    style: ButtonStyle(
-                        backgroundColor:
-                            MaterialStateProperty.resolveWith<Color>((states) =>
-                                hasText
-                                    ? AppColor.facebookColor
-                                    : AppColor.callToActionButton)),
+
+                  //Send Comment
+                  SendCommentButton(
+                    commentController: commentController,
+                    hasText: hasText,
+                    postId: postId,
+                    reply: reply,
+                    userId: user.userId,
                   ),
                 ])
               ],
