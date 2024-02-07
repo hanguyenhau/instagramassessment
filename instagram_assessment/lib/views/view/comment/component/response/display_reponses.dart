@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:instagram_assessment/states/comment/models/comment.dart';
-import 'package:instagram_assessment/states/comment/component/responses/models/response.dart';
 import 'package:instagram_assessment/states/comment/component/responses/provider/all_response_provider.dart';
 import 'package:instagram_assessment/views/view/comment/component/response/reponse_details_tile.dart';
 
@@ -33,14 +32,11 @@ class DisplayResponse extends ConsumerWidget {
           itemBuilder: (context, index) {
             return Container(
               margin: const EdgeInsets.only(left: 55),
-              child: ResponseDetailTile(
+              child: 
+              ResponseDetailTile(
                 comment: comment,
                 commentController: commentController,
-                response: Response(
-                  comment: response.elementAt(index).comment,
-                  userId: response.elementAt(index).userId,
-                  createAt: response.elementAt(index).createAt,
-                ),
+                response: response.elementAt(index),
               ),
             );
           },

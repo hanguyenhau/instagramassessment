@@ -75,7 +75,7 @@ class ResponseDetailTile extends ConsumerWidget {
               onTap: !isReply
                   ? () {
                       commentController.text = '@${currentUser.displayName} ';
-                      ref.read(replyProvider.notifier).setReply(true, comment);
+                      ref.read(replyProvider.notifier).setReply(true, comment.commentId);
                     }
                   : null,
               child: Text(

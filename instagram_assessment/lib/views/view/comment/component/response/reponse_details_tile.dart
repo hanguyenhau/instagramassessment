@@ -5,9 +5,9 @@ import 'package:instagram_assessment/states/comment/models/comment.dart';
 import 'package:instagram_assessment/states/comment/component/responses/models/response.dart';
 import 'package:instagram_assessment/states/user_infor/provider/current_user_detail_provider.dart';
 import 'package:instagram_assessment/states/user_infor/provider/user_detail_info_provider.dart';
-import 'package:instagram_assessment/views/constants/dimension.dart';
-import 'package:instagram_assessment/states/comment/component/responses/provider/reply_provider.dart';
-import 'package:instagram_assessment/views/constants/text_messages.dart';
+import 'package:instagram_assessment/views/view/comment/component/response/response_tile/has_like_and_quantity_response.dart';
+import 'package:instagram_assessment/views/view/comment/component/response/response_tile/subtile_and_reply_response.dart';
+import 'package:instagram_assessment/views/view/comment/component/response/styles/response_tile_style.dart';
 import 'package:instagram_assessment/views/view/comment/style/comment_details_tile_styles.dart';
 
 class ResponseDetailTile extends ConsumerWidget {
@@ -36,79 +36,24 @@ class ResponseDetailTile extends ConsumerWidget {
       return const SizedBox();
     }
 
-    //watch the isReply for setting controller
-    final isReply = ref.watch(replyProvider).isReply;
-
-    //watch the likes of comment
-    // final hasLike = ref.watch(hasLikeCommentProvider(comment));
-
     return ListTile(
-      contentPadding: CommentDetailTileStyles.contentPaddingResponse,
-      // owner comment display name
-      title: Text(
-        userInfo.displayName,
-        style: CommentDetailTileStyles.textUserInfo,
-      ),
+        contentPadding: CommentDetailTileStyles.contentPaddingResponse,
+        // owner comment display name
+        title: const ResponseTileStyle().responseUserName(userInfo.displayName),
 
-      // owner comment image
-      leading: ClipOval(
-        child: Image.network(
-          userInfo.image,
-          fit: BoxFit.cover,
-          height: Dimension.height35,
-          width: Dimension.width35,
+        // owner comment image
+        leading: const ResponseTileStyle().responseUserImage(userInfo.image),
+        subtitle: SubtileAndReplyResponse(
+          response: response,
+          commentController: commentController,
+          comment: comment,
+          currentUserName: currentUser.displayName,
         ),
-      ),
-      subtitle: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            //comment content
-            Text(
-              response.comment,
-              maxLines: Dimension.maxLines2,
-              style: CommentDetailTileStyles.textComment,
-            ),
 
-            // replies comment
-            GestureDetector(
-              onTap: !isReply
-                  ? () {
-                      commentController.text = '@${currentUser.displayName} ';
-                      ref.read(replyProvider.notifier).setReply(true, comment);
-                    }
-                  : null,
-              child: Text(
-                TextMessage.reply,
-                style: CommentDetailTileStyles.textReply,
-              ),
-            )
-          ]),
-
-      trailing: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          //like comments
-          GestureDetector(
-            onTap: () {
-              // ref.watch(likeDislikeCommentProvider(
-              //   LikeCommentRequest(
-              //     comment: comment,
-              //     likedBy: currentUser.userId,
-              //   ),
-              // ));
-            },
-            child: false
-                ? CommentDetailTileStyles.hasLikeImage
-                : CommentDetailTileStyles.notHasLikeImage,
-          ),
-          //like quantity
-          Text(
-            '1',
-            style: CommentDetailTileStyles.likeQuantity,
-          ),
-        ],
-      ),
-    );
+        trailing: HasLikeAndQuantityResponse(
+          commentId: comment.commentId,
+          response: response,
+          userId: userInfo.userId,
+        ));
   }
 }

@@ -31,7 +31,7 @@ class CommentInputTextField extends ConsumerWidget {
     }
 
     final reply = ref.watch(replyProvider);
-    log('reply here: ${reply.isReply}  comment: ${reply.comment?.comment}');
+    log('reply here: ${reply.isReply}');
 
     return Container(
       color: Colors.white,

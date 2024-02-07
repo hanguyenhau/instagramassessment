@@ -1,57 +1,52 @@
-// import 'package:cloud_firestore/cloud_firestore.dart';
-// import 'package:hooks_riverpod/hooks_riverpod.dart';
-// import 'package:instagram_assessment/states/comment/component/likes_comment/models/like_comment_request.dart';
-// import 'package:instagram_assessment/states/comment/component/likes_comment/models/liked_comment.dart';
-// import 'package:instagram_assessment/states/comment/component/likes_response/models/like_response_request.dart';
-// import 'package:instagram_assessment/states/constants/firebase_collection_name.dart';
-// import 'package:instagram_assessment/states/constants/firebase_field_name.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:instagram_assessment/states/comment/component/likes_response/models/like_response.dart';
+import 'package:instagram_assessment/states/comment/component/likes_response/models/like_response_request.dart';
+import 'package:instagram_assessment/states/constants/firebase_collection_name.dart';
+import 'package:instagram_assessment/states/constants/firebase_field_name.dart';
 
-// final likeDislikeCommentProvider = FutureProvider.family
-//     .autoDispose<bool, LikeResponseRequest>(
-//         (ref, LikeResponseRequest request) async {
-//   try {
-//     final query = await FirebaseFirestore.instance
-//     .collection(FirebaseCollectionName.comments)
-//         .doc(request.commentId)
-//         .collection(FirebaseFieldName.responses).
-//         doc()
+final likeDislikeResponseProvider = FutureProvider.family
+    .autoDispose<bool, LikeResponseRequest>(
+        (ref, LikeResponseRequest request) async {
+  try {
+    final query = await FirebaseFirestore.instance
+        .collection(FirebaseCollectionName.comments)
+        .doc(request.commentId)
+        .collection(FirebaseFieldName.responses)
+        .doc(request.response.responseId)
+        .get();
 
+    if (!query.exists) {
+      return false;
+    }
 
-//         .collection(FirebaseCollectionName.comments)
-//         .doc(request.comment.commentId)
-//         .get();
+    DocumentReference commentReference = query.reference;
 
-//     if (!query.exists) {
-//       return false;
-//     }
+    final likes = List.from(request.response.likes!);
 
-//     DocumentReference commentReference = query.reference;
+    //if list likes exist
+    final hasLike = likes.any((element) => element.userId == request.likedBy);
 
-//     final likes = List.from(request.comment.likes);
+    if (hasLike) {
+      //if exist then remove
+      likes.removeWhere((element) => element.userId == request.likedBy);
+    } else {
+      //if not exist add to list
+      likes.add(
+        LikeResponse(
+          userId: request.likedBy,
+          createAt: DateTime.now(),
+        ),
+      );
+    }
 
-//     //if list likes exist
-//     final hasLike = likes.any((element) => element.userId == request.likedBy);
-
-//     if (hasLike) {
-//       //if exist then remove
-//       likes.removeWhere((element) => element.userId == request.likedBy);
-//     } else {
-//       //if not exist add to list
-//       likes.add(
-//         LikedComment(
-//           userId: request.likedBy,
-//           createAt: DateTime.now(),
-//         ),
-//       );
-//     }
-
-//     //update all likes
-//     await commentReference.update({
-//       FirebaseFieldName.likes: likes,
-//       // You can add more fields to update here if needed
-//     });
-//     return true;
-//   } catch (e) {
-//     return false;
-//   }
-// });
+    //update all likes
+    await commentReference.update({
+      FirebaseFieldName.likes: likes,
+      // You can add more fields to update here if needed
+    });
+    return true;
+  } catch (e) {
+    return false;
+  }
+});

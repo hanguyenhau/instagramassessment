@@ -1,7 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:instagram_assessment/states/auth/typedef/user_id.dart';
 import 'package:instagram_assessment/states/comment/component/responses/models/response_payload.dart';
-import 'package:instagram_assessment/states/comment/component/responses/models/response_request.dart';
+import 'package:instagram_assessment/states/comment/typedef/comment_id.dart';
 import 'package:instagram_assessment/states/constants/firebase_collection_name.dart';
 import 'package:instagram_assessment/states/constants/firebase_field_name.dart';
 import 'package:instagram_assessment/states/upload_image/type_def/is_loading.dart';
@@ -12,19 +13,19 @@ class SendResponseNotifier extends StateNotifier<IsLoading> {
   set isLoading(bool value) => state = value;
 
   Future<bool> sendResponse({
-    required ResponseRequest request,
+    required String response,
+    required UserId userId,
+    required CommentId commentId,
   }) async {
     isLoading = true;
 
     try {
       await FirebaseFirestore.instance
           .collection(FirebaseCollectionName.comments)
-          .doc(request.comment.commentId)
+          .doc(commentId)
           .collection(FirebaseFieldName.responses)
           .add(
-            ResponsePayLoad(
-                comment: request.response.comment,
-                userId: request.response.userId),
+            ResponsePayLoad(comment: response, userId: userId),
           );
 
       isLoading = false;
