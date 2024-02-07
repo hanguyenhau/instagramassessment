@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:instagram_assessment/states/post/typedef/post_id.dart';
 import 'package:instagram_assessment/states/user_infor/provider/current_user_detail_provider.dart';
-import 'package:instagram_assessment/states/comment/responses/provider/reply_provider.dart';
+import 'package:instagram_assessment/states/comment/component/responses/provider/reply_provider.dart';
 import 'package:instagram_assessment/views/view/comment/component/input_comment/cancel_reply_list_tile.dart';
 import 'package:instagram_assessment/views/view/comment/component/input_comment/send_comment_button.dart';
 import 'package:instagram_assessment/views/view/comment/component/input_comment/comment_text_field.dart';

@@ -1,8 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 import 'package:instagram_assessment/states/auth/typedef/user_id.dart';
-import 'package:instagram_assessment/states/comment/likes_comment/models/liked_comment.dart';
-import 'package:instagram_assessment/states/comment/responses/models/response.dart';
+import 'package:instagram_assessment/states/comment/component/likes_comment/models/liked_comment.dart';
 import 'package:instagram_assessment/states/comment/typedef/comment_id.dart';
 import 'package:instagram_assessment/states/post/constants/post_key.dart';
 import 'package:instagram_assessment/states/post/typedef/post_id.dart';
@@ -16,7 +15,7 @@ class Comment {
   final DateTime createAt;
   final Iterable<LikedComment> likes;
 
-  Comment({required Map<dynamic, dynamic> json, required this.commentId})
+  Comment.fromJson({required Map<dynamic, dynamic> json, required this.commentId})
       : comment = json[PostKey.comment],
         postId = json[PostKey.postId],
         userId = json[PostKey.userId],

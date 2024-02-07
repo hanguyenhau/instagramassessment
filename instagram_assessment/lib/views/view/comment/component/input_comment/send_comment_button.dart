@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:instagram_assessment/states/auth/typedef/user_id.dart';
+import 'package:instagram_assessment/states/comment/component/responses/models/response_payload.dart';
 import 'package:instagram_assessment/states/comment/provider/send_comment_provider.dart';
-import 'package:instagram_assessment/states/comment/responses/models/reply_request.dart';
-import 'package:instagram_assessment/states/comment/responses/models/response.dart';
-import 'package:instagram_assessment/states/comment/responses/models/response_request.dart';
-import 'package:instagram_assessment/states/comment/responses/provider/reply_provider.dart';
-import 'package:instagram_assessment/states/comment/responses/provider/send_reponse_provider.dart';
+import 'package:instagram_assessment/states/comment/component/responses/models/reply_request.dart';
+import 'package:instagram_assessment/states/comment/component/responses/models/response.dart';
+import 'package:instagram_assessment/states/comment/component/responses/models/response_request.dart';
+import 'package:instagram_assessment/states/comment/component/responses/provider/reply_provider.dart';
+import 'package:instagram_assessment/states/comment/component/responses/provider/send_reponse_provider.dart';
 import 'package:instagram_assessment/states/post/typedef/post_id.dart';
 import 'package:instagram_assessment/views/constants/app_colors.dart';
 import 'package:instagram_assessment/views/view/comment/extension/dismiss_keyboard.dart';
@@ -17,7 +18,7 @@ class SendCommentButton extends ConsumerWidget {
   final TextEditingController commentController;
   final PostId postId;
   final UserId userId;
-  
+
   const SendCommentButton(
       {required this.hasText,
       required this.reply,
@@ -40,9 +41,10 @@ class SendCommentButton extends ConsumerWidget {
               : await ref.read(sendResponseProvider.notifier).sendResponse(
                   request: ResponseRequest(
                       response: Response(
-                          comment: commentController.text,
-                          userId: userId,
-                          createAt: DateTime.now()),
+                        comment: commentController.text,
+                        userId: userId,
+                        createAt: DateTime.now(),
+                      ),
                       comment: reply.comment!));
           if (isSent) {
             commentController.clear();

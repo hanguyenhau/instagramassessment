@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:instagram_assessment/states/comment/likes_comment/models/like_comment_request.dart';
-import 'package:instagram_assessment/states/comment/likes_comment/models/liked_comment.dart';
+import 'package:instagram_assessment/states/comment/component/likes_comment/models/like_comment_request.dart';
+import 'package:instagram_assessment/states/comment/component/likes_comment/models/liked_comment.dart';
 import 'package:instagram_assessment/states/constants/firebase_collection_name.dart';
 import 'package:instagram_assessment/states/constants/firebase_field_name.dart';
 

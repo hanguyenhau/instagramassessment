@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:instagram_assessment/states/comment/responses/provider/reply_provider.dart';
+import 'package:instagram_assessment/states/comment/component/responses/provider/reply_provider.dart';
 import 'package:instagram_assessment/views/view/comment/style/comment_input_text_styles.dart';
 
 class CancelReplyListTile extends ConsumerWidget {

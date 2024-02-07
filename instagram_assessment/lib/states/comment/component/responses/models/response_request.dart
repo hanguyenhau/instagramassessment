@@ -1,6 +1,6 @@
 import 'package:flutter/foundation.dart';
+import 'package:instagram_assessment/states/comment/component/responses/models/response.dart';
 import 'package:instagram_assessment/states/comment/models/comment.dart';
-import 'package:instagram_assessment/states/comment/responses/models/response.dart';
 
 @immutable
 class ResponseRequest {

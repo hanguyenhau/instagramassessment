@@ -19,7 +19,7 @@ final specificCommentProvider =
         .listen((snapshot) {
       final doc = snapshot.docs.first;
       final json = doc.data();
-      final comment = Comment(
+      final comment = Comment.fromJson(
         commentId: doc.id,
         json: json,
       );

@@ -20,7 +20,7 @@ final allCommentsPostProvider = StreamProvider.family
       .listen((snapshot) {
     final document = snapshot.docs;
     final comments = document.map(
-      (document) => Comment(
+      (document) => Comment.fromJson(
         json: document.data(),
         commentId: document.id,
       ),

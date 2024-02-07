@@ -5,7 +5,6 @@ import 'package:instagram_assessment/states/comment/models/comment_post_request.
 import 'package:instagram_assessment/states/comment/provider/all_comments_post_provider.dart';
 import 'package:instagram_assessment/states/post/typedef/post_id.dart';
 import 'package:instagram_assessment/views/view/comment/component/comment_tile/comment_list_tile.dart';
-import 'package:instagram_assessment/views/view/comment/extension/height_comment_dialog.dart';
 
 class CommentListByRequest extends ConsumerWidget {
   final PostId postId;
@@ -26,8 +25,7 @@ class CommentListByRequest extends ConsumerWidget {
           return const SizedBox();
         }
         return SizedBox(
-          height: MediaQuery.of(context).size.height *
-              comments.length.getHeightCommentDialog(),
+          height: MediaQuery.of(context).size.height * 0.4,
           child: RefreshIndicator(
             onRefresh: () {
               ref.refresh(
