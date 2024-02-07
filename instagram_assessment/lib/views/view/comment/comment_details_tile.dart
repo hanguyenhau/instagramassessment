@@ -12,7 +12,7 @@ import 'package:instagram_assessment/states/user_infor/provider/user_detail_info
 import 'package:instagram_assessment/views/constants/dimension.dart';
 import 'package:instagram_assessment/views/constants/text_messages.dart';
 import 'package:instagram_assessment/states/comment/responses/provider/reply_provider.dart';
-import 'package:instagram_assessment/views/view/comment/reponse_details_tile.dart';
+import 'package:instagram_assessment/views/view/comment/response/reponse_details_tile.dart';
 import 'package:instagram_assessment/views/view/comment/style/comment_details_tile_styles.dart';
 
 class CommentDetailsTile extends ConsumerWidget {
@@ -124,45 +124,38 @@ direction: Axis.vertical,
             ],
           ),
         ),
-        ListView.builder(
+        reponses.when(
+          data: (response) {
+            if (response.isEmpty) {
+              return const SizedBox();
+            }
+            return ListView.builder(
           shrinkWrap: true,
           physics: const NeverScrollableScrollPhysics(),
           itemBuilder: (context, index) {
             return Container(
               margin: const EdgeInsets.only(left: 55),
               child: ResponseDetailTile(
+                comment: comment,
                 commentController: commentController,
                 response: Response(
-                  comment: 'he',
-                  userId: 'wNDHlwbuShbaPO8WHObww5wNi3z1',
-                  createAt: DateTime.now(),
+                  comment: response.elementAt(index).comment,
+                  userId: response.elementAt(index).userId,
+                  createAt: response.elementAt(index).createAt,
                 ),
               ),
             );
           },
-          itemCount: 5,
-        )
+          itemCount: response.length,
+        );
+          },
+          error: (error, stackTrace) => const Text('Error'),
+          loading: () => const Text("Loading"),
+        ),
+        
       ],
     );
   }
 }
 
-// reponses.when(
-//           data: (response) {
-//             if (response.isEmpty) {
-//               return const SizedBox();
-//             }
-//             return Expanded(
-//                 child: ListView.builder(
-//               itemBuilder: (context, index) {
-//                 return ResponseDetailTile(
-//                   commentController: commentController,
-//                   response: response.elementAt(index),
-//                 );
-//               },
-//               itemCount: response.length,
-//             ));
-//           },
-//           error: (error, stackTrace) => const Text('Error'),
-//           loading: () => const Text("Loading"),
-//         ),
+

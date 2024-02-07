@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:instagram_assessment/states/comment/likes_comment/models/like_comment_request.dart';
-import 'package:instagram_assessment/states/comment/likes_comment/provider/has_like_comment_provider.dart';
-import 'package:instagram_assessment/states/comment/likes_comment/provider/like_dislike_comment_provider.dart';
 import 'package:instagram_assessment/states/comment/models/comment.dart';
 import 'package:instagram_assessment/states/comment/responses/models/response.dart';
 import 'package:instagram_assessment/states/user_infor/provider/current_user_detail_provider.dart';
@@ -14,10 +11,12 @@ import 'package:instagram_assessment/views/constants/text_messages.dart';
 import 'package:instagram_assessment/views/view/comment/style/comment_details_tile_styles.dart';
 
 class ResponseDetailTile extends ConsumerWidget {
+  final Comment comment;
   final Response response;
   final TextEditingController commentController;
 
   const ResponseDetailTile({
+    required this.comment,
     super.key,
     required this.commentController,
     required this.response,
@@ -73,13 +72,12 @@ class ResponseDetailTile extends ConsumerWidget {
 
             // replies comment
             GestureDetector(
-              onTap: () {},
-              // !isReply
-              //     ? () {
-              //         commentController.text = '@${currentUser.displayName} ';
-              //         ref.read(replyProvider.notifier).setReply(true, comment);
-              //       }
-              //     : null,
+              onTap: !isReply
+                  ? () {
+                      commentController.text = '@${currentUser.displayName} ';
+                      ref.read(replyProvider.notifier).setReply(true, comment);
+                    }
+                  : null,
               child: Text(
                 TextMessage.reply,
                 style: CommentDetailTileStyles.textReply,
