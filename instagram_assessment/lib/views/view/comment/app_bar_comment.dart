@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:instagram_assessment/views/constants/dimension.dart';
+import 'package:instagram_assessment/views/constants/text_messages.dart';
 import 'package:instagram_assessment/views/view/login/horizontal_divider_view.dart';
 
 class AppBarComment extends StatelessWidget {
@@ -9,11 +11,11 @@ class AppBarComment extends StatelessWidget {
     return const ListTile(
         title: Center(
           child: Padding(
-            padding: EdgeInsets.only(top: 10),
+            padding: EdgeInsets.only(top: Dimension.height10),
             child: Text(
-              'Comments',
+              TextMessage.comments,
               style: TextStyle(
-                fontSize: 15.0,
+                fontSize: Dimension.fontSize15,
                 color: Colors.black,
                 fontWeight: FontWeight.bold,
               ),

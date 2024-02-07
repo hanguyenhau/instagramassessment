@@ -4,7 +4,7 @@ import 'package:instagram_assessment/states/comment/models/comment.dart';
 import 'package:instagram_assessment/states/comment/models/comment_post_request.dart';
 import 'package:instagram_assessment/states/comment/provider/all_comments_post_provider.dart';
 import 'package:instagram_assessment/states/post/typedef/post_id.dart';
-import 'package:instagram_assessment/views/view/comment/comment_details_tile.dart';
+import 'package:instagram_assessment/views/view/comment/component/comment_tile/comment_list_tile.dart';
 import 'package:instagram_assessment/views/view/comment/extension/height_comment_dialog.dart';
 
 class CommentListByRequest extends ConsumerWidget {
@@ -42,7 +42,7 @@ class CommentListByRequest extends ConsumerWidget {
             child: ListView.builder(
               shrinkWrap: true,
               itemBuilder: (context, index) {
-                return CommentDetailsTile(
+                return CommentListTile(
                   commentController: commentController,
                   comment: comments.elementAt(index),
                 );

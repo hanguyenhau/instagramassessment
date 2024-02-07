@@ -21,6 +21,7 @@ class CommentsDialog extends HookConsumerWidget {
 
     final request = useState(CommentPostRequest(postId: postId));
 
+    //Get all comment from post
     final comments = ref.watch(
       allCommentsPostProvider(
         request.value,
@@ -45,7 +46,7 @@ class CommentsDialog extends HookConsumerWidget {
           //comment app bar
           const AppBarComment(),
 
-          //comment list
+          //comment list by request
           CommentListByRequest(
             comments: comments,
             postId: postId,

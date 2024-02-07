@@ -11,9 +11,8 @@ import 'package:instagram_assessment/states/user_infor/provider/current_user_det
 import 'package:instagram_assessment/views/constants/app_colors.dart';
 import 'package:instagram_assessment/states/comment/responses/provider/reply_provider.dart';
 import 'package:instagram_assessment/views/view/comment/extension/dismiss_keyboard.dart';
+import 'package:instagram_assessment/views/view/comment/component/input_comment/comment_text_field.dart';
 import 'package:instagram_assessment/views/view/comment/style/comment_input_text_styles.dart';
-import 'package:instagram_assessment/views/view/comment/widget/comment_text_field.dart';
-
 class CommentInputTextField extends ConsumerWidget {
   final bool hasText;
   final PostId postId;
