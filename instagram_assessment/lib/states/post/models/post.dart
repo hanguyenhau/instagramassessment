@@ -25,7 +25,7 @@ class Post {
   })  : userId = json[PostKey.userId],
         message = json[PostKey.message],
         createAt =
-            (json[PostKey.createAt] as Timestamp?)?.toDate() ?? DateTime.now(),
+            (json[PostKey.createAt] as Timestamp?)?.toDate() ?? DateTime.timestamp(),
         thumbnailUrl = json[PostKey.thumbnailUrl],
         fileUrl = json[PostKey.fileUrl],
         fileType = FileType.values.firstWhere(

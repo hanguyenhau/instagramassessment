@@ -1,15 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:instagram_assessment/states/comment/provider/all_comments_post_provider.dart';
 import 'package:instagram_assessment/states/post/typedef/post_id.dart';
 import 'package:instagram_assessment/views/constants/app_colors.dart';
 import 'package:instagram_assessment/views/constants/dimension.dart';
 import 'package:instagram_assessment/views/view/comment/comments_dialog.dart';
 
-class ViewMorePostComment extends StatelessWidget {
+class ViewMorePostComment extends ConsumerWidget {
   final PostId postId;
   const ViewMorePostComment({super.key, required this.postId});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    // final comments = ref.watch(
+    //   allCommentsPostProvider(
+        
+    //   ),
+    // );
     return Padding(
         padding: const EdgeInsets.only(
           top: Dimension.height7,

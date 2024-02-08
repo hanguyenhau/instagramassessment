@@ -1,7 +1,10 @@
 import 'dart:async';
+import 'dart:developer';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:instagram_assessment/states/comment/component/responses/extension/response_sorting_by_request.dart';
 import 'package:instagram_assessment/states/comment/component/responses/models/response.dart';
+import 'package:instagram_assessment/states/comment/models/enum/date_sorting.dart';
 import 'package:instagram_assessment/states/comment/typedef/comment_id.dart';
 import 'package:instagram_assessment/states/constants/firebase_collection_name.dart';
 import 'package:instagram_assessment/states/constants/firebase_field_name.dart';
@@ -11,24 +14,26 @@ final allResponsesProvider =
   (ref, CommentId commentId) {
     final controller = StreamController<Iterable<Response>>();
 
+    log("response get");
+
     final sub = FirebaseFirestore.instance
         .collection(FirebaseCollectionName.comments)
         .doc(commentId)
         .collection(FirebaseFieldName.responses)
-        // .orderBy(
-        //   FirebaseFieldName.createAt,
-        //   descending: true
-        // )
+        .orderBy(FirebaseFieldName.createAt, descending: true)
         .snapshots()
         .listen((snapshot) {
-      final response = snapshot.docs.map(
+      final responses = snapshot.docs.map(
         (doc) => Response.fromJson(
           json: doc.data(),
           responseId: doc.id,
         ),
       );
 
-      controller.sink.add(response);
+      final result =
+          responses.applySortingResponseFrom(DateSorting.newestOnTop);
+
+      controller.sink.add(result);
     });
 
     ref.onDispose(() {

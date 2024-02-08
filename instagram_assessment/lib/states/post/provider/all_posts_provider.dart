@@ -1,7 +1,10 @@
 import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:instagram_assessment/states/comment/models/enum/date_sorting.dart';
 import 'package:instagram_assessment/states/constants/firebase_collection_name.dart';
+import 'package:instagram_assessment/states/constants/firebase_field_name.dart';
+import 'package:instagram_assessment/states/post/extension/post_sorting_by_request.dart';
 import 'package:instagram_assessment/states/post/models/post.dart';
 
 final allPostsProvider = StreamProvider.autoDispose<Iterable<Post>>(
@@ -10,10 +13,10 @@ final allPostsProvider = StreamProvider.autoDispose<Iterable<Post>>(
 
     final sub = FirebaseFirestore.instance
         .collection(FirebaseCollectionName.posts)
-        // .orderBy(
-        //   FirebaseFieldName.createAt,
-        //   descending: true
-        // )
+        .orderBy(
+          FirebaseFieldName.createAt,
+          descending: true
+        )
         .snapshots()
         .listen((snapshot) {
       final posts = snapshot.docs.map(
@@ -22,8 +25,8 @@ final allPostsProvider = StreamProvider.autoDispose<Iterable<Post>>(
           json: doc.data(),
         ),
       );
-
-      controller.sink.add(posts);
+      final result = posts.applySortingPostFrom(DateSorting.newestOnTop);
+      controller.sink.add(result);
     });
 
     ref.onDispose(() {

@@ -15,12 +15,13 @@ class Comment {
   final DateTime createAt;
   final Iterable<LikedComment> likes;
 
-  Comment.fromJson({required Map<dynamic, dynamic> json, required this.commentId})
-      : comment = json[PostKey.comment],
+  Comment.fromJson({
+    required Map<dynamic, dynamic> json,
+    required this.commentId,
+  })  : comment = json[PostKey.comment],
         postId = json[PostKey.postId],
         userId = json[PostKey.userId],
-        createAt =
-            (json[PostKey.createAt] as Timestamp?)?.toDate() ?? DateTime.now(),
+        createAt = (json[PostKey.createAt] as Timestamp?)?.toDate()?? DateTime.timestamp(),
         likes = _parseLikedComments(json[PostKey.likes] as List<dynamic>);
 
   static Iterable<LikedComment> _parseLikedComments(List<dynamic>? likes) {

@@ -1,4 +1,3 @@
-import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -11,8 +10,6 @@ class AllPostRefreshView extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final posts = ref.watch(allPostsProvider);
-
-    log('Posts: ${posts.value?.first.createAt}');
 
     return RefreshIndicator(
       onRefresh: () {
@@ -36,7 +33,7 @@ class AllPostRefreshView extends ConsumerWidget {
           );
         },
         error: (error, stackTrace) => const Text('data'),
-        loading: () => const Text('data'),
+        loading: () => const Text('data',),
       ),
     );
   }

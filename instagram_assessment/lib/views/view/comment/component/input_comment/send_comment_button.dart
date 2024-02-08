@@ -30,12 +30,12 @@ class SendCommentButton extends ConsumerWidget {
       onPressed: () async {
         if (hasText) {
           final isSent = !reply.isReply
-              ? await ref.read(sendCommentProvider.notifier).sendComment(
+              ? await ref.watch(sendCommentProvider.notifier).sendComment(
                     userId: userId,
                     postId: postId,
                     comment: commentController.text,
                   )
-              : await ref.read(sendResponseProvider.notifier).sendResponse(
+              : await ref.watch(sendResponseProvider.notifier).sendResponse(
                     commentId: reply.commentId!,
                     response: commentController.text,
                     userId: userId,
