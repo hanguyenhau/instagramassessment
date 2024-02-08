@@ -22,6 +22,9 @@ class TextMessage{
   static const followers = 'Followers';
   static const following = 'Following';
 
+  static const noPostsAvailable =
+      "No posts";
+
   static const createNewPost = 'Create New Post';
   static const writeCaption = 'Write captions...';
   static const tagOthers = 'Tag others';
@@ -34,6 +37,8 @@ class TextMessage{
 
   static const comments = 'Comments';
   static const commentWithName = 'Comment with name ';
+  static const noCommentAvailable =
+      "No comments";
 
   static const reply = 'Reply';
   static const replyTo = 'Reply to';

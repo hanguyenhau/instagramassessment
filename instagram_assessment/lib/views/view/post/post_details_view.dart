@@ -19,6 +19,7 @@ class PostDetailsView extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final userInfo = ref.watch(userProvider(post.userId));
+
     return userInfo.when(
       data: (userInfo) {
         return Column(
@@ -48,7 +49,10 @@ class PostDetailsView extends ConsumerWidget {
             ),
 
             //last comment of post
-            const LastPostComment(),
+            LastPostComment(
+              postId: post.postId,
+              userName: userInfo.displayName,
+            ),
 
             //view more comment action
             ViewMorePostComment(

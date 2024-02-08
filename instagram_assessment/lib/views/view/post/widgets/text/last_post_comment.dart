@@ -1,23 +1,39 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:instagram_assessment/states/comment/provider/last_comment_post_provider.dart';
+import 'package:instagram_assessment/states/post/typedef/post_id.dart';
 import 'package:instagram_assessment/views/constants/dimension.dart';
-import 'package:instagram_assessment/views/view/post/read_more_text_view.dart';
+import 'package:instagram_assessment/views/view/post/widgets/text/read_more_text_view.dart';
 
-class LastPostComment extends StatelessWidget {
-  const LastPostComment({super.key});
+class LastPostComment extends ConsumerWidget {
+  final PostId postId;
+  final String userName;
+
+  const LastPostComment(
+      {required this.userName, super.key, required this.postId});
 
   @override
-  Widget build(BuildContext context) {
-    return const Padding(
-      padding: EdgeInsets.only(
-        top: Dimension.height5,
-        left: Dimension.width20,
-        right: Dimension.width20,
-      ),
-      child: ReadMoreTextView(
-        lastUserName: 'Hau Ha',
-        lastComment:
-            'Start your countdown to the glorious arrival of Marvel Studios Start your countdown to the glorious arrival of Marvel Studios',
-      ),
-    );
+  Widget build(BuildContext context, WidgetRef ref) {
+    final lastComment = ref.watch(lastCommentPostProvider(postId));
+
+    return lastComment.when(
+        data: (comment) {
+          if (comment == null) {
+            return const SizedBox();
+          }
+          return Padding(
+            padding: const EdgeInsets.only(
+              top: Dimension.height5,
+              left: Dimension.width20,
+              right: Dimension.width20,
+            ),
+            child: ReadMoreTextView(
+              lastUserName: userName,
+              lastComment: comment.comment,
+            ),
+          );
+        },
+        error: (error, stackTrace) => const SizedBox(),
+        loading: () => const SizedBox());
   }
 }

@@ -51,6 +51,7 @@ dependencies:
   flutter_hooks: ^0.20.4
   typicons_flutter: ^0.5.0
   flutter_keyboard_visibility: ^6.0.0
+  lottie: ^3.0.0
 
 dev_dependencies:
   flutter_test:
@@ -100,6 +101,12 @@ flutter:
   - assets/images/add_friend_icon.png
   - assets/images/personal_icon.png
   - assets/images/favorite_filled_icon.png
+
+  - assets/animations/data_not_found.json
+  - assets/animations/empty.json
+  - assets/animations/error.json
+  - assets/animations/loading.json
+  - assets/animations/small_error.json
   
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
