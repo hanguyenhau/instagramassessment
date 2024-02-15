@@ -42,7 +42,6 @@ class ViewMorePostComment extends ConsumerWidget {
                   builder: (BuildContext context) {
                     return CommentsDialog(
                       postId: postId,
-                      comments: comments??[],
                     );
                   },
                 );
