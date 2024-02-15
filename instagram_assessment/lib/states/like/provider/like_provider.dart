@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:instagram_assessment/states/constants/firebase_collection_name.dart';
@@ -23,6 +24,7 @@ final likeProvider = StreamProvider.family.autoDispose<Iterable<Like>?, PostId>(
               ),
             )
           : null;
+          log("like ${likes?.toList()}");
 
       controller.sink.add(likes);
     });

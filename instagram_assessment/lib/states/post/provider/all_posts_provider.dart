@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:instagram_assessment/states/comment/models/enum/date_sorting.dart';
@@ -25,6 +26,7 @@ final allPostsProvider = StreamProvider.autoDispose<Iterable<Post>>(
           json: doc.data(),
         ),
       );
+      log('Post: ${posts.toList()}');
       final result = posts.applySortingPostFrom(DateSorting.newestOnTop);
       controller.sink.add(result);
     });

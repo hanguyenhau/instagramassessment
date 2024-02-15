@@ -1,6 +1,7 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:instagram_assessment/states/comment/models/comment_post_request.dart';
 import 'package:instagram_assessment/states/comment/provider/all_comments_post_provider.dart';
 import 'package:instagram_assessment/states/post/typedef/post_id.dart';
 import 'package:instagram_assessment/views/constants/app_colors.dart';
@@ -13,14 +14,15 @@ class ViewMorePostComment extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    // final allComments = ref.watch(
-    //   allCommentsPostProvider(
-    //     CommentPostRequest(postId: postId),
-    //   ),
-    // );
+    final allComments = ref.watch(
+      allCommentsPostProvider(
+        postId,
+      ),
+    );
 
-    // return allComments.when(
-    //   data: (comments) {
+    return allComments.when(
+      data: (comments) {
+        log('comment here: ${comments?.toList().toString()}');
         return Padding(
             padding: const EdgeInsets.only(
               top: Dimension.height7,
@@ -29,7 +31,7 @@ class ViewMorePostComment extends ConsumerWidget {
             ),
             child: GestureDetector(
               child: Text(
-                'View all 113 comments',
+                'View all ${comments == null ? '' : comments.isEmpty ? 0 : comments.length} comments',
                 style: TextStyle(color: AppColor.callToActionText),
               ),
               onTap: () {
@@ -40,15 +42,15 @@ class ViewMorePostComment extends ConsumerWidget {
                   builder: (BuildContext context) {
                     return CommentsDialog(
                       postId: postId,
-                      comments: [],
+                      comments: comments??[],
                     );
                   },
                 );
               },
             ));
-    //   },
-    //   error: (error, stackTrace) => const SizedBox(),
-    //   loading: () => const SizedBox(),
-    // );
+      },
+      error: (error, stackTrace) => const SizedBox(),
+      loading: () => const SizedBox(),
+    );
   }
 }

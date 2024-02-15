@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:instagram_assessment/states/comment/models/comment.dart';
-import 'package:instagram_assessment/states/comment/models/comment_post_request.dart';
-import 'package:instagram_assessment/states/comment/provider/all_comments_post_provider.dart';
 import 'package:instagram_assessment/states/post/typedef/post_id.dart';
 import 'package:instagram_assessment/views/view/comment/component/comment_tile/comment_list_tile.dart';
 
@@ -23,11 +21,11 @@ class CommentListByRequest extends ConsumerWidget {
       height: MediaQuery.of(context).size.height * 0.4,
       child: RefreshIndicator(
         onRefresh: () {
-          ref.refresh(
-            allCommentsPostProvider(
-              CommentPostRequest(postId: postId),
-            ),
-          );
+          // ref.refresh(
+          //   allCommentsPostProvider(
+          //     CommentPostRequest(postId: postId),
+          //   ),
+          // );
           return Future.delayed(
             const Duration(seconds: 1),
           );

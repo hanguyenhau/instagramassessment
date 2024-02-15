@@ -13,7 +13,7 @@ class AllPostRefreshView extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final posts = ref.watch(allPostsProvider);
-
+    
     return RefreshIndicator(
       onRefresh: () {
         ref.refresh(allPostsProvider);

@@ -22,8 +22,7 @@ class Comment {
         postId = json[PostKey.postId],
         userId = json[PostKey.userId],
         createAt = (json[PostKey.createAt] as Timestamp?)?.toDate()?? DateTime.timestamp(),
-        likes = [];
-        // likes = _parseLikedComments(json[PostKey.likes] as List<dynamic>);
+        likes = _parseLikedComments(json[PostKey.likes] as List<dynamic>);
 
   static Iterable<LikedComment> _parseLikedComments(List<dynamic>? likes) {
     if (likes == null) {

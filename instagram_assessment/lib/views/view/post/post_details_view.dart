@@ -7,15 +7,16 @@ import 'package:instagram_assessment/views/view/post/widgets/text/view_more_post
 import 'package:instagram_assessment/views/view/post/widgets/tiles/post_actions_tile.dart';
 import 'package:instagram_assessment/views/view/post/widgets/tiles/user_details_tile.dart';
 
-class PostDetailsView extends ConsumerWidget {
+class PostDetailsView extends StatelessWidget {
   final Post post;
+
   const PostDetailsView({
     required this.post,
     super.key,
   });
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisAlignment: MainAxisAlignment.start,
@@ -42,7 +43,7 @@ class PostDetailsView extends ConsumerWidget {
           postId: post.postId,
         ),
 
-        //last comment of post
+        // last comment of post
         // LastPostComment(
         //   postId: post.postId,
         //   userName: userInfo.displayName,
