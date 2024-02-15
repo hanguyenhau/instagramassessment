@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:instagram_assessment/states/post/models/post.dart';
 import 'package:instagram_assessment/views/constants/dimension.dart';
 import 'package:instagram_assessment/views/view/like/like_total_and_userinfo_text.dart';
+import 'package:instagram_assessment/views/view/post/widgets/text/last_post_comment.dart';
 import 'package:instagram_assessment/views/view/post/widgets/text/view_more_post_comment.dart';
 import 'package:instagram_assessment/views/view/post/widgets/tiles/post_actions_tile.dart';
 import 'package:instagram_assessment/views/view/post/widgets/tiles/user_details_tile.dart';
@@ -44,10 +44,9 @@ class PostDetailsView extends StatelessWidget {
         ),
 
         // last comment of post
-        // LastPostComment(
-        //   postId: post.postId,
-        //   userName: userInfo.displayName,
-        // ),
+        LastPostComment(
+          postId: post.postId,
+        ),
 
         //view more comment action
         ViewMorePostComment(

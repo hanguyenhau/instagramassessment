@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -13,7 +12,7 @@ final lastLikeLikeProvider = StreamProvider.family.autoDispose<Like?, PostId>(
     final controller = StreamController<Like?>();
 
     try {
-      final sub = await FirebaseFirestore.instance
+      final sub = FirebaseFirestore.instance
           .collection(FirebaseCollectionName.likes)
           .where(FirebaseFieldName.postId, isEqualTo: postId)
           .orderBy(FirebaseFieldName.createAt, descending: true)

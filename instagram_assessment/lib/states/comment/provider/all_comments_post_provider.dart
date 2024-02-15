@@ -32,8 +32,6 @@ final allCommentsPostProvider = StreamProvider.family
 
         final result = comments.applySortingFrom(DateSorting.newestOnTop);
 
-        log('comments: ${result.toList()}');
-
         controller.sink.add(result);
       } else {
         controller.sink.add(null);

@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -13,12 +12,11 @@ final lastCommentPostProvider =
   (ref, PostId postId) async* {
     final controller = StreamController<Comment?>();
 
-    log("comments get");
-
     try {
       final snapshot = await FirebaseFirestore.instance
           .collection(FirebaseCollectionName.comments)
           .where(FirebaseFieldName.postId, isEqualTo: postId)
+          .orderBy(FirebaseFieldName.createAt, descending: true)
           .limit(1)
           .get();
 

@@ -7,10 +7,9 @@ import 'package:instagram_assessment/views/view/post/widgets/text/read_more_text
 
 class LastPostComment extends ConsumerWidget {
   final PostId postId;
-  final String userName;
 
   const LastPostComment(
-      {required this.userName, super.key, required this.postId});
+      {super.key, required this.postId});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -28,8 +27,7 @@ class LastPostComment extends ConsumerWidget {
               right: Dimension.width20,
             ),
             child: ReadMoreTextView(
-              lastUserName: userName,
-              lastComment: comment.comment,
+              lastComment: comment,
             ),
           );
         },
