@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:instagram_assessment/states/comment/models/comment_post_request.dart';
+import 'package:instagram_assessment/states/comment/provider/all_comments_post_provider.dart';
 import 'package:instagram_assessment/states/post/typedef/post_id.dart';
 import 'package:instagram_assessment/views/constants/app_colors.dart';
 import 'package:instagram_assessment/views/constants/dimension.dart';
@@ -11,34 +13,42 @@ class ViewMorePostComment extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    // final comments = ref.watch(
+    // final allComments = ref.watch(
     //   allCommentsPostProvider(
-        
+    //     CommentPostRequest(postId: postId),
     //   ),
     // );
-    return Padding(
-        padding: const EdgeInsets.only(
-          top: Dimension.height7,
-          left: Dimension.width20,
-          right: Dimension.width20,
-        ),
-        child: GestureDetector(
-          child: Text(
-            'View all 103 comments',
-            style: TextStyle(color: AppColor.callToActionText),
-          ),
-          onTap: () {
-            showModalBottomSheet(
-              backgroundColor: Colors.white,
-              context: context,
-              isScrollControlled: true,
-              builder: (BuildContext context) {
-                return CommentsDialog(
-                  postId: postId,
+
+    // return allComments.when(
+    //   data: (comments) {
+        return Padding(
+            padding: const EdgeInsets.only(
+              top: Dimension.height7,
+              left: Dimension.width20,
+              right: Dimension.width20,
+            ),
+            child: GestureDetector(
+              child: Text(
+                'View all 113 comments',
+                style: TextStyle(color: AppColor.callToActionText),
+              ),
+              onTap: () {
+                showModalBottomSheet(
+                  backgroundColor: Colors.white,
+                  context: context,
+                  isScrollControlled: true,
+                  builder: (BuildContext context) {
+                    return CommentsDialog(
+                      postId: postId,
+                      comments: [],
+                    );
+                  },
                 );
               },
-            );
-          },
-        ));
+            ));
+    //   },
+    //   error: (error, stackTrace) => const SizedBox(),
+    //   loading: () => const SizedBox(),
+    // );
   }
 }

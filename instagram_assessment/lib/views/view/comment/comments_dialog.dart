@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:instagram_assessment/states/comment/models/comment.dart';
 import 'package:instagram_assessment/states/comment/models/comment_post_request.dart';
 import 'package:instagram_assessment/states/comment/provider/all_comments_post_provider.dart';
 import 'package:instagram_assessment/states/post/typedef/post_id.dart';
@@ -10,23 +11,16 @@ import 'package:instagram_assessment/views/view/comment/comment_input_text_field
 
 class CommentsDialog extends HookConsumerWidget {
   final PostId postId;
+  final Iterable<Comment> comments;
 
-  const CommentsDialog({required this.postId, Key? key}) : super(key: key);
+  const CommentsDialog({required this.comments, required this.postId, Key? key})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final commentController = useTextEditingController();
 
     final hasText = useState(false);
-
-    final request = useState(CommentPostRequest(postId: postId));
-
-    //Get all comment from post
-    final comments = ref.watch(
-      allCommentsPostProvider(
-        request.value,
-      ),
-    );
 
     useEffect(() {
       void listener() {
@@ -57,7 +51,7 @@ class CommentsDialog extends HookConsumerWidget {
           CommentInputTextField(
             hasText: hasText.value,
             postId: postId,
-            commentController: commentController ,
+            commentController: commentController,
           ),
         ],
       ),

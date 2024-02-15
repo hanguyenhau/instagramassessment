@@ -8,7 +8,7 @@ import 'package:instagram_assessment/views/view/comment/component/comment_tile/c
 
 class CommentListByRequest extends ConsumerWidget {
   final PostId postId;
-  final AsyncValue<Iterable<Comment>> comments;
+  final Iterable<Comment> comments;
   final TextEditingController commentController;
 
   const CommentListByRequest(
@@ -19,39 +19,30 @@ class CommentListByRequest extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return comments.when(
-      data: (comments) {
-        if (comments.isEmpty) {
-          return const SizedBox();
-        }
-        return SizedBox(
-          height: MediaQuery.of(context).size.height * 0.4,
-          child: RefreshIndicator(
-            onRefresh: () {
-              ref.refresh(
-                allCommentsPostProvider(
-                  CommentPostRequest(postId: postId),
-                ),
-              );
-              return Future.delayed(
-                const Duration(seconds: 1),
-              );
-            },
-            child: ListView.builder(
-              shrinkWrap: true,
-              itemBuilder: (context, index) {
-                return CommentListTile(
-                  commentController: commentController,
-                  comment: comments.elementAt(index),
-                );
-              },
-              itemCount: comments.length,
+    return SizedBox(
+      height: MediaQuery.of(context).size.height * 0.4,
+      child: RefreshIndicator(
+        onRefresh: () {
+          ref.refresh(
+            allCommentsPostProvider(
+              CommentPostRequest(postId: postId),
             ),
-          ),
-        );
-      },
-      error: (error, stackTrace) => const Text('Error'),
-      loading: () => const Text('Loading'),
+          );
+          return Future.delayed(
+            const Duration(seconds: 1),
+          );
+        },
+        child: ListView.builder(
+          shrinkWrap: true,
+          itemBuilder: (context, index) {
+            return CommentListTile(
+              commentController: commentController,
+              comment: comments.elementAt(index),
+            );
+          },
+          itemCount: comments.length,
+        ),
+      ),
     );
   }
 }

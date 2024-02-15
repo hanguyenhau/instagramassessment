@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'dart:developer';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:instagram_assessment/states/comment/extension/comment_sorting_by_request.dart';
@@ -13,8 +12,6 @@ final allCommentsPostProvider = StreamProvider.family
     .autoDispose<Iterable<Comment>, CommentPostRequest>(
         (ref, CommentPostRequest request) {
   final controller = StreamController<Iterable<Comment>>();
-
-  log("comments get");
 
   final sub = FirebaseFirestore.instance
       .collection(FirebaseCollectionName.comments)
@@ -29,6 +26,8 @@ final allCommentsPostProvider = StreamProvider.family
         commentId: document.id,
       ),
     );
+
+    log('comments: ${comments.toList()}');
 
     final result = comments.applySortingFrom(request);
 
