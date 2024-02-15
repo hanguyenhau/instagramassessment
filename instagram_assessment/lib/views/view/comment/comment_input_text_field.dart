@@ -24,21 +24,20 @@ class CommentInputTextField extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final user = ref.read(currentUserDetailProvider);
+    final currentUser = ref.watch(currentUserDetailProvider);
 
-    if (user == null) {
+    if (currentUser == null) {
       return const SizedBox();
     }
 
     final reply = ref.watch(replyProvider);
-    log('reply here: ${reply.isReply}');
 
     return Container(
       color: Colors.white,
       padding:
           EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
       child: ListTile(
-        leading: CommentnputTextStyles.userImage(user.image),
+        leading: CommentnputTextStyles.userImage(currentUser.image),
         //TextField get comment
         title: Container(
             decoration: CommentnputTextStyles.boxDecoration,
@@ -47,7 +46,7 @@ class CommentInputTextField extends ConsumerWidget {
               children: [
                 //cancel icon if have reply
                 reply.isReply
-                    ? CancelReplyListTile(displayName: user.displayName)
+                    ? CancelReplyListTile(displayName: currentUser.displayName)
                     : const SizedBox(),
                 //divider
                 reply.isReply
@@ -58,7 +57,7 @@ class CommentInputTextField extends ConsumerWidget {
                   Expanded(
                     child: CommentTextField(
                       controller: commentController,
-                      userName: user.displayName,
+                      userName: currentUser.displayName,
                     ),
                   ),
 
@@ -68,7 +67,7 @@ class CommentInputTextField extends ConsumerWidget {
                     hasText: hasText,
                     postId: postId,
                     reply: reply,
-                    userId: user.userId,
+                    userId: currentUser.userId,
                   ),
                 ])
               ],

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:instagram_assessment/states/post/typedef/post_id.dart';
 import 'package:instagram_assessment/views/constants/assets_path.dart';
 import 'package:instagram_assessment/views/constants/dimension.dart';
+import 'package:instagram_assessment/views/view/comment/comments_dialog.dart';
 import 'package:instagram_assessment/views/view/like/like_button.dart';
 
 class PostActionsTile extends StatelessWidget {
@@ -16,7 +17,18 @@ class PostActionsTile extends StatelessWidget {
         children: [
           LikeButton(postId: postId),
           TextButton(
-            onPressed: () {},
+            onPressed: () {
+              showModalBottomSheet(
+                backgroundColor: Colors.white,
+                context: context,
+                isScrollControlled: true,
+                builder: (BuildContext context) {
+                  return CommentsDialog(
+                    postId: postId,
+                  );
+                },
+              );
+            },
             child: Image.asset(
               AssetsPath.commentButton,
               width: Dimension.width23,

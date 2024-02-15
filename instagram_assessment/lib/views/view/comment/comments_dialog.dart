@@ -45,14 +45,14 @@ class CommentsDialog extends HookConsumerWidget {
           //comment app bar
           const AppBarComment(),
 
-          //comment list by request
+          // comment list by request
           CommentListByRequest(
             comments: comments,
             postId: postId,
             commentController: commentController,
           ),
 
-          //Comment textField
+          // //Comment textField
           CommentInputTextField(
             hasText: hasText.value,
             postId: postId,

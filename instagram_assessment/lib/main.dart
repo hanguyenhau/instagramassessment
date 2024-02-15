@@ -1,13 +1,10 @@
-import 'dart:ui';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:instagram_assessment/config/theme/behavior/app_scroll_behavior.dart';
+import 'package:instagram_assessment/config/theme/app_themes.dart';
+import 'package:instagram_assessment/feature/auth/presentation/pages/auth_consumer.dart';
 import 'package:instagram_assessment/firebase_options.dart';
-import 'package:instagram_assessment/states/providers/is_loading_provider.dart';
-import 'package:instagram_assessment/states/auth/provider/is_logged_in_provider.dart';
-import 'package:instagram_assessment/views/components/loading/loading_screen.dart';
-import 'package:instagram_assessment/views/view/home/home_main_view.dart';
-import 'package:instagram_assessment/views/view/login/login_main_view.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -28,37 +25,12 @@ class MyApp extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
-      ),
+      theme: theme(),
       debugShowCheckedModeBanner: false,
-      scrollBehavior: const MaterialScrollBehavior().copyWith(
-        dragDevices: {
-          PointerDeviceKind.mouse,
-          PointerDeviceKind.touch,
-          PointerDeviceKind.stylus,
-          PointerDeviceKind.unknown
-        },
-      ),
-      home: Consumer(
-        builder: (context, ref, child) {
-          ref.listen<bool>(
-            isLoadingProvider,
-            (previous, isLoading) {
-              if (isLoading) {
-                LoadingScreen.instance().show(context: context);
-              } else {
-                LoadingScreen.instance().hide();
-              }
-            },
-          );
-
-          final isLoggedIn = ref.watch(isLoggedInProvider);
-          return isLoggedIn ? const HomePage() : const SignInView();
-        },
-      ),
+      scrollBehavior: scrollBehavior(),
+      home: const AuthConsumer(),
     );
   }
 }
+
+
