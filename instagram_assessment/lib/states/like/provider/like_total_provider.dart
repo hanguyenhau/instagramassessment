@@ -1,30 +1,31 @@
+import 'dart:async';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:instagram_assessment/states/auth/provider/user_id_provider.dart';
-import 'package:instagram_assessment/states/like/models/total_like_request.dart';
-import 'package:instagram_assessment/states/like/provider/like_provider.dart';
+import 'package:instagram_assessment/states/constants/firebase_collection_name.dart';
+import 'package:instagram_assessment/states/constants/firebase_field_name.dart';
 import 'package:instagram_assessment/states/post/typedef/post_id.dart';
-import 'package:instagram_assessment/states/user_infor/provider/user_detail_info_provider.dart';
 
-final likeTotalProvider =
-    Provider.family.autoDispose<TotalLikeRequest?, PostId>(
+final likeTotalProvider = StreamProvider.family.autoDispose<int, PostId>(
   (ref, PostId postId) {
-    final likes = ref.watch(likeProvider(postId));
-    final currentUserId = ref.watch(userIdProvider);
+    final controller = StreamController<int>.broadcast();
 
-    return likes.when(
-      data: (like) {
-        if (like == null || like.isEmpty) {
-          return null;
-        }
-        final isCurrentUserLiked = like.last.userId == currentUserId;
-        final likedBy = isCurrentUserLiked
-            ? 'you'
-            : ref.watch(userDetailInfoProvider(like.last.userId))?.displayName;
+    controller.onListen = () {
+      controller.sink.add(0);
+    };
 
-        return TotalLikeRequest(likedBy: likedBy ?? '', totalLike: like.length);
-      },
-      error: (error, stackTrace) => null,
-      loading: () => null,
-    );
+    FirebaseFirestore.instance
+        .collection(FirebaseCollectionName.likes)
+        .where(FirebaseFieldName.postId, isEqualTo: postId)
+        .snapshots()
+        .listen((snapshot) {
+      controller.sink.add(snapshot.docs.length);
+    });
+
+    ref.onDispose(() {
+      controller.close();
+    });
+
+    return controller.stream;
   },
 );

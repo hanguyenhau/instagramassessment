@@ -6,7 +6,7 @@ final hasLikeResponseProvider = Provider.family.autoDispose<bool, Response>(
   (ref, Response response) {
     final currentUserId = ref.watch(userIdProvider);
 
-    final likes = response.likes!;
+    final likes = response.likes;
 
     final hasLike = likes.any((element) => element.userId == currentUserId);
 
