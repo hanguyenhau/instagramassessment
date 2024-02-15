@@ -1,5 +1,4 @@
 import 'package:flutter/foundation.dart';
-import 'package:instagram_assessment/states/comment/models/comment.dart';
 import 'package:instagram_assessment/states/comment/typedef/comment_id.dart';
 
 @immutable

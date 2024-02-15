@@ -22,7 +22,7 @@ final likeDislikeResponseProvider = FutureProvider.family
 
     DocumentReference commentReference = query.reference;
 
-    final likes = List.from(request.response.likes!);
+    final likes = List.from(request.response.likes);
 
     //if list likes exist
     final hasLike = likes.any((element) => element.userId == request.likedBy);
