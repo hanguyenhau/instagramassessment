@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:instagram_assessment/states/auth/typedef/user_id.dart';
+import 'package:instagram_assessment/features/authentication/domain/entities/user_id.dart';
 import 'package:instagram_assessment/states/constants/firebase_collection_name.dart';
 import 'package:instagram_assessment/states/constants/firebase_field_name.dart';
 import 'package:instagram_assessment/states/user_infor/models/user.dart';

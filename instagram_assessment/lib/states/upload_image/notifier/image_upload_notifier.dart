@@ -5,7 +5,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:image/image.dart' as img;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:instagram_assessment/states/auth/typedef/user_id.dart';
+import 'package:instagram_assessment/features/authentication/domain/entities/user_id.dart';
 import 'package:instagram_assessment/states/constants/firebase_collection_name.dart';
 import 'package:instagram_assessment/states/upload_image/constants/constants.dart';
 import 'package:instagram_assessment/states/upload_image/exception/could_not_build_thumbnail_exception.dart';

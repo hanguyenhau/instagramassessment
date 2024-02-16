@@ -3,7 +3,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:instagram_assessment/states/auth/provider/user_id_provider.dart';
+import 'package:instagram_assessment/features/authentication/data/backend/provider/user_id_provider.dart';
 import 'package:instagram_assessment/states/upload_image/models/file_type.dart';
 import 'package:instagram_assessment/states/upload_image/provider/image_upload_provider.dart';
 import 'package:instagram_assessment/views/view/create_post/widgets/button/share_post_button.dart';

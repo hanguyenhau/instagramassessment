@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:instagram_assessment/states/auth/typedef/user_id.dart';
+import 'package:instagram_assessment/features/authentication/domain/entities/user_id.dart';
 import 'package:instagram_assessment/states/comment/component/responses/models/response_payload.dart';
 import 'package:instagram_assessment/states/comment/typedef/comment_id.dart';
 import 'package:instagram_assessment/states/constants/firebase_collection_name.dart';

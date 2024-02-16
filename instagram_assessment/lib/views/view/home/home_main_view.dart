@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:instagram_assessment/states/auth/provider/auth_state_provider.dart';
+import 'package:instagram_assessment/features/authentication/data/backend/provider/auth_state_provider.dart';
 import 'package:instagram_assessment/states/upload_image/models/file_type.dart';
 import 'package:instagram_assessment/states/upload_image/provider/image_picker_provider.dart';
 import 'package:instagram_assessment/views/constants/assets_path.dart';

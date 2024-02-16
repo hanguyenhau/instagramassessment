@@ -1,8 +1,8 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:instagram_assessment/states/auth/models/auth_result.dart';
-import 'package:instagram_assessment/states/auth/models/auth_state.dart';
-import 'package:instagram_assessment/states/auth/backend/authenticator.dart';
-import 'package:instagram_assessment/states/auth/typedef/user_id.dart';
+import 'package:instagram_assessment/features/authentication/data/models/auth_result.dart';
+import 'package:instagram_assessment/features/authentication/domain/entities/auth_state.dart';
+import 'package:instagram_assessment/features/authentication/data/backend/authenticator.dart';
+import 'package:instagram_assessment/features/authentication/domain/entities/user_id.dart';
 import 'package:instagram_assessment/states/user_infor/backend/user_info_storage.dart';
 
 class AuthStateNotifier extends StateNotifier<AuthState> {
@@ -43,6 +43,6 @@ class AuthStateNotifier extends StateNotifier<AuthState> {
       _userInfoStorage.saveUserInfo(
           uId: uId,
           uName: _authenticator.displayName,
-          uEmail: _authenticator.email, 
+          uEmail: _authenticator.email,
           uImage: _authenticator.image);
 }

@@ -3,7 +3,7 @@ import 'dart:math';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:instagram_assessment/states/auth/typedef/user_id.dart';
+import 'package:instagram_assessment/features/authentication/domain/entities/user_id.dart';
 import 'package:instagram_assessment/states/comment/models/comment.dart';
 import 'package:instagram_assessment/states/post/provider/toggle_comment_provider.dart';
 import 'package:instagram_assessment/states/user_infor/provider/user_detail_info_provider.dart';

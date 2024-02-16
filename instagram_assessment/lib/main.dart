@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:instagram_assessment/config/theme/behavior/app_scroll_behavior.dart';
 import 'package:instagram_assessment/config/theme/app_themes.dart';
-import 'package:instagram_assessment/feature/auth/presentation/pages/auth_consumer.dart';
+import 'package:instagram_assessment/features/authentication/presentation/test.dart';
 import 'package:instagram_assessment/firebase_options.dart';
 
 Future<void> main() async {
@@ -28,7 +28,7 @@ class MyApp extends ConsumerWidget {
       theme: theme(),
       debugShowCheckedModeBanner: false,
       scrollBehavior: scrollBehavior(),
-      home: const AuthConsumer(),
+      home: const UserListScreen(),
     );
   }
 }

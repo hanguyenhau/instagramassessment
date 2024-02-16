@@ -1,6 +1,6 @@
 
 import 'package:flutter/material.dart';
-import 'package:instagram_assessment/extension/hex_color_to_color.dart';
+import 'package:instagram_assessment/views/extension/hex_color_to_color.dart';
 
 @immutable 
 class AppColor{
