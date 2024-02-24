@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:instagram_assessment/features/authentication/domain/entities/user_id.dart';
+import 'package:instagram_assessment/models/typedef.dart';
 import 'package:instagram_assessment/states/comment/provider/send_comment_provider.dart';
 import 'package:instagram_assessment/states/comment/component/responses/models/reply_request.dart';
 import 'package:instagram_assessment/states/comment/component/responses/provider/reply_provider.dart';

@@ -4,8 +4,8 @@ import 'package:flutter/foundation.dart';
 import 'package:instagram_assessment/states/constants/firebase_field_name.dart';
 
 @immutable
-class UserPayLoad extends MapView<String, String> {
-  UserPayLoad({
+class UserModelPayLoad extends MapView<String, String> {
+  UserModelPayLoad({
     required String userId,
     required String? displayName,
     required String? email,

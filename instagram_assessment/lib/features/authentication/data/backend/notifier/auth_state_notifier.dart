@@ -1,12 +1,12 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:instagram_assessment/features/authentication/data/models/auth_result.dart';
-import 'package:instagram_assessment/features/authentication/domain/entities/auth_state.dart';
+import 'package:instagram_assessment/features/authentication/data/models/auth_state.dart';
 import 'package:instagram_assessment/features/authentication/data/backend/authenticator.dart';
-import 'package:instagram_assessment/features/authentication/domain/entities/user_id.dart';
-import 'package:instagram_assessment/states/user_infor/backend/user_info_storage.dart';
+import 'package:instagram_assessment/models/typedef.dart';
+import 'package:instagram_assessment/features/authentication/data/data_sources/firebase/user_info_storage.dart';
 
 class AuthStateNotifier extends StateNotifier<AuthState> {
-  final _authenticator = const Authenticator();
+
   final _userInfoStorage = const UserInfoStorage();
 
   AuthStateNotifier() : super(const AuthState.unknown()) {
