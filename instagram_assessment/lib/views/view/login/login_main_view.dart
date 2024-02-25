@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:instagram_assessment/features/authentication/data/backend/provider/auth_state_provider.dart';
+import 'package:instagram_assessment/features/authentication/data/controller/auth_controller.dart';
 import 'package:instagram_assessment/views/constants/app_colors.dart';
 import 'package:instagram_assessment/views/constants/assets_path.dart';
 import 'package:instagram_assessment/views/constants/dimension.dart';
@@ -54,7 +54,7 @@ class SignInView extends ConsumerWidget {
                     ),
                     TextButton(
                       onPressed:
-                          ref.read(authStateProvider.notifier).loginWithGoogle,
+                          ref.read(authControllerProvider.notifier).loginWithGoogle,
 
                       style: TextButton.styleFrom(
                           backgroundColor: AppColor.whiteColor,

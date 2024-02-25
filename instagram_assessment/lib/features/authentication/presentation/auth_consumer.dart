@@ -1,6 +1,8 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:instagram_assessment/features/authentication/data/backend/provider/is_logged_in_provider.dart';
+import 'package:instagram_assessment/features/authentication/data/controller/auth_controller.dart';
 import 'package:instagram_assessment/states/providers/is_loading_provider.dart';
 import 'package:instagram_assessment/views/components/loading/loading_screen.dart';
 import 'package:instagram_assessment/views/view/home/home_main_view.dart';
@@ -24,7 +26,7 @@ class AuthConsumer extends StatelessWidget {
           },
         );
 
-        final isLoggedIn = ref.watch(isLoggedInProvider);
+        final isLoggedIn = ref.watch(userProvider) != null;
         return isLoggedIn ? const HomePage() : const SignInView();
       },
     );

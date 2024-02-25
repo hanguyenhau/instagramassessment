@@ -12,7 +12,7 @@ class UserDetailsTile extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final userInfo = ref.watch(userProvider(userId));
+    final userInfo = ref.watch(userWithIdProvider(userId));
     return userInfo.when(
       data: (user) {
         return ListTile(

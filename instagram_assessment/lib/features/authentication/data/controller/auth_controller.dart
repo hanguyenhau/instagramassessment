@@ -1,43 +1,38 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:instagram_assessment/features/authentication/data/models/auth_result.dart';
-import 'package:instagram_assessment/features/authentication/data/models/auth_state.dart';
 import 'package:instagram_assessment/features/authentication/data/repository/auth_repository.dart';
 import 'package:instagram_assessment/models/user.dart';
+import 'package:instagram_assessment/states/upload_image/type_def/is_loading.dart';
 
 final userProvider = StateProvider<UserModel?>((ref) => null);
 
-class AuthController extends StateNotifier<AuthState> {
+final authControllerProvider = StateNotifierProvider<AuthController, bool>(
+  (ref) => AuthController(
+    authRepository: ref.watch(authRepositoryProvider),
+    ref: ref,
+  ),
+);
+
+
+class AuthController extends StateNotifier<IsLoading> {
   final AuthRepository _authRepository;
   final Ref _ref;
 
   AuthController({required AuthRepository authRepository, required Ref ref})
       : _authRepository = authRepository,
         _ref = ref,
-        super(
-          const AuthState.unknown(),
-        ) {
-    if (_authRepository.isAlreadyLoggedIn) {
-      state = AuthState(
-        authResult: AuthResult.success,
-        isLoading: false,
-        userid: _authRepository.userId,
-      );
-    }
-  }
+        super(false);
 
   Future<void> loginWithGoogle() async {
-    state = state.coppiedWithIsLoading(true);
-    final result = await _authRepository.loginWithGoogle();
-    state = AuthState(
-      userid: _authRepository.userId,
-      authResult: result,
-      isLoading: false,
-    );
+    state = true;
+    final currentUser = await _authRepository.loginWithGoogle();
+    _ref.read(userProvider.notifier).update((state) => currentUser);
+    state = false;
   }
 
   Future<void> logOut() async {
-    state = state.coppiedWithIsLoading(true);
+    state = true;
     await _authRepository.signOut();
-    state = const AuthState.unknown();
+    _ref.read(userProvider.notifier).update((state) => null);
+    state = false;
   }
 }

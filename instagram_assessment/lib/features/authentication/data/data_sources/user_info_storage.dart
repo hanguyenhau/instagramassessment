@@ -24,17 +24,13 @@ class UserInfoStorage {
   const UserInfoStorage({required FirebaseFirestore firestore})
       : _firestore = firestore;
 
-  FutureEither<bool> saveNewUserInfo({
+  // CollectionReference get _users =>
+  //     _firestore.collection(FirebaseCollectionName.users);
+
+  FutureEither<bool> saveUserInfo({
     required UserModel user,
   }) async {
     try {
-      //check if user id existed
-      final userInfo = await getUserData(uId: user.userId);
-
-      if (userInfo != null) {
-        return right(true);
-      }
-
       //if not empty
       final payload = UserModelPayLoad(
         userId: user.userId,
@@ -50,7 +46,7 @@ class UserInfoStorage {
     }
   }
 
-  Future<UserModel?> getUserData({
+  Future<UserModel> getUserData({
     required UserId uId,
   }) async {
     //check if user id existed
@@ -60,10 +56,14 @@ class UserInfoStorage {
         .limit(1)
         .get();
 
-    return userQuery.docs.isNotEmpty
-        ? UserModel.fromJson(
-            json: userQuery.docs.first.data(),
-          )
-        : null;
+    return UserModel.fromJson(
+      json: userQuery.docs.first.data(),
+    );
   }
+
+  // Stream<UserModel> getUserData(String uid) {
+  //   return _users.doc(uid).snapshots().map((snapshot) {
+  //     return UserModel.fromJson(json: snapshot.data());
+  //   });
+  // }
 }

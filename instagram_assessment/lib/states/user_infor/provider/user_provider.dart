@@ -7,7 +7,7 @@ import 'package:instagram_assessment/models/user.dart';
 import 'package:instagram_assessment/states/constants/firebase_collection_name.dart';
 import 'package:instagram_assessment/states/constants/firebase_field_name.dart';
 
-final userProvider = StreamProvider.family.autoDispose<UserModel, UserId>(
+final userWithIdProvider = StreamProvider.family.autoDispose<UserModel, UserId>(
   (ref, UserId userId) {
     final controller = StreamController<UserModel>();
 

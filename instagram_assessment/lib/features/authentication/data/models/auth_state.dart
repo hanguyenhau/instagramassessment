@@ -1,35 +1,40 @@
-import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:instagram_assessment/features/authentication/data/models/auth_result.dart';
+import 'package:instagram_assessment/models/user.dart';
 
 @immutable
 class AuthState {
-  final String? userid;
+  final UserModel? currentUser;
   final AuthResult? authResult;
   final bool isLoading;
 
   const AuthState(
-      {required this.userid,
+      {required this.currentUser,
       required this.authResult,
       required this.isLoading});
 
   const AuthState.unknown()
       : authResult = null,
         isLoading = false,
-        userid = null;
+        currentUser = null;
 
   AuthState coppiedWithIsLoading(bool isLoading) => AuthState(
-        userid: userid,
+        currentUser: currentUser,
         authResult: authResult,
         isLoading: isLoading,
       );
+
+  const AuthState.updatedAuthResult(AuthResult this.authResult, UserModel? user)
+      : isLoading = false,
+        currentUser = user;
 
   @override
   bool operator ==(covariant AuthState other) =>
       identical(this, other) ||
       (authResult == other.authResult &&
-          userid == other.userid &&
+          currentUser == other.currentUser &&
           isLoading == other.isLoading);
 
   @override
-  int get hashCode => Object.hash(authResult, userid, isLoading);
+  int get hashCode => Object.hash(authResult, currentUser, isLoading);
 }

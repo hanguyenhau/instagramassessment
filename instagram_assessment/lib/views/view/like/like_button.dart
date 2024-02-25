@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:instagram_assessment/features/authentication/data/backend/provider/user_id_provider.dart';
+import 'package:instagram_assessment/features/authentication/data/controller/auth_controller.dart';
 import 'package:instagram_assessment/states/like/models/like_request.dart';
 import 'package:instagram_assessment/states/like/provider/has_like_provider.dart';
 import 'package:instagram_assessment/states/like/provider/like_dislike_action_provider.dart';
@@ -23,7 +23,7 @@ class LikeButton extends ConsumerWidget {
       data: (hasLike) {
         return TextButton(
           onPressed: () {
-            final userId = ref.read(userIdProvider);
+            final userId = ref.read(userProvider)?.userId;
             if (userId == null) {
               return;
             }
