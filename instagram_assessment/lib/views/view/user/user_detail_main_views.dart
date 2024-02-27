@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:instagram_assessment/views/constants/app_colors.dart';
-import 'package:instagram_assessment/views/constants/assets_path.dart';
-import 'package:instagram_assessment/views/constants/dimension.dart';
-import 'package:instagram_assessment/views/constants/text_messages.dart';
+import 'package:instagram_assessment/config/core/constants/app_colors.dart';
+import 'package:instagram_assessment/config/core/constants/assets_path.dart';
+import 'package:instagram_assessment/config/core/constants/dimension.dart';
+import 'package:instagram_assessment/config/core/constants/text_messages.dart';
 import 'package:instagram_assessment/views/util/view/elevated_button_view.dart';
 import 'package:instagram_assessment/views/view/user/grid_view_user_image.dart';
 import 'package:instagram_assessment/views/view/user/user_detail_view.dart';

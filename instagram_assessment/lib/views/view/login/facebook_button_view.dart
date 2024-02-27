@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:instagram_assessment/views/constants/dimension.dart';
-import 'package:instagram_assessment/views/constants/text_messages.dart';
+import 'package:instagram_assessment/config/core/constants/dimension.dart';
+import 'package:instagram_assessment/config/core/constants/text_messages.dart';
 
 class FacebookButtonView extends StatelessWidget {
   const FacebookButtonView({super.key});

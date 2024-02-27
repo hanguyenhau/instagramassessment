@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:instagram_assessment/states/comment/provider/last_comment_post_provider.dart';
-import 'package:instagram_assessment/states/post/typedef/post_id.dart';
-import 'package:instagram_assessment/views/constants/dimension.dart';
+import 'package:instagram_assessment/features/comment/controller/comment_controller.dart';
+import 'package:instagram_assessment/config/core/constants/dimension.dart';
+import 'package:instagram_assessment/models/typedef.dart';
 import 'package:instagram_assessment/views/view/post/widgets/text/read_more_text_view.dart';
 
 class LastPostComment extends ConsumerWidget {
@@ -13,11 +13,11 @@ class LastPostComment extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final lastComment = ref.watch(lastCommentPostProvider(postId));
+    final allComments = ref.watch(allCommentsProvider(postId));
 
-    return lastComment.when(
+    return allComments.when(
         data: (comment) {
-          if (comment == null) {
+          if (comment.isEmpty) {
             return const SizedBox();
           }
           return Padding(
@@ -27,7 +27,7 @@ class LastPostComment extends ConsumerWidget {
               right: Dimension.width20,
             ),
             child: ReadMoreTextView(
-              lastComment: comment,
+              lastComment: comment.last,
             ),
           );
         },

@@ -5,7 +5,6 @@ import 'package:instagram_assessment/states/comment/component/likes_response/mod
 import 'package:instagram_assessment/states/comment/component/likes_response/provider/has_like_response_provider.dart';
 import 'package:instagram_assessment/states/comment/component/likes_response/provider/like_dislike_response_provider.dart';
 import 'package:instagram_assessment/states/comment/component/responses/models/response.dart';
-import 'package:instagram_assessment/states/comment/typedef/comment_id.dart';
 import 'package:instagram_assessment/views/view/comment/style/comment_details_tile_styles.dart';
 
 class HasLikeAndQuantityResponse extends ConsumerWidget {

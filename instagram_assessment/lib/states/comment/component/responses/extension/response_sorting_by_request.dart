@@ -1,5 +1,5 @@
 import 'package:instagram_assessment/states/comment/component/responses/models/response.dart';
-import 'package:instagram_assessment/states/comment/models/enum/date_sorting.dart';
+import 'package:instagram_assessment/features/comment/data/model/date_sorting.dart';
 
 extension ResponseSortingByRequest on Iterable<Response> {
   Iterable<Response> applySortingResponseFrom(DateSorting request) {

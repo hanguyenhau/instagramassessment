@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:instagram_assessment/models/typedef.dart';
 import 'package:instagram_assessment/states/comment/provider/all_comments_and_responses_quantity.dart';
-import 'package:instagram_assessment/states/post/typedef/post_id.dart';
-import 'package:instagram_assessment/views/constants/app_colors.dart';
-import 'package:instagram_assessment/views/constants/dimension.dart';
+import 'package:instagram_assessment/config/core/constants/app_colors.dart';
+import 'package:instagram_assessment/config/core/constants/dimension.dart';
 import 'package:instagram_assessment/views/view/comment/comments_dialog.dart';
 
 class ViewMorePostComment extends ConsumerWidget {

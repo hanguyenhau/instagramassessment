@@ -3,7 +3,7 @@ import 'package:flutter/foundation.dart';
 import 'package:instagram_assessment/models/typedef.dart';
 import 'package:instagram_assessment/states/comment/component/likes_response/models/like_response.dart';
 import 'package:instagram_assessment/states/comment/component/responses/type_def/response_id.dart';
-import 'package:instagram_assessment/states/post/constants/post_key.dart';
+import 'package:instagram_assessment/config/core/constants/post_key.dart';
 
 @immutable
 class Response {

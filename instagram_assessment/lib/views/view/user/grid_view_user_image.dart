@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:instagram_assessment/views/constants/assets_path.dart';
-import 'package:instagram_assessment/views/constants/dimension.dart';
+import 'package:instagram_assessment/config/core/constants/assets_path.dart';
+import 'package:instagram_assessment/config/core/constants/dimension.dart';
 
 class GridViewUserImages extends StatelessWidget {
   final List<String> images = [

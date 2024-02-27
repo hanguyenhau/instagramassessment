@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:instagram_assessment/features/comment/controller/comment_controller.dart';
 import 'package:instagram_assessment/models/typedef.dart';
-import 'package:instagram_assessment/states/comment/provider/send_comment_provider.dart';
 import 'package:instagram_assessment/states/comment/component/responses/models/reply_request.dart';
 import 'package:instagram_assessment/states/comment/component/responses/provider/reply_provider.dart';
 import 'package:instagram_assessment/states/comment/component/responses/provider/send_reponse_provider.dart';
-import 'package:instagram_assessment/states/post/typedef/post_id.dart';
-import 'package:instagram_assessment/views/constants/app_colors.dart';
+import 'package:instagram_assessment/config/core/constants/app_colors.dart';
 import 'package:instagram_assessment/views/view/comment/extension/dismiss_keyboard.dart';
 
 class SendCommentButton extends ConsumerWidget {
@@ -30,7 +29,7 @@ class SendCommentButton extends ConsumerWidget {
       onPressed: () async {
         if (hasText) {
           final isSent = !reply.isReply
-              ? await ref.watch(sendCommentProvider.notifier).sendComment(
+              ? await ref.watch(commentProvider.notifier).sendComment(
                     userId: userId,
                     postId: postId,
                     comment: commentController.text,

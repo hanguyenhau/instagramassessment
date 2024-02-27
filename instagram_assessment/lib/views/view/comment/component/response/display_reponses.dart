@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:instagram_assessment/states/comment/models/comment.dart';
+import 'package:instagram_assessment/models/comment.dart';
 import 'package:instagram_assessment/states/comment/component/responses/provider/all_response_provider.dart';
 import 'package:instagram_assessment/views/view/comment/component/response/reponse_details_tile.dart';
 

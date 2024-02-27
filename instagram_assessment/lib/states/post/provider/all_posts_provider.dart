@@ -2,11 +2,11 @@ import 'dart:async';
 import 'dart:developer';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:instagram_assessment/states/comment/models/enum/date_sorting.dart';
-import 'package:instagram_assessment/states/constants/firebase_collection_name.dart';
-import 'package:instagram_assessment/states/constants/firebase_field_name.dart';
-import 'package:instagram_assessment/states/post/extension/post_sorting_by_request.dart';
-import 'package:instagram_assessment/states/post/models/post.dart';
+import 'package:instagram_assessment/features/comment/data/model/date_sorting.dart';
+import 'package:instagram_assessment/config/core/constants/firebase_collection_name.dart';
+import 'package:instagram_assessment/config/core/constants/firebase_field_name.dart';
+import 'package:instagram_assessment/features/post/extension/post_sorting_by_request.dart';
+import 'package:instagram_assessment/models/post.dart';
 
 final allPostsProvider = StreamProvider.autoDispose<Iterable<Post>>(
   (ref) {

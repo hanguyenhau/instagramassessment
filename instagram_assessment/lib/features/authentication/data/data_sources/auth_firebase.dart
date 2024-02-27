@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:instagram_assessment/config/core/providers/firebase_provider.dart';
+import 'package:instagram_assessment/models/typedef.dart';
 
 final authFirebaseSourceProvider = Provider(
   (ref) => AuthFirebaseSource(
@@ -20,6 +21,8 @@ class AuthFirebaseSource {
     required FirebaseAuth auth,
   })  : _googleSignIn = googleSignIn,
         _auth = auth;
+
+  UserId? get userId => _auth.currentUser?.uid;
 
   //loginWithGoogle
   Future<UserCredential?> loginWithGoogle() async {

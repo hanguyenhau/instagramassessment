@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:instagram_assessment/features/authentication/data/controller/auth_controller.dart';
+import 'package:instagram_assessment/features/authentication/controller/auth_controller.dart';
 import 'package:instagram_assessment/states/upload_image/models/file_type.dart';
 import 'package:instagram_assessment/states/upload_image/provider/image_picker_provider.dart';
-import 'package:instagram_assessment/views/constants/assets_path.dart';
-import 'package:instagram_assessment/views/constants/dimension.dart';
+import 'package:instagram_assessment/config/core/constants/assets_path.dart';
+import 'package:instagram_assessment/config/core/constants/dimension.dart';
 import 'package:instagram_assessment/views/view/create_post/create_new_post.dart';
 import 'package:instagram_assessment/views/view/user/horizontal/user_horizontal_list_view.dart';
 import 'package:instagram_assessment/views/view/login/horizontal_divider_view.dart';
@@ -84,7 +84,7 @@ class _HomePageState extends ConsumerState<HomePage> {
           //Chat App
           TextButton(
             onPressed: () {
-              ref.read(authControllerProvider.notifier).logOut();
+              ref.read(authProvider.notifier).logOut();
             },
             child: Image.asset(
               AssetsPath.messageButton,

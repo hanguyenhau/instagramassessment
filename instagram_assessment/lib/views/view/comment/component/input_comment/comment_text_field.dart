@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:instagram_assessment/views/components/text_field/styles/flexible_text_field_style.dart';
-import 'package:instagram_assessment/views/constants/app_colors.dart';
-import 'package:instagram_assessment/views/constants/dimension.dart';
-import 'package:instagram_assessment/views/constants/text_messages.dart';
+import 'package:instagram_assessment/config/core/constants/app_colors.dart';
+import 'package:instagram_assessment/config/core/constants/dimension.dart';
+import 'package:instagram_assessment/config/core/constants/text_messages.dart';
 
 class CommentTextField extends StatelessWidget {
   final TextEditingController controller;

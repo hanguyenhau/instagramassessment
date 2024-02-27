@@ -2,12 +2,12 @@ import 'dart:async';
 import 'dart:developer';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:instagram_assessment/models/typedef.dart';
 import 'package:instagram_assessment/states/comment/component/responses/extension/response_sorting_by_request.dart';
 import 'package:instagram_assessment/states/comment/component/responses/models/response.dart';
-import 'package:instagram_assessment/states/comment/models/enum/date_sorting.dart';
-import 'package:instagram_assessment/states/comment/typedef/comment_id.dart';
-import 'package:instagram_assessment/states/constants/firebase_collection_name.dart';
-import 'package:instagram_assessment/states/constants/firebase_field_name.dart';
+import 'package:instagram_assessment/features/comment/data/model/date_sorting.dart';
+import 'package:instagram_assessment/config/core/constants/firebase_collection_name.dart';
+import 'package:instagram_assessment/config/core/constants/firebase_field_name.dart';
 
 final allResponsesProvider =
     StreamProvider.family.autoDispose<Iterable<Response>, CommentId>(

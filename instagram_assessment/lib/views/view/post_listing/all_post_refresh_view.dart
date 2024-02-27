@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:instagram_assessment/states/post/provider/all_posts_provider.dart';
-import 'package:instagram_assessment/views/constants/text_messages.dart';
-import 'package:instagram_assessment/views/view/animations/empty_contents_with_text_animation_view.dart';
-import 'package:instagram_assessment/views/view/animations/error_animation_view.dart';
-import 'package:instagram_assessment/views/view/animations/loading_animation_view.dart';
+import 'package:instagram_assessment/config/core/constants/text_messages.dart';
+import 'package:instagram_assessment/config/core/animations/empty_contents_with_text_animation_view.dart';
+import 'package:instagram_assessment/config/core/animations/error_animation_view.dart';
+import 'package:instagram_assessment/config/core/animations/loading_animation_view.dart';
 import 'package:instagram_assessment/views/view/post/post_details_view.dart';
 
 class AllPostRefreshView extends ConsumerWidget {

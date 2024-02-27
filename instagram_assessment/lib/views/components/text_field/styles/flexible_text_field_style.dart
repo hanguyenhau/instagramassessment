@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:instagram_assessment/views/constants/app_colors.dart';
+import 'package:instagram_assessment/config/core/constants/app_colors.dart';
 
 @immutable
 class FlexibleTextViewStyle {

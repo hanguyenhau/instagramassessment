@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:instagram_assessment/features/authentication/data/controller/auth_controller.dart';
-import 'package:instagram_assessment/views/constants/app_colors.dart';
-import 'package:instagram_assessment/views/constants/assets_path.dart';
-import 'package:instagram_assessment/views/constants/dimension.dart';
-import 'package:instagram_assessment/views/constants/text_messages.dart';
+import 'package:instagram_assessment/config/core/constants/app_colors.dart';
+import 'package:instagram_assessment/config/core/constants/assets_path.dart';
+import 'package:instagram_assessment/config/core/constants/dimension.dart';
+import 'package:instagram_assessment/config/core/constants/text_messages.dart';
+import 'package:instagram_assessment/features/authentication/controller/auth_controller.dart';
 import 'package:instagram_assessment/views/util/view/rich_text_two_part_view.dart';
 import 'package:instagram_assessment/views/view/login/facebook_button_view.dart';
 import 'package:instagram_assessment/views/view/login/google_button_view.dart';
@@ -54,7 +54,7 @@ class SignInView extends ConsumerWidget {
                     ),
                     TextButton(
                       onPressed:
-                          ref.read(authControllerProvider.notifier).loginWithGoogle,
+                          ref.read(authProvider.notifier).loginWithGoogle,
 
                       style: TextButton.styleFrom(
                           backgroundColor: AppColor.whiteColor,

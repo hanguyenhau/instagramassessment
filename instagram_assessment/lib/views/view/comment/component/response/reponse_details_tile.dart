@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:instagram_assessment/states/comment/models/comment.dart';
+import 'package:instagram_assessment/models/comment.dart';
 import 'package:instagram_assessment/states/comment/component/responses/models/response.dart';
 import 'package:instagram_assessment/states/user_infor/provider/current_user_detail_provider.dart';
 import 'package:instagram_assessment/states/user_infor/provider/user_detail_info_provider.dart';

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:instagram_assessment/states/comment/models/comment.dart';
-import 'package:instagram_assessment/states/comment/provider/all_comments_post_provider.dart';
-import 'package:instagram_assessment/states/post/typedef/post_id.dart';
+import 'package:instagram_assessment/features/comment/controller/comment_controller.dart';
+import 'package:instagram_assessment/models/comment.dart';
+import 'package:instagram_assessment/models/typedef.dart';
 import 'package:instagram_assessment/views/view/comment/component/comment_tile/comment_list_tile.dart';
 
 class CommentListByRequest extends ConsumerWidget {
@@ -28,7 +28,7 @@ class CommentListByRequest extends ConsumerWidget {
           child: RefreshIndicator(
             onRefresh: () {
               ref.refresh(
-                allCommentsPostProvider(
+                allCommentsProvider(
                   postId,
                 ),
               );

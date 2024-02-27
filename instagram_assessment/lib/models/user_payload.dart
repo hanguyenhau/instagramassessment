@@ -1,7 +1,7 @@
 import 'dart:collection';
 
 import 'package:flutter/foundation.dart';
-import 'package:instagram_assessment/states/constants/firebase_field_name.dart';
+import 'package:instagram_assessment/config/core/constants/firebase_field_name.dart';
 
 @immutable
 class UserModelPayLoad extends MapView<String, String> {

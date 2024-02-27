@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:instagram_assessment/views/components/text_field/styles/flexible_text_field_style.dart';
-import 'package:instagram_assessment/views/constants/app_colors.dart';
+import 'package:instagram_assessment/config/core/constants/app_colors.dart';
 
 class FlexibleTextView extends StatelessWidget {
   final TextEditingController controller;

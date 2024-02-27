@@ -3,7 +3,7 @@ import 'dart:collection';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 import 'package:instagram_assessment/models/typedef.dart';
-import 'package:instagram_assessment/states/constants/firebase_field_name.dart';
+import 'package:instagram_assessment/config/core/constants/firebase_field_name.dart';
 
 @immutable
 class ResponsePayLoad extends MapView<String, dynamic>{

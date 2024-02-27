@@ -1,6 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:instagram_assessment/states/constants/firebase_field_name.dart';
+import 'package:instagram_assessment/config/core/constants/firebase_field_name.dart';
 
 @immutable
 class UserModel {

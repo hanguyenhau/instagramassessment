@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:instagram_assessment/states/comment/models/comment.dart';
+import 'package:instagram_assessment/models/comment.dart';
 import 'package:instagram_assessment/states/user_infor/provider/user_detail_info_provider.dart';
-import 'package:instagram_assessment/views/constants/dimension.dart';
+import 'package:instagram_assessment/config/core/constants/dimension.dart';
 import 'package:instagram_assessment/views/view/comment/component/response/display_reponses.dart';
 import 'package:instagram_assessment/views/view/comment/component/comment_tile/has_like_and_quantity_comment.dart';
 import 'package:instagram_assessment/views/view/comment/component/comment_tile/subtitle_and_reply_comment.dart';

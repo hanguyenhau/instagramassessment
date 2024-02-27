@@ -1,10 +1,10 @@
-import 'dart:developer';
+
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:instagram_assessment/models/typedef.dart';
 import 'package:instagram_assessment/states/like/provider/like_total_provider.dart';
-import 'package:instagram_assessment/states/post/typedef/post_id.dart';
-import 'package:instagram_assessment/views/constants/dimension.dart';
+import 'package:instagram_assessment/config/core/constants/dimension.dart';
 import 'package:instagram_assessment/views/view/like/liked_by_text_view.dart';
 
 class LikeTotalAndUserInfoText extends ConsumerWidget {

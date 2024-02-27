@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:instagram_assessment/views/constants/app_colors.dart';
-import 'package:instagram_assessment/views/constants/assets_path.dart';
+import 'package:instagram_assessment/config/core/constants/app_colors.dart';
+import 'package:instagram_assessment/config/core/constants/assets_path.dart';
 import 'package:instagram_assessment/views/view/login/horizontal_divider_view.dart';
 
 

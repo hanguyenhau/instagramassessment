@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:instagram_assessment/states/post/models/post.dart';
-import 'package:instagram_assessment/views/constants/dimension.dart';
+import 'package:instagram_assessment/models/post.dart';
+import 'package:instagram_assessment/config/core/constants/dimension.dart';
 import 'package:instagram_assessment/views/view/like/like_total_and_userinfo_text.dart';
 import 'package:instagram_assessment/views/view/post/widgets/text/last_post_comment.dart';
 import 'package:instagram_assessment/views/view/post/widgets/text/view_more_post_comment.dart';

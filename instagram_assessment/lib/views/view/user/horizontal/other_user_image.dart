@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:instagram_assessment/views/constants/app_colors.dart';
-import 'package:instagram_assessment/views/constants/dimension.dart';
+import 'package:instagram_assessment/config/core/constants/app_colors.dart';
+import 'package:instagram_assessment/config/core/constants/dimension.dart';
 
 class OtherUserImage extends StatelessWidget {
   final String profileImage;

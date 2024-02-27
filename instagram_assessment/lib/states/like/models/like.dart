@@ -1,8 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 import 'package:instagram_assessment/models/typedef.dart';
-import 'package:instagram_assessment/states/post/constants/post_key.dart';
-import 'package:instagram_assessment/states/post/typedef/post_id.dart';
+import 'package:instagram_assessment/config/core/constants/post_key.dart';
 
 @immutable
 class Like {

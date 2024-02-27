@@ -3,12 +3,12 @@ import 'dart:math';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:instagram_assessment/states/comment/models/comment.dart';
+import 'package:instagram_assessment/models/comment.dart';
 import 'package:instagram_assessment/states/post/provider/toggle_comment_provider.dart';
 import 'package:instagram_assessment/states/user_infor/provider/user_detail_info_provider.dart';
-import 'package:instagram_assessment/views/constants/app_colors.dart';
-import 'package:instagram_assessment/views/constants/dimension.dart';
-import 'package:instagram_assessment/views/constants/text_messages.dart';
+import 'package:instagram_assessment/config/core/constants/app_colors.dart';
+import 'package:instagram_assessment/config/core/constants/dimension.dart';
+import 'package:instagram_assessment/config/core/constants/text_messages.dart';
 
 class ReadMoreTextView extends ConsumerWidget {
   final Comment lastComment;

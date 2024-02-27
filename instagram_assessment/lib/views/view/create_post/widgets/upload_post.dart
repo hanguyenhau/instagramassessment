@@ -3,7 +3,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:instagram_assessment/features/authentication/data/controller/auth_controller.dart';
+import 'package:instagram_assessment/features/user/controller/user_controller.dart';
 import 'package:instagram_assessment/states/upload_image/models/file_type.dart';
 import 'package:instagram_assessment/states/upload_image/provider/image_upload_provider.dart';
 import 'package:instagram_assessment/views/view/create_post/widgets/button/share_post_button.dart';
@@ -28,7 +28,7 @@ class UploadPost extends StatelessWidget {
     return TextButton(
         onPressed: isPostButtonEnable
             ? () async {
-                final userId = ref.read(userProvider)?.userId;
+                final userId = ref.read(userProvider);
                 if (userId == null) {
                   return;
                 }

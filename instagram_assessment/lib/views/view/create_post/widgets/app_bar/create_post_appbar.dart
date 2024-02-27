@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:instagram_assessment/views/constants/dimension.dart';
-import 'package:instagram_assessment/views/constants/text_messages.dart';
+import 'package:instagram_assessment/config/core/constants/dimension.dart';
+import 'package:instagram_assessment/config/core/constants/text_messages.dart';
 
 class CreatePostAppbar extends AppBar {
   CreatePostAppbar({

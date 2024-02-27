@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:instagram_assessment/states/comment/component/likes_comment/models/like_comment_request.dart';
 import 'package:instagram_assessment/states/comment/component/likes_comment/provider/has_like_comment_provider.dart';
 import 'package:instagram_assessment/states/comment/component/likes_comment/provider/like_dislike_comment_provider.dart';
-import 'package:instagram_assessment/states/comment/models/comment.dart';
+import 'package:instagram_assessment/models/comment.dart';
 import 'package:instagram_assessment/states/user_infor/provider/current_user_detail_provider.dart';
 import 'package:instagram_assessment/views/view/comment/style/comment_details_tile_styles.dart';
 

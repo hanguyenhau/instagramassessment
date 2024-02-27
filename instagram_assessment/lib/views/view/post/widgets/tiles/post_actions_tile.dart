@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:instagram_assessment/states/post/typedef/post_id.dart';
-import 'package:instagram_assessment/views/constants/assets_path.dart';
-import 'package:instagram_assessment/views/constants/dimension.dart';
+import 'package:instagram_assessment/config/core/constants/assets_path.dart';
+import 'package:instagram_assessment/config/core/constants/dimension.dart';
+import 'package:instagram_assessment/models/typedef.dart';
 import 'package:instagram_assessment/views/view/comment/comments_dialog.dart';
 import 'package:instagram_assessment/views/view/like/like_button.dart';
 

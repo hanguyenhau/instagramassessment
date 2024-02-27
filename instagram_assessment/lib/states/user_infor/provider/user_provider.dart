@@ -4,8 +4,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:instagram_assessment/models/typedef.dart';
 import 'package:instagram_assessment/models/user.dart';
-import 'package:instagram_assessment/states/constants/firebase_collection_name.dart';
-import 'package:instagram_assessment/states/constants/firebase_field_name.dart';
+import 'package:instagram_assessment/config/core/constants/firebase_collection_name.dart';
+import 'package:instagram_assessment/config/core/constants/firebase_field_name.dart';
 
 final userWithIdProvider = StreamProvider.family.autoDispose<UserModel, UserId>(
   (ref, UserId userId) {
