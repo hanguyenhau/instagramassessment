@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:instagram_assessment/features/user/controller/user_controller.dart';
 import 'package:instagram_assessment/models/comment.dart';
 import 'package:instagram_assessment/states/comment/component/responses/models/response.dart';
-import 'package:instagram_assessment/states/user_infor/provider/current_user_detail_provider.dart';
-import 'package:instagram_assessment/states/user_infor/provider/user_detail_info_provider.dart';
 import 'package:instagram_assessment/views/view/comment/component/response/response_tile/has_like_and_quantity_response.dart';
 import 'package:instagram_assessment/views/view/comment/component/response/response_tile/subtile_and_reply_response.dart';
 import 'package:instagram_assessment/views/view/comment/component/response/styles/response_tile_style.dart';
@@ -26,34 +25,29 @@ class ResponseDetailTile extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     //userInfo of comment owner info details
     final userInfo = ref.watch(
-      userDetailInfoProvider(response.userId),
+      userByIdProvider(response.userId),
     );
 
-    //current user for reply reuqest
-    final currentUser = ref.read(currentUserDetailProvider);
+    return userInfo.when(
+      data: (user) => ListTile(
+          contentPadding: CommentDetailTileStyles.contentPaddingResponse,
+          // owner comment display name
+          title: const ResponseTileStyle().responseUserName(user.displayName),
 
-    if (userInfo == null || currentUser == null) {
-      return const SizedBox();
-    }
-
-    return ListTile(
-        contentPadding: CommentDetailTileStyles.contentPaddingResponse,
-        // owner comment display name
-        title: const ResponseTileStyle().responseUserName(userInfo.displayName),
-
-        // owner comment image
-        leading: const ResponseTileStyle().responseUserImage(userInfo.image),
-        subtitle: SubtileAndReplyResponse(
-          response: response,
-          commentController: commentController,
-          comment: comment,
-          currentUserName: currentUser.displayName,
-        ),
-
-        trailing: HasLikeAndQuantityResponse(
-          commentId: comment.commentId,
-          response: response,
-          userId: userInfo.userId,
-        ));
+          // owner comment image
+          leading: const ResponseTileStyle().responseUserImage(user.image),
+          subtitle: SubtileAndReplyResponse(
+            response: response,
+            commentController: commentController,
+            comment: comment
+          ),
+          trailing: HasLikeAndQuantityResponse(
+            commentId: comment.commentId,
+            response: response,
+            userId: user.userId,
+          )),
+      error: (error, stackTrace) => const Text('error'),
+      loading: () => const Text('loading'),
+    );
   }
 }

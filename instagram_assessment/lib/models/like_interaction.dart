@@ -6,11 +6,11 @@ import 'package:instagram_assessment/models/typedef.dart';
 import 'package:instagram_assessment/config/core/constants/firebase_field_name.dart';
 
 @immutable
-class LikedComment extends MapView<String, dynamic> {
+class LikeInteraction extends MapView<String, dynamic> {
   final UserId userId;
   final DateTime createAt;
 
-  LikedComment({
+  LikeInteraction({
     required this.userId,
     required this.createAt,
   }) : super({
@@ -18,7 +18,7 @@ class LikedComment extends MapView<String, dynamic> {
           FirebaseFieldName.createAt: createAt,
         });
 
-  LikedComment.fromJson({required Map<dynamic, dynamic> json})
+  LikeInteraction.fromJson({required Map<dynamic, dynamic> json})
       : this(
           userId : json[FirebaseFieldName.userId],
           createAt :

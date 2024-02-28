@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:instagram_assessment/features/user/controller/user_controller.dart';
 import 'package:instagram_assessment/models/typedef.dart';
-import 'package:instagram_assessment/states/user_infor/provider/user_provider.dart';
 import 'package:instagram_assessment/config/core/constants/dimension.dart';
 import 'package:instagram_assessment/views/view/user/horizontal/other_user_image.dart';
 
@@ -12,7 +12,7 @@ class UserDetailsTile extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final userInfo = ref.watch(userWithIdProvider(userId));
+    final userInfo = ref.watch(userByIdProvider(userId));
     return userInfo.when(
       data: (user) {
         return ListTile(

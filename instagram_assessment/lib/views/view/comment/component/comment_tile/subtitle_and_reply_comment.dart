@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:instagram_assessment/features/user/controller/user_controller.dart';
 import 'package:instagram_assessment/models/comment.dart';
 import 'package:instagram_assessment/states/comment/component/responses/provider/reply_provider.dart';
-import 'package:instagram_assessment/states/user_infor/provider/current_user_detail_provider.dart';
 import 'package:instagram_assessment/config/core/constants/dimension.dart';
 import 'package:instagram_assessment/config/core/constants/text_messages.dart';
 import 'package:instagram_assessment/views/view/comment/style/comment_details_tile_styles.dart';
@@ -23,36 +23,40 @@ class SubtileAndReplyComment extends ConsumerWidget {
     final isReply = ref.watch(replyProvider).isReply;
 
     //current user for reply reuqest
-    final currentUser = ref.read(currentUserDetailProvider);
+    final currentUser = ref.watch(currentUserProvider);
 
-    if (currentUser == null) {
-      return const SizedBox();
-    }
+    return currentUser.when(
+      data: (user) {
+        return Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              //comment content
+              Text(
+                comment.comment,
+                maxLines: Dimension.maxLines2,
+                style: CommentDetailTileStyles.textComment,
+              ),
 
-    return Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          //comment content
-          Text(
-            comment.comment,
-            maxLines: Dimension.maxLines2,
-            style: CommentDetailTileStyles.textComment,
-          ),
-
-          // replies comment
-          GestureDetector(
-            onTap: !isReply
-                ? () {
-                    commentController.text = '@${currentUser.displayName} ';
-                    ref.read(replyProvider.notifier).setReply(true, comment.commentId);
-                  }
-                : null,
-            child: Text(
-              TextMessage.reply,
-              style: CommentDetailTileStyles.textReply,
-            ),
-          ),
-        ]);
+              // replies comment
+              GestureDetector(
+                onTap: !isReply
+                    ? () {
+                        commentController.text = '@${user.displayName} ';
+                        ref
+                            .read(replyProvider.notifier)
+                            .setReply(true, comment.commentId);
+                      }
+                    : null,
+                child: Text(
+                  TextMessage.reply,
+                  style: CommentDetailTileStyles.textReply,
+                ),
+              ),
+            ]);
+      },
+      error: (error, stackTrace) => const Text('error'),
+      loading: () => const Text('loading'),
+    );
   }
 }

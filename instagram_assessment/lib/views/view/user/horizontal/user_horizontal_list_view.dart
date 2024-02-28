@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:instagram_assessment/features/user/controller/user_controller.dart';
-import 'package:instagram_assessment/states/user_infor/provider/all_users_provider.dart';
 import 'package:instagram_assessment/views/view/user/horizontal/current_user_image_with_add_button.dart';
 import 'package:instagram_assessment/views/view/user/horizontal/other_user_image.dart';
 

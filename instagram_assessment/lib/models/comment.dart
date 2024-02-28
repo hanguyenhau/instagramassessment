@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 import 'package:instagram_assessment/models/typedef.dart';
-import 'package:instagram_assessment/states/comment/component/likes_comment/models/liked_comment.dart';
+import 'package:instagram_assessment/models/like_interaction.dart';
 import 'package:instagram_assessment/config/core/constants/post_key.dart';
 
 @immutable
@@ -11,7 +11,7 @@ class Comment {
   final PostId postId;
   final UserId userId;
   final DateTime createAt;
-  final Iterable<LikedComment> likes;
+  final Iterable<LikeInteraction> likes;
 
   Comment.fromJson({
     required Map<dynamic, dynamic> json,
@@ -23,12 +23,12 @@ class Comment {
             DateTime.timestamp(),
         likes = _parseLikedComments(json[PostKey.likes] as List<dynamic>);
 
-  static Iterable<LikedComment> _parseLikedComments(List<dynamic>? likes) {
+  static Iterable<LikeInteraction> _parseLikedComments(List<dynamic>? likes) {
     if (likes == null) {
       return [];
     }
     return likes.map((like) {
-      return LikedComment.fromJson(json: like);
+      return LikeInteraction.fromJson(json: like);
     }).toList();
   }
 

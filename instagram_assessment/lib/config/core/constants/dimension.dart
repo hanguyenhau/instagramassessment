@@ -98,5 +98,7 @@ class Dimension {
   static const mainAxisExtent = 150.0;
   static const mainAxisSpacing = 2.0;
 
+  static const imageThumbnailWidth = 150;
+
   const Dimension._();
 }

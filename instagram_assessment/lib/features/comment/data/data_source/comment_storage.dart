@@ -72,4 +72,23 @@ class CommentStorage {
       rethrow;
     }
   }
+
+  Future<bool> updateLike(
+      CommentId commentId, List<dynamic> likes) async {
+    try {
+      final query = await _comment.doc(commentId).get();
+
+      if (!query.exists) {
+        return false;
+      }
+      //update all likes
+      await query.reference.update({
+        FirebaseFieldName.likes: likes,
+        // You can add more fields to update here if needed
+      });
+      return true;
+    } catch (e) {
+      return false;
+    }
+  }
 }

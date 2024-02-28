@@ -42,7 +42,7 @@ class AuthRepository {
         await _storage.saveUserInfo(user: currentUserInfo);
       } else {
         currentUserInfo =
-            await _storage.getUserData(uId: userCredential.user!.uid);
+            await _storage.getUserData(uId: userCredential.user!.uid).first;
       }
       return currentUserInfo;
     } catch (e) {
@@ -50,7 +50,5 @@ class AuthRepository {
     }
   }
 
-  Future<void> signOut() async {
-    return _authDataSource.signOut();
-  }
+  Future<void> signOut() async => _authDataSource.signOut();
 }

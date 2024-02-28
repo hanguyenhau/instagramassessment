@@ -5,9 +5,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:image/image.dart' as img;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:instagram_assessment/config/core/constants/dimension.dart';
 import 'package:instagram_assessment/models/typedef.dart';
 import 'package:instagram_assessment/config/core/constants/firebase_collection_name.dart';
-import 'package:instagram_assessment/states/upload_image/constants/constants.dart';
 import 'package:instagram_assessment/states/upload_image/exception/could_not_build_thumbnail_exception.dart';
 import 'package:instagram_assessment/states/upload_image/extensions/get_collection_file_type_name.dart';
 import 'package:instagram_assessment/states/upload_image/extensions/get_image_data_aspect_ratio.dart';
@@ -39,7 +39,7 @@ class ImageUploadNotifier extends StateNotifier<bool> {
 
         final thumbnail = img.copyResize(
           fileAsImage,
-          width: Constants.imageThumbnailWidth,
+          width: Dimension.imageThumbnailWidth,
         );
 
         final thumbnailData = img.encodeJpg(thumbnail);

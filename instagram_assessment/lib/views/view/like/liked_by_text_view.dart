@@ -3,7 +3,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:instagram_assessment/features/user/controller/user_controller.dart';
 import 'package:instagram_assessment/models/typedef.dart';
 import 'package:instagram_assessment/states/like/provider/last_people_like_provider.dart';
-import 'package:instagram_assessment/states/user_infor/provider/user_provider.dart';
 import 'package:instagram_assessment/config/core/constants/app_colors.dart';
 import 'package:instagram_assessment/config/core/constants/text_messages.dart';
 
@@ -31,7 +30,7 @@ class LikedByTextView extends ConsumerWidget {
               if (lastUser == null) {
                 return const TextSpan();
               }
-              final user = ref.watch(userWithIdProvider(lastUser.userId));
+              final user = ref.watch(userByIdProvider(lastUser.userId));
               return user.when(
                 data: (userDetails) {
                   final currentUserId = ref.watch(userProvider);

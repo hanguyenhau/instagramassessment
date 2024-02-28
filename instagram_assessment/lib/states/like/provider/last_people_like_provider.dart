@@ -5,7 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:instagram_assessment/config/core/constants/firebase_collection_name.dart';
 import 'package:instagram_assessment/config/core/constants/firebase_field_name.dart';
 import 'package:instagram_assessment/models/typedef.dart';
-import 'package:instagram_assessment/states/like/models/like.dart';
+import 'package:instagram_assessment/models/like.dart';
 
 final lastLikeLikeProvider = StreamProvider.family.autoDispose<Like?, PostId>(
   (ref, PostId postId) async* {
