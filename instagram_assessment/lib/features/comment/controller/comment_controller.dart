@@ -4,7 +4,6 @@ import 'package:instagram_assessment/features/response/controller/response_contr
 import 'package:instagram_assessment/features/user/controller/user_controller.dart';
 import 'package:instagram_assessment/models/comment.dart';
 import 'package:instagram_assessment/models/typedef.dart';
-import 'package:instagram_assessment/states/upload_image/type_def/is_loading.dart';
 
 final commentProvider = StateNotifierProvider<CommentController, bool>((ref) =>
     CommentController(
@@ -21,6 +20,8 @@ final hasLikeCommentProvider = Provider.family.autoDispose<bool, Comment>(
     return commentController.hasLike(comment);
   },
 );
+
+final toggleCommentProvider = StateProvider<bool>((ref) => false);
 
 final likeDislikeCommentProvider = FutureProvider.family
     .autoDispose<void, Comment>((ref, Comment comment) async {

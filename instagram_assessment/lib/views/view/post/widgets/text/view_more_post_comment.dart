@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:instagram_assessment/config/core/constants/text_messages.dart';
 import 'package:instagram_assessment/features/comment/controller/comment_controller.dart';
 import 'package:instagram_assessment/features/response/controller/response_controller.dart';
 import 'package:instagram_assessment/models/typedef.dart';
@@ -19,30 +20,41 @@ class ViewMorePostComment extends ConsumerWidget {
       ),
     );
 
-    return Padding(
-        padding: const EdgeInsets.only(
-          top: Dimension.height7,
-          left: Dimension.width20,
-          right: Dimension.width20,
-        ),
-        child: GestureDetector(
-          child: Text(
-            'View all $allCommentsAndResponses comments',
-            style: TextStyle(color: AppColor.callToActionText),
-          ),
-          onTap: () {
-            ref.read(replyRequestProvider.notifier).update((state) => null);
-            showModalBottomSheet(
-              backgroundColor: Colors.white,
-              context: context,
-              isScrollControlled: true,
-              builder: (BuildContext context) {
-                return CommentsDialog(
-                  postId: postId,
+    return allCommentsAndResponses > 0
+        ? Padding(
+            padding: const EdgeInsets.only(
+              top: Dimension.height7,
+              left: Dimension.width20,
+              right: Dimension.width20,
+            ),
+            child: GestureDetector(
+              child: Text(
+                'View all $allCommentsAndResponses comments',
+                style: TextStyle(color: AppColor.callToActionText),
+              ),
+              onTap: () {
+                ref.read(replyRequestProvider.notifier).update((state) => null);
+                showModalBottomSheet(
+                  backgroundColor: Colors.white,
+                  context: context,
+                  isScrollControlled: true,
+                  builder: (BuildContext context) {
+                    return CommentsDialog(
+                      postId: postId,
+                    );
+                  },
                 );
               },
-            );
-          },
-        ));
+            ))
+        : Padding(
+            padding: const EdgeInsets.only(
+              left: Dimension.width20,
+              right: Dimension.width20,
+            ),
+            child: Text(
+              TextMessage.shareWhatYouThink,
+              style: TextStyle(color: AppColor.callToActionText),
+            ),
+          );
   }
 }

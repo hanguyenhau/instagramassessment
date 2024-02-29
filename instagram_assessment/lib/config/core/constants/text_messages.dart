@@ -1,8 +1,9 @@
 import 'package:flutter/foundation.dart';
 
-@immutable 
-class TextMessage{
-  static const signInToSee = 'Sign in to see photos videos and reels from your friends.';
+@immutable
+class TextMessage {
+  static const signInToSee =
+      'Sign in to see photos videos and reels from your friends.';
   static const continueWithFacebook = 'Continue with Facebook';
   static const continueWithGoogle = 'Continue with Google';
   static const alreadyHaveAccount = 'Already have an account?';
@@ -15,6 +16,7 @@ class TextMessage{
   static const likedBy = 'Liked by';
   static const and = 'and';
   static const others = 'others';
+  static const you = 'You';
 
   static const follow = 'Follow';
   static const message = 'Message';
@@ -22,26 +24,28 @@ class TextMessage{
   static const followers = 'Followers';
   static const following = 'Following';
 
-  static const noPostsAvailable =
-      "No posts";
+  static const noPostsAvailable = "No posts";
 
   static const createNewPost = 'Create New Post';
   static const writeCaption = 'Write captions...';
   static const tagOthers = 'Tag others';
   static const object = 'Object';
   static const share = 'Share';
-  
+
   static const loading = 'Loading';
 
   static const yourStory = 'Your story';
 
   static const comments = 'Comments';
   static const commentWithName = 'Comment with name ';
-  static const noCommentAvailable =
-      "No comments";
+  static const noCommentAvailable = "No comments";
+  static const shareWhatYouThink = "Share what you're thinking";
 
   static const reply = 'Reply';
   static const replyTo = 'Reply to';
 
- const TextMessage._();
+  static const image = 'image';
+  static const video = 'video';
+
+  const TextMessage._();
 }

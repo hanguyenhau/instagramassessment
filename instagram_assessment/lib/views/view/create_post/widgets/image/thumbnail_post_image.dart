@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:instagram_assessment/states/upload_image/models/thumbnail_request.dart';
-import 'package:instagram_assessment/states/upload_image/provider/thumbnail_provider.dart';
+import 'package:instagram_assessment/features/picker/controller/picker_controller.dart';
+import 'package:instagram_assessment/features/picker/model/thumbnail_request.dart';
 
 class ThumbnailPostImage extends ConsumerWidget {
   final ThumbnailRequest thumbnailRequest;

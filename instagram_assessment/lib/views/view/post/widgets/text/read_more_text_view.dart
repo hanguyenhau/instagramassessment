@@ -3,9 +3,9 @@ import 'dart:math';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:instagram_assessment/features/comment/controller/comment_controller.dart';
 import 'package:instagram_assessment/features/user/controller/user_controller.dart';
 import 'package:instagram_assessment/models/comment.dart';
-import 'package:instagram_assessment/states/post/provider/toggle_comment_provider.dart';
 import 'package:instagram_assessment/config/core/constants/app_colors.dart';
 import 'package:instagram_assessment/config/core/constants/dimension.dart';
 import 'package:instagram_assessment/config/core/constants/text_messages.dart';
@@ -19,7 +19,7 @@ class ReadMoreTextView extends ConsumerWidget {
   });
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final showMore = ref.watch(toggleCommentProvider);
+    final showMore = ref.watch(toggleCommentProvider.notifier).update((state) => false);
 
     final userInfo = ref.watch(userByIdProvider(lastComment.userId));
 
@@ -41,7 +41,7 @@ class ReadMoreTextView extends ConsumerWidget {
                         min(Dimension.subString80Sequence,
                             lastComment.comment.length),
                       )}'
-                    : ' $lastComment',
+                    : ' ${lastComment.comment}',
           ),
           lastComment.comment.length > Dimension.subString80Sequence
               ? TextSpan(
@@ -51,7 +51,7 @@ class ReadMoreTextView extends ConsumerWidget {
                   style: TextStyle(color: AppColor.callToActionText),
                   recognizer: TapGestureRecognizer()
                     ..onTap = () {
-                      ref.read(toggleCommentProvider.notifier).toggleShowMore();
+                      ref.read(toggleCommentProvider.notifier).update((state) => true);
                     },
                 )
               : const TextSpan()

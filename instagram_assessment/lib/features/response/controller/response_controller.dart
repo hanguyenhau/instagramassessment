@@ -1,10 +1,9 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:instagram_assessment/features/response/data/model/like_response_request.dart';
 import 'package:instagram_assessment/features/response/repository/response_repository.dart';
 import 'package:instagram_assessment/features/user/controller/user_controller.dart';
 import 'package:instagram_assessment/models/response.dart';
 import 'package:instagram_assessment/models/typedef.dart';
-import 'package:instagram_assessment/states/upload_image/type_def/is_loading.dart';
+import 'package:instagram_assessment/features/response/data/model/like_response_request.dart';
 
 final responseProvider = StateNotifierProvider<ResponseController, bool>(
   (ref) => ResponseController(

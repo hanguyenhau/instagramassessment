@@ -4,10 +4,10 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:instagram_assessment/config/core/constants/firebase_collection_name.dart';
 import 'package:instagram_assessment/config/core/constants/firebase_field_name.dart';
 import 'package:instagram_assessment/config/core/providers/firebase_provider.dart';
-import 'package:instagram_assessment/features/response/data/model/like_response_request.dart';
 import 'package:instagram_assessment/models/response.dart';
 import 'package:instagram_assessment/models/response_payload.dart';
 import 'package:instagram_assessment/models/typedef.dart';
+import 'package:instagram_assessment/features/response/data/model/like_response_request.dart';
 
 final responseStorageProvider = Provider(
   (ref) => ResponseStorage(

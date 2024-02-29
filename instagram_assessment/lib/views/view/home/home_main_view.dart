@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:instagram_assessment/features/authentication/controller/auth_controller.dart';
-import 'package:instagram_assessment/states/upload_image/models/file_type.dart';
-import 'package:instagram_assessment/states/upload_image/provider/image_picker_provider.dart';
+import 'package:instagram_assessment/features/picker/controller/picker_controller.dart';
+import 'package:instagram_assessment/features/picker/model/file_type.dart';
 import 'package:instagram_assessment/config/core/constants/assets_path.dart';
 import 'package:instagram_assessment/config/core/constants/dimension.dart';
 import 'package:instagram_assessment/views/view/create_post/create_new_post.dart';

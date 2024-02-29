@@ -2,8 +2,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:instagram_assessment/features/post/controller/post_controller.dart';
 import 'package:instagram_assessment/models/typedef.dart';
-import 'package:instagram_assessment/states/like/provider/like_total_provider.dart';
 import 'package:instagram_assessment/config/core/constants/dimension.dart';
 import 'package:instagram_assessment/views/view/like/liked_by_text_view.dart';
 
@@ -13,12 +13,12 @@ class LikeTotalAndUserInfoText extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final totalLikeRequest = ref.watch(
-      likeTotalProvider(postId),
+    final allLikes = ref.watch(
+      allLikePostProvider(postId),
     );
-    return totalLikeRequest.when(
-      data: (totalLike) {
-        if (totalLike <= 0) {
+    return allLikes.when(
+      data: (like) {
+        if (like.isEmpty) {
           return const SizedBox();
         }
         return Padding(
@@ -26,7 +26,7 @@ class LikeTotalAndUserInfoText extends ConsumerWidget {
             left: Dimension.width20,
             right: Dimension.width20,
           ),
-          child: LikedByTextView(totalLike: totalLike, postId: postId),
+          child: LikedByTextView(totalLike: like.length, postId: postId),
         );
       },
       error: (error, stackTrace) => const Text('Error'),

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:instagram_assessment/features/post/controller/post_controller.dart';
 import 'package:instagram_assessment/features/user/controller/user_controller.dart';
 import 'package:instagram_assessment/models/typedef.dart';
-import 'package:instagram_assessment/states/like/provider/last_people_like_provider.dart';
 import 'package:instagram_assessment/config/core/constants/app_colors.dart';
 import 'package:instagram_assessment/config/core/constants/text_messages.dart';
 
@@ -14,7 +14,7 @@ class LikedByTextView extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final lastLiked = ref.watch(lastLikeLikeProvider(postId));
+    final allLikes = ref.watch(allLikePostProvider(postId));
     final likeRemaining = totalLike - 1;
 
     return RichText(
@@ -25,18 +25,18 @@ class LikedByTextView extends ConsumerWidget {
             text: TextMessage.likedBy,
             style: TextStyle(color: AppColor.callToActionText),
           ),
-          lastLiked.when(
-            data: (lastUser) {
-              if (lastUser == null) {
+          allLikes.when(
+            data: (like) {
+              if (like.isEmpty) {
                 return const TextSpan();
               }
-              final user = ref.watch(userByIdProvider(lastUser.userId));
+              final user = ref.watch(userByIdProvider(like.last.userId));
               return user.when(
                 data: (userDetails) {
                   final currentUserId = ref.watch(userProvider);
-                  final isCurrentUserLiked = lastUser.userId == currentUserId;
+                  final isCurrentUserLiked = like.last.userId == currentUserId;
                   final result =
-                      isCurrentUserLiked ? 'you' : userDetails.displayName;
+                      isCurrentUserLiked ? TextMessage.you : userDetails.displayName;
 
                   return TextSpan(
                     text: ' $result',

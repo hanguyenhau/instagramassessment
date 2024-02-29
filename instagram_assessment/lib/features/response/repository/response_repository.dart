@@ -3,11 +3,11 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:instagram_assessment/config/core/extension/sorting_by_request.dart';
 import 'package:instagram_assessment/features/comment/data/model/date_sorting.dart';
 import 'package:instagram_assessment/features/response/data/data_source/response_source.dart';
-import 'package:instagram_assessment/features/response/data/model/like_response_request.dart';
 import 'package:instagram_assessment/models/like_interaction.dart';
 import 'package:instagram_assessment/models/response.dart';
 import 'package:instagram_assessment/models/response_payload.dart';
 import 'package:instagram_assessment/models/typedef.dart';
+import 'package:instagram_assessment/features/response/data/model/like_response_request.dart';
 
 final responseRepositoryProvider = Provider(
   (ref) => ResponseRepository(

@@ -2,7 +2,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:instagram_assessment/features/authentication/repository/auth_repository.dart';
 import 'package:instagram_assessment/features/user/controller/user_controller.dart';
 import 'package:instagram_assessment/models/typedef.dart';
-import 'package:instagram_assessment/states/upload_image/type_def/is_loading.dart';
 
 final authProvider = StateNotifierProvider<AuthController, bool>(
   (ref) => AuthController(

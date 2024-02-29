@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/foundation.dart';
-import 'package:instagram_assessment/states/upload_image/models/file_type.dart';
+import 'package:instagram_assessment/features/picker/model/file_type.dart';
 
 @immutable
 class ThumbnailRequest {

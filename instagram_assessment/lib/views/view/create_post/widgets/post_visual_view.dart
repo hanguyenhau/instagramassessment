@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:instagram_assessment/states/upload_image/models/thumbnail_request.dart';
+import 'package:instagram_assessment/features/picker/model/thumbnail_request.dart';
 import 'package:instagram_assessment/config/core/constants/text_messages.dart';
 import 'package:instagram_assessment/views/view/create_post/widgets/image/thumbnail_post_image.dart';
 import 'package:instagram_assessment/views/view/create_post/widgets/list_tile/object_other_tile.dart';

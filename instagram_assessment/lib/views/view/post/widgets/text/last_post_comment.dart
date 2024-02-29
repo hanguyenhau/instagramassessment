@@ -27,7 +27,7 @@ class LastPostComment extends ConsumerWidget {
               right: Dimension.width20,
             ),
             child: ReadMoreTextView(
-              lastComment: comment.last,
+              lastComment: comment.first,
             ),
           );
         },

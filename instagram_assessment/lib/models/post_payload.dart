@@ -4,7 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 import 'package:instagram_assessment/models/typedef.dart';
 import 'package:instagram_assessment/config/core/constants/post_key.dart';
-import 'package:instagram_assessment/states/upload_image/models/file_type.dart';
+import 'package:instagram_assessment/features/picker/model/file_type.dart';
 
 @immutable
 class PostPayLoad extends MapView<String, dynamic> {
