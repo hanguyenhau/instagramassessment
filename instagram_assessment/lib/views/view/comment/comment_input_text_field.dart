@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:instagram_assessment/features/response/controller/response_controller.dart';
 import 'package:instagram_assessment/features/user/controller/user_controller.dart';
 import 'package:instagram_assessment/models/typedef.dart';
-import 'package:instagram_assessment/states/comment/component/responses/provider/reply_provider.dart';
 import 'package:instagram_assessment/views/view/comment/component/input_comment/cancel_reply_list_tile.dart';
 import 'package:instagram_assessment/views/view/comment/component/input_comment/send_comment_button.dart';
 import 'package:instagram_assessment/views/view/comment/component/input_comment/comment_text_field.dart';
@@ -24,7 +24,7 @@ class CommentInputTextField extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final currentUser = ref.watch(currentUserProvider);
 
-    final reply = ref.watch(replyProvider);
+    final isReply = ref.watch(replyRequestProvider);
 
     return currentUser.when(
       data: (user) => Container(
@@ -40,11 +40,11 @@ class CommentInputTextField extends ConsumerWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   //cancel icon if have reply
-                  reply.isReply
+                  isReply!=null
                       ? CancelReplyListTile(displayName: user.displayName)
                       : const SizedBox(),
                   //divider
-                  reply.isReply
+                  isReply!=null
                       ? CommentnputTextStyles.divider
                       : const SizedBox(),
 
@@ -61,8 +61,7 @@ class CommentInputTextField extends ConsumerWidget {
                       commentController: commentController,
                       hasText: hasText,
                       postId: postId,
-                      reply: reply,
-                      userId: user.userId,
+                      commentId: isReply,
                     ),
                   ])
                 ],

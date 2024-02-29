@@ -4,7 +4,7 @@ import 'package:instagram_assessment/features/user/repository/user_repository.da
 import 'package:instagram_assessment/models/typedef.dart';
 import 'package:instagram_assessment/models/user.dart';
 
-final userProvider = StateNotifierProvider<UserController, UserId?>(
+final userProvider = StateNotifierProvider.autoDispose<UserController, UserId?>(
   (ref) => UserController(
     repo: ref.watch(userRepositoryProvider),
     ref: ref,

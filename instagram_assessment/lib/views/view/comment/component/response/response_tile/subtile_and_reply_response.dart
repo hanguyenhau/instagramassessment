@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:instagram_assessment/features/response/controller/response_controller.dart';
 import 'package:instagram_assessment/features/user/controller/user_controller.dart';
-import 'package:instagram_assessment/states/comment/component/responses/models/response.dart';
-import 'package:instagram_assessment/states/comment/component/responses/provider/reply_provider.dart';
+import 'package:instagram_assessment/models/response.dart';
 import 'package:instagram_assessment/models/comment.dart';
 import 'package:instagram_assessment/config/core/constants/dimension.dart';
 import 'package:instagram_assessment/config/core/constants/text_messages.dart';
@@ -22,7 +22,7 @@ class SubtileAndReplyResponse extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     //watch the isReply for setting controller
-    final isReply = ref.watch(replyProvider).isReply;
+    final isReply = ref.watch(replyRequestProvider);
 
     //current user for reply reuqest
     final currentUser = ref.read(currentUserProvider);
@@ -41,12 +41,12 @@ class SubtileAndReplyResponse extends ConsumerWidget {
 
             // replies comment
             GestureDetector(
-              onTap: !isReply
+              onTap: isReply==null
                   ? () {
                       commentController.text = '@${user.displayName} ';
                       ref
-                          .read(replyProvider.notifier)
-                          .setReply(true, comment.commentId);
+                          .read(replyRequestProvider.notifier).update((state) => comment.commentId);
+                          // .setReply(true, comment.commentId);
                     }
                   : null,
               child: Text(

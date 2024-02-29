@@ -1,8 +1,7 @@
-import 'package:instagram_assessment/models/comment.dart';
 import 'package:instagram_assessment/features/comment/data/model/date_sorting.dart';
 
-extension CommentSortingByRequest on Iterable<Comment> {
-  Iterable<Comment> applySortingFrom(DateSorting request) {
+extension SortingByRequest on Iterable<dynamic> {
+  Iterable<dynamic> applySortingFrom(DateSorting request) {
     final sortedDocument = toList()
       ..sort(
         (a, b) {

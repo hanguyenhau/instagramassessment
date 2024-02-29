@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:instagram_assessment/features/user/controller/user_controller.dart';
 import 'package:instagram_assessment/models/comment.dart';
-import 'package:instagram_assessment/states/comment/component/responses/models/response.dart';
+import 'package:instagram_assessment/models/response.dart';
 import 'package:instagram_assessment/views/view/comment/component/response/response_tile/has_like_and_quantity_response.dart';
 import 'package:instagram_assessment/views/view/comment/component/response/response_tile/subtile_and_reply_response.dart';
 import 'package:instagram_assessment/views/view/comment/component/response/styles/response_tile_style.dart';

@@ -6,7 +6,7 @@ import 'package:instagram_assessment/models/comment.dart';
 import 'package:instagram_assessment/models/comment_payload.dart';
 import 'package:instagram_assessment/models/like_interaction.dart';
 import 'package:instagram_assessment/models/typedef.dart';
-import 'package:instagram_assessment/features/comment/extension/comment_sorting_by_request.dart';
+import 'package:instagram_assessment/config/core/extension/sorting_by_request.dart';
 
 final commentRepositoryProvider = Provider(
   (ref) => CommentRepository(
@@ -21,11 +21,11 @@ class CommentRepository {
   const CommentRepository({required CommentStorage storage})
       : _storage = storage;
 
-  Future<bool> createComment(
-    UserId userId,
-    PostId postId,
-    String comment,
-  ) async {
+  Future<bool> createComment({
+    required UserId userId,
+    required PostId postId,
+    required String comment,
+  }) async {
     final payLoad = CommentPayLoad(
       comment: comment,
       postId: postId,
@@ -34,40 +34,32 @@ class CommentRepository {
     return await _storage.createComment(payLoad);
   }
 
-  Stream<Iterable<Comment>> allComments(PostId postId) {
-    return _storage
-        .allComments(postId)
-        .map((event) => event.applySortingFrom(DateSorting.newestOnTop));
-  }
+  Stream<Iterable<Comment>> allComments(PostId postId) =>
+      _storage.allComments(postId).map((event) =>
+          event.applySortingFrom(DateSorting.newestOnTop) as dynamic);
 
-  Stream<Comment> commentById(CommentId commentId) {
-    return _storage.commentById(commentId);
-  }
+  Stream<Comment> commentById(CommentId commentId) =>
+      _storage.commentById(commentId);
 
   bool hasLike(Comment comment, UserId userId) =>
       //if list likes exist
-      List.from(comment.likes).any((element) => element.userId == userId);
+      Set.from(comment.likes.map((like) => like.userId)).contains(userId);
 
-  Future<void> likeDislikeComment(Comment comment, UserId userId) async {
-    hasLike(comment, userId)
-        ? disLikeComment(comment, userId)
-        : likeComment(comment, userId);
-  }
+  Future<void> likeDislikeComment(Comment comment, UserId userId) async =>
+      hasLike(comment, userId)
+          ? _toggleLike(comment, userId, false)
+          : _toggleLike(comment, userId, true);
 
-  Future<void> likeComment(Comment comment, UserId userId) async {
-    final likes = List.from(comment.likes);
-    likes.add(
-      LikeInteraction(
+  Future<void> _toggleLike(Comment comment, UserId userId, bool like) async {
+    final likes = Set.from(comment.likes.map((like) => like));
+    if (like) {
+      likes.add(LikeInteraction(
         userId: userId,
         createAt: DateTime.now(),
-      ),
-    );
-    _storage.updateLike(comment.commentId, likes);
-  }
-
-  Future<void> disLikeComment(Comment comment, UserId userId) async {
-    final likes = List.from(comment.likes);
-    likes.removeWhere((element) => element.userId == userId);
-    _storage.updateLike(comment.commentId, likes);
+      ));
+    } else {
+      likes.removeWhere((element) => element.userId == userId);
+    }
+    await _storage.updateLike(comment.commentId, likes);
   }
 }

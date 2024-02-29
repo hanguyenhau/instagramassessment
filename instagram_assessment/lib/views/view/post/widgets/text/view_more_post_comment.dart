@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:instagram_assessment/features/comment/controller/comment_controller.dart';
+import 'package:instagram_assessment/features/response/controller/response_controller.dart';
 import 'package:instagram_assessment/models/typedef.dart';
-import 'package:instagram_assessment/states/comment/provider/all_comments_and_responses_quantity.dart';
 import 'package:instagram_assessment/config/core/constants/app_colors.dart';
 import 'package:instagram_assessment/config/core/constants/dimension.dart';
 import 'package:instagram_assessment/views/view/comment/comments_dialog.dart';
@@ -13,7 +14,7 @@ class ViewMorePostComment extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final allCommentsAndResponses = ref.watch(
-      allCommentsAndResponsesQuantity(
+      commentsAndResponsesQuantityProvider(
         postId,
       ),
     );
@@ -30,6 +31,7 @@ class ViewMorePostComment extends ConsumerWidget {
             style: TextStyle(color: AppColor.callToActionText),
           ),
           onTap: () {
+            ref.read(replyRequestProvider.notifier).update((state) => null);
             showModalBottomSheet(
               backgroundColor: Colors.white,
               context: context,

@@ -1,32 +1,37 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:instagram_assessment/config/core/constants/firebase_collection_name.dart';
 import 'package:instagram_assessment/config/core/constants/firebase_field_name.dart';
 import 'package:instagram_assessment/config/core/providers/firebase_provider.dart';
-import 'package:instagram_assessment/models/comment.dart';
-import 'package:instagram_assessment/models/comment_payload.dart';
+import 'package:instagram_assessment/features/response/data/model/like_response_request.dart';
+import 'package:instagram_assessment/models/response.dart';
+import 'package:instagram_assessment/models/response_payload.dart';
 import 'package:instagram_assessment/models/typedef.dart';
 
-final commentStorageProvider = Provider(
-  (ref) => CommentStorage(
+final responseStorageProvider = Provider(
+  (ref) => ResponseStorage(
     firestore: ref.read(firestoreProvider),
   ),
 );
 
 @immutable
-class CommentStorage {
+class ResponseStorage {
   final FirebaseFirestore _firestore;
 
-  const CommentStorage({required FirebaseFirestore firestore})
+  const ResponseStorage({required FirebaseFirestore firestore})
       : _firestore = firestore;
 
   CollectionReference get _comment =>
       _firestore.collection(FirebaseCollectionName.comments);
 
-  Future<bool> createComment(CommentPayLoad comment) async {
+  Future<bool> createResponse(
+      {required ResponsePayLoad response, required CommentId commentId}) async {
     try {
-      _comment.add(comment);
+      _comment
+          .doc(commentId)
+          .collection(FirebaseFieldName.responses)
+          .add(response);
       return true;
     } on FirebaseException catch (e) {
       throw e.message!;
@@ -35,16 +40,17 @@ class CommentStorage {
     }
   }
 
-  Stream<Iterable<Comment>> allComments(PostId postId) {
+  Stream<Iterable<Response>> allResponses(CommentId commentId) {
     try {
       return _comment
-          .where(FirebaseFieldName.postId, isEqualTo: postId)
+          .doc(commentId)
+          .collection(FirebaseFieldName.responses)
           .orderBy(FirebaseFieldName.createAt, descending: true)
           .snapshots()
           .map((snapshot) => snapshot.docs.map(
-                (doc) => Comment.fromJson(
-                  json: doc.data() as Map<dynamic, dynamic>,
-                  commentId: doc.id,
+                (doc) => Response.fromJson(
+                  json: doc.data(),
+                  responseId: doc.id,
                 ),
               ));
     } on FirebaseException catch (e) {
@@ -54,29 +60,15 @@ class CommentStorage {
     }
   }
 
-  Stream<Comment> commentById(CommentId commentId) {
-    try {
-      return _comment
-          .where(FieldPath.documentId, isEqualTo: commentId)
-          .limit(1)
-          .snapshots()
-          .map((snapshot) => snapshot.docs
-              .map((doc) => Comment.fromJson(
-                    commentId: doc.id,
-                    json: doc.data() as Map<dynamic, dynamic>,
-                  ))
-              .first);
-    } on FirebaseException catch (e) {
-      throw e.message!;
-    } catch (e) {
-      rethrow;
-    }
-  }
-
   Future<bool> updateLike(
-      CommentId commentId, Iterable<dynamic> likes) async {
+      {required LikeResponseRequest request,
+      required Iterable<dynamic> likes}) async {
     try {
-      final query = await _comment.doc(commentId).get();
+      final query = await _comment
+          .doc(request.commentId)
+          .collection(FirebaseFieldName.responses)
+          .doc(request.response.responseId)
+          .get();
 
       if (!query.exists) {
         return false;
