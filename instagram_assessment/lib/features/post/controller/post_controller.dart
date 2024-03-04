@@ -25,18 +25,25 @@ final allLikePostProvider = StreamProvider.family((ref, PostId postId) {
   return postController.allLike(postId);
 });
 
-final hasLikePostProvider = FutureProvider.family.autoDispose<bool, PostId>(
+final hasLikePostProvider = StreamProvider.family<bool, PostId>(
   (ref, PostId postId) {
     final postController = ref.watch(postProvider.notifier);
     return postController.hasLike(postId: postId);
   },
 );
 
-final likeDislikePostProvider =
+final likePostProvider =
     FutureProvider.family.autoDispose<void, PostId>((ref, PostId postId) async {
   final commentController = ref.watch(postProvider.notifier);
-  return commentController.likeDislikePost(postId: postId);
+  return commentController.likePost(postId: postId);
 });
+
+final disLikePostProvider =
+    FutureProvider.family.autoDispose<void, PostId>((ref, PostId postId) async {
+  final commentController = ref.watch(postProvider.notifier);
+  return commentController.disLikePost(postId: postId);
+});
+
 
 class PostController extends StateNotifier<IsLoading> {
   final PostRepository _repo;
@@ -82,15 +89,14 @@ class PostController extends StateNotifier<IsLoading> {
     return result;
   }
 
-  Future<bool> hasLike({required PostId postId}) =>
+  Stream<bool> hasLike({required PostId postId}) =>
       _repo.hasLike(postId: postId, userId: _ref.read(userProvider)!);
 
-  Future<void> likeDislikePost({required PostId postId}) async {
-    final hasLiked = await hasLike(postId: postId);
-    hasLiked
-        ? _repo.disLikePost(userId: _ref.read(userProvider)!, postId: postId)
-        : _repo.likePost(userId: _ref.read(userProvider)!, postId: postId);
-  }
+  Future<void> likePost({required PostId postId}) =>
+      _repo.likePost(userId: _ref.read(userProvider)!, postId: postId);
+
+  Future<void> disLikePost({required PostId postId}) =>
+      _repo.disLikePost(userId: _ref.read(userProvider)!, postId: postId);
 
   Uint8List _imageTypeUpload({required File file}) {
     final fileAsImage = img.decodeImage(file.readAsBytesSync());

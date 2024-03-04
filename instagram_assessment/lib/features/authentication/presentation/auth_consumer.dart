@@ -3,8 +3,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:instagram_assessment/features/loading/controller/is_loading_provider.dart';
 import 'package:instagram_assessment/features/loading/presentation/loading_screen.dart';
 import 'package:instagram_assessment/features/user/controller/user_controller.dart';
-import 'package:instagram_assessment/views/view/home/home_main_view.dart';
-import 'package:instagram_assessment/views/view/login/login_main_view.dart';
+import 'package:instagram_assessment/features/authentication/presentation/home_main_view.dart';
+import 'package:instagram_assessment/features/authentication/presentation/login/login_view.dart';
 
 class AuthConsumer extends StatelessWidget {
   const AuthConsumer({super.key});

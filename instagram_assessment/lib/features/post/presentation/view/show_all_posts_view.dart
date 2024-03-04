@@ -1,0 +1,49 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:instagram_assessment/config/core/constants/text_messages.dart';
+import 'package:instagram_assessment/config/core/animations/empty_contents_with_text_animation_view.dart';
+import 'package:instagram_assessment/config/core/animations/error_animation_view.dart';
+import 'package:instagram_assessment/config/core/animations/loading_animation_view.dart';
+import 'package:instagram_assessment/features/post/controller/post_controller.dart';
+import 'package:instagram_assessment/features/post/presentation/view/detail/post_detail_view.dart';
+
+class ShowAllPostsView extends ConsumerWidget {
+  const ShowAllPostsView({super.key});
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final posts = ref.watch(allPostsProvider);
+    
+    return RefreshIndicator(
+      onRefresh: () {
+        ref.refresh(allPostsProvider);
+        return Future.delayed(
+          const Duration(seconds: 1),
+        );
+      },
+      child: posts.when(
+        data: (posts) {
+          if (posts.isEmpty) {
+            return const EmptyContentsWithTextAnimationView(
+              text: TextMessage.noPostsAvailable,
+            );
+          } else {
+            return ListView.builder(
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              itemCount: posts.length,
+              itemBuilder: (context, index) {
+                final post = posts.elementAt(index);
+                return PostDetailsView(
+                  post: post,
+                );
+              },
+            );
+          }
+        },
+        error: (error, stackTrace) => const ErrorAnimationView(),
+        loading: () => const LoadingAnimationView(),
+      ),
+    );
+  }
+}

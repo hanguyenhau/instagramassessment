@@ -95,7 +95,7 @@ class PostRepository {
   Stream<Iterable<Like>> allLikePost(PostId postId) =>
       _postStorage.allLikePost(postId);
 
-  Future<bool> hasLike({required UserId userId, required PostId postId}) =>
+  Stream<bool> hasLike({required UserId userId, required PostId postId}) =>
       _postStorage.hasLike(userId: userId, postId: postId);
 
   Future<void> likePost(

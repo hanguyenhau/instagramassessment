@@ -1,0 +1,56 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:instagram_assessment/features/comment/controller/comment_controller.dart';
+import 'package:instagram_assessment/models/comment.dart';
+import 'package:instagram_assessment/models/typedef.dart';
+import 'package:instagram_assessment/features/comment/presentation/view/elements/tiles/comment_tile.dart';
+
+class ListViewAllComments extends ConsumerWidget {
+  final PostId postId;
+  final AsyncValue<Iterable<Comment>?> comments;
+  final TextEditingController commentController;
+
+  const ListViewAllComments(
+      {required this.commentController,
+      required this.comments,
+      required this.postId,
+      super.key});
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    return comments.when(
+      data: (comments) {
+        if (comments==null) {
+          return const SizedBox();
+        }
+        return SizedBox(
+          height: MediaQuery.of(context).size.height * 0.4,
+          child: RefreshIndicator(
+            onRefresh: () {
+              ref.refresh(
+                allCommentsProvider(
+                  postId,
+                ),
+              );
+              return Future.delayed(
+                const Duration(seconds: 1),
+              );
+            },
+            child: ListView.builder(
+              shrinkWrap: true,
+              itemBuilder: (context, index) {
+                return CommentTile(
+                  commentController: commentController,
+                  comment: comments.elementAt(index),
+                );
+              },
+              itemCount: comments.length,
+            ),
+          ),
+        );
+      },
+      error: (error, stackTrace) => const Text('Error'),
+      loading: () => const Text('Loading'),
+    );
+  }
+}

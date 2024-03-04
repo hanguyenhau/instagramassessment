@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -47,14 +49,12 @@ class PostStorage {
             json: doc.data() as Map<String, dynamic>,
           )));
 
-  Future<bool> hasLike({required PostId postId, required UserId userId}) async {
-    final query = _like
+  Stream<bool> hasLike({required PostId postId, required UserId userId}) {
+    return _like
         .where(FirebaseFieldName.postId, isEqualTo: postId)
         .where(FirebaseFieldName.userId, isEqualTo: userId)
-        .get();
-    return await query.then(
-      (snapshot) => snapshot.docs.isNotEmpty,
-    );
+        .snapshots()
+        .map((snapshot) => snapshot.docs.isNotEmpty);
   }
 
   Future<void> likePost(LikePayLoad payload) async =>
