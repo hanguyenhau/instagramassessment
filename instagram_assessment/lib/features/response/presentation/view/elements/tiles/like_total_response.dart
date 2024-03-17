@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:instagram_assessment/features/comment/presentation/view/elements/style/comment_details_tile.dart';
 import 'package:instagram_assessment/features/response/controller/response_controller.dart';
 import 'package:instagram_assessment/models/typedef.dart';
 import 'package:instagram_assessment/models/response.dart';
 import 'package:instagram_assessment/features/response/data/model/like_response_request.dart';
-import 'package:instagram_assessment/features/comment/presentation/elements/style/comment_details_tiledart';
 
 class HasLikeAndQuantityResponse extends ConsumerWidget {
   final CommentId commentId;

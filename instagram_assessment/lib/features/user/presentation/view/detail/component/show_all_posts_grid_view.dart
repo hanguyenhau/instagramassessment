@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:instagram_assessment/config/core/constants/assets_path.dart';
 import 'package:instagram_assessment/config/core/constants/dimension.dart';
 
-class GridViewUserImages extends StatelessWidget {
+class ShowAllPostGridView extends StatelessWidget {
   final List<String> images = [
     AssetsPath.testPostImage,
     AssetsPath.testPostImage,
@@ -14,7 +14,7 @@ class GridViewUserImages extends StatelessWidget {
     AssetsPath.testPostImage,
     // Add more image URLs as needed
   ];
-  GridViewUserImages({
+  ShowAllPostGridView({
     super.key,
   });
 

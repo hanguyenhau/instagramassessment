@@ -4,7 +4,7 @@ import 'package:instagram_assessment/features/user/repository/user_repository.da
 import 'package:instagram_assessment/models/typedef.dart';
 import 'package:instagram_assessment/models/user.dart';
 
-final userProvider = StateNotifierProvider.autoDispose<UserController, UserId?>(
+final userProvider = StateNotifierProvider<UserController, UserId?>(
   (ref) => UserController(
     repo: ref.watch(userRepositoryProvider),
     ref: ref,
@@ -23,7 +23,7 @@ final currentUserProvider = StreamProvider.autoDispose((ref) {
 
 final userByIdProvider = StreamProvider.family.autoDispose((ref, UserId userId) {
   final userController = ref.watch(userProvider.notifier);
-   return userController.userById(userId); 
+   return userController.userInfoById(userId); 
 });
 
 class UserController extends StateNotifier<UserId?> {
@@ -43,7 +43,7 @@ class UserController extends StateNotifier<UserId?> {
 
   Stream<Iterable<UserModel>> allUsers() => _repo.allUsers();
 
-  Stream<UserModel> userById(UserId userId) => _repo.getUserData(uId: userId);
+  Stream<UserModel> userInfoById(UserId userId) => _repo.getUserData(uId: userId);
 
   Stream<UserModel> currentUser() => _repo.getUserData(uId: state!);
 }

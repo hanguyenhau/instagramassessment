@@ -36,7 +36,7 @@ class LikeTotalAndLastUser extends ConsumerWidget {
                   final currentUserId = ref.watch(userProvider);
                   final isCurrentUserLiked = like.last.userId == currentUserId;
                   final result =
-                      isCurrentUserLiked ? TextMessage.you : userDetails.displayName;
+                      isCurrentUserLiked ? TextMessage.you : userDetails.name;
 
                   return TextSpan(
                     text: ' $result',

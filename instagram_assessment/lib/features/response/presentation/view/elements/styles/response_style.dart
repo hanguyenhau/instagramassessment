@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:instagram_assessment/config/core/constants/dimension.dart';
-import 'package:instagram_assessment/features/comment/presentation/elements/style/comment_details_tiledart';
+import 'package:instagram_assessment/features/comment/presentation/view/elements/style/comment_details_tile.dart';
 
 class ResponseTileStyle {
   const ResponseTileStyle();

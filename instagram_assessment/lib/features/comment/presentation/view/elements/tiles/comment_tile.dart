@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:instagram_assessment/features/comment/presentation/view/elements/style/comment_details_tile.dart';
 import 'package:instagram_assessment/features/user/controller/user_controller.dart';
 import 'package:instagram_assessment/models/comment.dart';
 import 'package:instagram_assessment/config/core/constants/dimension.dart';
 import 'package:instagram_assessment/features/response/presentation/view/show_all_responses.dart';
 import 'package:instagram_assessment/features/comment/presentation/view/elements/tiles/like_total_comment.dart';
 import 'package:instagram_assessment/features/comment/presentation/view/elements/tiles/comment_details.dart';
-import 'package:instagram_assessment/features/comment/presentation/elements/style/comment_details_tiledart';
 
 class CommentTile extends ConsumerWidget {
   final Comment comment;
@@ -34,7 +34,7 @@ class CommentTile extends ConsumerWidget {
             contentPadding: CommentDetailTileStyles.contentPaddingUserInfo,
             // owner comment display name
             title: Text(
-              user.displayName,
+              user.name,
               style: CommentDetailTileStyles.textUserInfo,
             ),
 

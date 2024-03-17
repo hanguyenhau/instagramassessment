@@ -3,6 +3,7 @@ import 'package:flutter/foundation.dart';
 @immutable
 class Dimension {
   //height
+  static const height0 = 0.0;
   static const height1dot5 = 1.5;
   static const height5 = 5.0;
   static const height7 = 7.0;
@@ -12,6 +13,7 @@ class Dimension {
   static const height20 = 20.0;
   static const height21 = 21.0;
   static const height23 = 23.0;
+  static const height25 = 25.0;
   static const height26 = 26.0;
   static const height30 = 30.0;
   static const height35 = 35.0;
@@ -23,6 +25,7 @@ class Dimension {
   static const height120 = 120.0;
 
   //width
+  static const width0 = 0.0;
   static const width2dot2 = 2.2;
   static const width2 = 2.0;
   static const width5 = 5.0;
@@ -32,6 +35,7 @@ class Dimension {
   static const width18 = 18.0;
   static const width20 = 20.0;
   static const width21 = 21.0;
+  static const width25 = 23.0;
   static const width26 = 26.0;
   static const width23 = 23.0;
   static const width30 = 30.0;
@@ -41,6 +45,7 @@ class Dimension {
   static const width50 = 50.0;
   static const width60 = 60.0;
   static const width70 = 70.0;
+  static const width75 = 75.0;
 
   //padding
   static const padding5 = 5.0;

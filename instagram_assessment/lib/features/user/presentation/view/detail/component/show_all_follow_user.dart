@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:instagram_assessment/config/core/constants/assets_path.dart';
 import 'package:instagram_assessment/config/core/constants/dimension.dart';
-import 'package:instagram_assessment/features/user/presentation/user/horizontal/other_user_image.dart';
+import 'package:instagram_assessment/features/user/presentation/view/other_user_image_test.dart';
 
-class UserFavoriteActivitiesListView extends StatelessWidget {
-  const UserFavoriteActivitiesListView({super.key});
+class ShowAllFollowUser extends StatelessWidget {
+  const ShowAllFollowUser({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -29,9 +29,9 @@ class UserFavoriteActivitiesListView extends StatelessWidget {
         children: items.map((e) {
           return const Padding(
             padding: EdgeInsets.only(right: Dimension.width18),
-            child: OtherUserImage(
+            child: OtherUserImageTest(
               profileImage:
-                  'https://firebasestorage.googleapis.com/v0/b/instagramassessment-52520.appspot.com/o/wNDHlwbuShbaPO8WHObww5wNi3z1%2Fthumbnails%2Febe71263-c1d0-4fe8-bc4c-44ea9b41c688?alt=media&token=9c84668e-2fa4-4a53-a2f3-299214e91385',
+                  'https://buffer.com/cdn-cgi/image/w=1000,fit=contain,q=90,f=auto/library/content/images/size/w1200/2023/10/free-images.jpg',
               grayGradient: true,
               borderWeight: Dimension.borderWeight1,
             ),

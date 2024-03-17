@@ -4,55 +4,60 @@ import 'package:instagram_assessment/config/core/constants/firebase_field_name.d
 
 @immutable
 class UserModel {
-  final String userId;
-  final String displayName;
+  final String uid;
+  final String name;
   final String email;
   final String image;
 
   const UserModel({
     required this.image,
-    required this.userId,
-    required this.displayName,
+    required this.uid,
+    required this.name,
     required this.email,
   });
 
   UserModel coppyWith({
-    String? userId,
-    String? displayName,
+    String? uid,
+    String? name,
     String? email,
     String? image,
   }) {
     return UserModel(
       image: image ?? this.image,
-      userId: userId ?? this.userId,
-      displayName: displayName ?? this.displayName,
+      uid: uid ?? this.uid,
+      name: name ?? this.name,
       email: email ?? this.email,
     );
   }
 
-  factory UserModel.fromJson({required Map<String, dynamic> json}) {
-    return UserModel(
-      userId: json[FirebaseFieldName.userId],
-      displayName: json[FirebaseFieldName.displayName] ?? '',
-      email: json[FirebaseFieldName.email],
-      image: json[FirebaseFieldName.image],
-    );
-  }
+  factory UserModel.fromJson({required Map<String, dynamic> json}) => UserModel(
+        uid: json[FirebaseFieldName.userId],
+        name: json[FirebaseFieldName.displayName] ?? '',
+        email: json[FirebaseFieldName.email],
+        image: json[FirebaseFieldName.image],
+      );
+
+  Map<String, dynamic> toJson() => {
+        FirebaseFieldName.userId: uid,
+        FirebaseFieldName.name: name,
+        FirebaseFieldName.email: email,
+        FirebaseFieldName.image: image,
+      };
 
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
       other is UserModel &&
           runtimeType == other.runtimeType &&
-          userId == other.userId &&
-          displayName == other.displayName &&
+          uid == other.uid &&
+          name == other.name &&
           email == other.email &&
           image == other.image;
 
   @override
   int get hashCode => Object.hashAll([
-        userId,
-        displayName,
+        uid,
+        name,
         email,
         image,
       ]);

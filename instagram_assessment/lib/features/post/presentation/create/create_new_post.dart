@@ -16,7 +16,7 @@ class CreateNewPost extends StatefulHookConsumerWidget {
   const CreateNewPost({
     super.key,
     required this.fileToPost,
-    required this.fileType,
+    this.fileType = FileType.image,
   });
 
   @override

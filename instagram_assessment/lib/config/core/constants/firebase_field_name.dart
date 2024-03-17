@@ -4,6 +4,7 @@ import 'package:flutter/foundation.dart';
 class FirebaseFieldName{
   static const userId = 'uid';
   static const displayName = 'display_name';
+  static const name = 'name';
   static const email = 'email';
   static const createAt = 'created_at';
   static const image = 'image';

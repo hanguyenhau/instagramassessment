@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:instagram_assessment/config/core/constants/firebase_constants.dart';
@@ -35,8 +36,8 @@ class AuthRepository {
         currentUserInfo = UserModel(
             image:
                 userCredential.user!.photoURL ?? FirebaseConstants.defaultPhoto,
-            userId: userCredential.user!.uid,
-            displayName: userCredential.user!.displayName ??
+            uid: userCredential.user!.uid,
+            name: userCredential.user!.displayName ??
                 FirebaseConstants.defaultName,
             email: userCredential.user!.email ?? '');
         await _storage.saveUserInfo(user: currentUserInfo);
@@ -51,4 +52,6 @@ class AuthRepository {
   }
 
   Future<void> signOut() async => _authDataSource.signOut();
+
+  Stream<User?> get authStateChange => _authDataSource.authStateChange;
 }

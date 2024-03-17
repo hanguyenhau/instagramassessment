@@ -41,7 +41,7 @@ class CommentInputTextField extends ConsumerWidget {
                 children: [
                   //cancel icon if have reply
                   isReply!=null
-                      ? CancelReplyTile(displayName: user.displayName)
+                      ? CancelReplyTile(displayName: user.name)
                       : const SizedBox(),
                   //divider
                   isReply!=null
@@ -52,7 +52,7 @@ class CommentInputTextField extends ConsumerWidget {
                     Expanded(
                       child: CommentTextField(
                         controller: commentController,
-                        userName: user.displayName,
+                        userName: user.name,
                       ),
                     ),
 

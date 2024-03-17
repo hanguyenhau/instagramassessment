@@ -24,6 +24,8 @@ class AuthFirebaseSource {
 
   UserId? get userId => _auth.currentUser?.uid;
 
+  Stream<User?> get authStateChange => _auth.authStateChanges();
+
   //loginWithGoogle
   Future<UserCredential?> loginWithGoogle() async {
     final signInAccount = await _googleSignIn.signIn();

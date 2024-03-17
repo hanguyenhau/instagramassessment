@@ -30,8 +30,8 @@ class UserStorage {
     try {
       //if not empty
       final payload = UserModelPayLoad(
-        userId: user.userId,
-        displayName: user.displayName,
+        userId: user.uid,
+        displayName: user.name,
         email: user.email,
         image: user.image,
       );

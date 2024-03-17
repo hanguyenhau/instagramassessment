@@ -27,7 +27,7 @@ class ReadMoreTextView extends ConsumerWidget {
       data: (user) => RichText(
         text: TextSpan(style: DefaultTextStyle.of(context).style, children: [
           TextSpan(
-            text: user.displayName,
+            text: user.name,
             style: const TextStyle(
               fontWeight: FontWeight.bold,
             ),

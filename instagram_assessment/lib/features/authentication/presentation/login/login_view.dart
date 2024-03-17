@@ -10,8 +10,8 @@ import 'package:instagram_assessment/features/authentication/presentation/login/
 import 'package:instagram_assessment/features/authentication/presentation/login/google_button_view.dart';
 import 'package:instagram_assessment/config/views/divider/horizontal_divider_view.dart';
 
-class SignInView extends ConsumerWidget {
-  const SignInView({super.key});
+class LoginView extends ConsumerWidget {
+  const LoginView({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
