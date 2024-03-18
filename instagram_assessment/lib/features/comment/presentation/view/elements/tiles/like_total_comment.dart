@@ -25,7 +25,7 @@ class LikeTotalComment extends ConsumerWidget {
             //like comments
             GestureDetector(
               onTap: () {
-                ref.watch(likeDislikeCommentProvider(
+                ref.read(likeDislikeCommentProvider(
                   comment,
                 ));
               },

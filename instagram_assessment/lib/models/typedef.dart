@@ -7,3 +7,5 @@ typedef PostId = String;
 typedef ResponseId = String;
 
 typedef IsLoading = bool;
+
+typedef FollowId = String;

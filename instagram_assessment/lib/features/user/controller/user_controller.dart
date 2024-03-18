@@ -21,9 +21,16 @@ final currentUserProvider = StreamProvider.autoDispose((ref) {
   return userController.currentUser();
 });
 
-final userByIdProvider = StreamProvider.family.autoDispose((ref, UserId userId) {
+final userByIdProvider =
+    StreamProvider.family.autoDispose((ref, UserId userId) {
   final userController = ref.watch(userProvider.notifier);
-   return userController.userInfoById(userId); 
+  return userController.userInfoById(userId);
+});
+
+final followingToProvider =
+    FutureProvider.family.autoDispose<bool, UserId>((ref, UserId userId) {
+  final userController = ref.watch(userProvider.notifier);
+  return userController.followingTo(userId: userId);
 });
 
 class UserController extends StateNotifier<UserId?> {
@@ -43,7 +50,12 @@ class UserController extends StateNotifier<UserId?> {
 
   Stream<Iterable<UserModel>> allUsers() => _repo.allUsers();
 
-  Stream<UserModel> userInfoById(UserId userId) => _repo.getUserData(uId: userId);
+  Stream<UserModel> userInfoById(UserId userId) =>
+      _repo.getUserData(uId: userId);
 
   Stream<UserModel> currentUser() => _repo.getUserData(uId: state!);
+
+  Future<bool> followingTo({required UserId userId}) async => state != null
+      ? await _repo.followingTo(currentId: state!, targetId: userId)
+      : false;
 }

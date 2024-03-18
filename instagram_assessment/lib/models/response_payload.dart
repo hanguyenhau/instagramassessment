@@ -16,5 +16,4 @@ class ResponsePayLoad extends MapView<String, dynamic>{
     FirebaseFieldName.createAt: FieldValue.serverTimestamp(),
     FirebaseFieldName.likes: [],
   });
-  
 }

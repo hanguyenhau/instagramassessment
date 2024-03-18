@@ -61,14 +61,14 @@ class DatabaseHelper {
     );
   }
 
-  static Future<List<UserModel>?> getAllUsers() async {
-    final List<Map<String, dynamic>> maps = await _database!.query("User");
+  // static Future<List<UserModel>?> getAllUsers() async {
+  //   final List<Map<String, dynamic>> maps = await _database!.query("User");
 
-    if (maps.isEmpty) {
-      return null;
-    }
+  //   if (maps.isEmpty) {
+  //     return null;
+  //   }
 
-    return List.generate(
-        maps.length, (index) => UserModel.fromJson(json: maps[index]));
-  }
+  //   return List.generate(
+  //       maps.length, (index) => UserModel.fromJson(json: maps[index],uid: ));
+  // }
 }

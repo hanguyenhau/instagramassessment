@@ -6,6 +6,7 @@ import 'package:instagram_assessment/features/authentication/data/data_sources/a
 import 'package:instagram_assessment/features/user/data/data_source/user_storage.dart';
 import 'package:instagram_assessment/models/typedef.dart';
 import 'package:instagram_assessment/models/user.dart';
+import 'package:instagram_assessment/models/user_payload.dart';
 
 final authRepositoryProvider = Provider(
   (ref) => AuthRepository(
@@ -23,7 +24,7 @@ class AuthRepository {
 
   UserId? get currentId => _authDataSource.userId;
 
-  Future<UserModel?> loginWithGoogle() async {
+ Future<UserModel?> loginWithGoogle() async {
     try {
       final userCredential = await _authDataSource.loginWithGoogle();
       if (userCredential == null) {
@@ -50,6 +51,7 @@ class AuthRepository {
       return null;
     }
   }
+
 
   Future<void> signOut() async => _authDataSource.signOut();
 

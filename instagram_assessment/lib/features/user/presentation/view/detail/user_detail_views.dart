@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:instagram_assessment/config/core/constants/assets_path.dart';
@@ -39,7 +41,10 @@ class _UserMainViewState extends ConsumerState<UserDetailsView> {
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
                             TextButton(
-                                onPressed: () async {},
+                                onPressed: () async {
+                                  log('message');
+                                  ref.read(followingToProvider(user.uid));
+                                },
                                 child: UserDetailStyle.followButton),
                             TextButton(
                                 onPressed: () {},

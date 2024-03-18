@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:instagram_assessment/config/core/providers/firebase_provider.dart';
+import 'package:instagram_assessment/models/follow_payload.dart';
 import 'package:instagram_assessment/models/typedef.dart';
 import 'package:instagram_assessment/models/user.dart';
 import 'package:instagram_assessment/models/user_payload.dart';
@@ -51,8 +52,8 @@ class UserStorage {
           .limit(1)
           .snapshots()
           .map((snapshot) => snapshot.docs
-              .map((doc) =>
-                  UserModel.fromJson(json: doc.data() as Map<String, dynamic>))
+              .map((doc) => UserModel.fromJson(
+                  json: doc.data() as Map<String, dynamic>,))
               .first);
 
   Stream<Iterable<UserModel>> allUsers() =>
@@ -61,4 +62,33 @@ class UserStorage {
               json: doc.data() as Map<String, dynamic>,
             ),
           ));
+
+  Future<bool> followingTo(FollowPayLoad follow, UserId userId) async {
+    try {
+      await _users
+          .doc(userId)
+          .collection(FirebaseFieldName.following)
+          .add(follow);
+      return true;
+    } on FirebaseException catch (e) {
+      throw e.message!;
+    } catch (_) {
+      return false;
+    }
+  }
+
+  //this add follower for the user you follow
+  Future<bool> followerBy(FollowPayLoad follow, UserId userId) async {
+    try {
+      await _users
+          .doc(userId)
+          .collection(FirebaseFieldName.followers)
+          .add(follow);
+      return true;
+    } on FirebaseException catch (e) {
+      throw e.message!;
+    } catch (_) {
+      return false;
+    }
+  }
 }

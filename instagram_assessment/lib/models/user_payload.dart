@@ -17,3 +17,4 @@ class UserModelPayLoad extends MapView<String, String> {
           FirebaseFieldName.image: image ?? '',
         });  
 }
+
