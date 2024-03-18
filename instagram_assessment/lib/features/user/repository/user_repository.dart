@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:instagram_assessment/config/core/constants/firebase_field_name.dart';
 import 'package:instagram_assessment/features/user/data/data_source/user_storage.dart';
 import 'package:instagram_assessment/models/follow_payload.dart';
 import 'package:instagram_assessment/models/typedef.dart';
@@ -29,17 +30,20 @@ class UserRepository {
     required UserId currentId,
   }) async {
     try {
-      final followingPayLoad = FollowPayLoad(
-        userId: targetId,
-      );
-      final followerPayload = FollowPayLoad(
-        userId: currentId,
-      );
-      final followingSuccess =
-          await _storage.followingTo(followingPayLoad, currentId);
-      final followerSuccess =
-          await _storage.followerBy(followerPayload, targetId);
-      return followingSuccess && followerSuccess;
+      final followActions = await Future.wait([
+        _storage.followUser(
+          collectionName: FirebaseFieldName.following,
+          userId: currentId,
+          payload: FollowPayLoad(userId: targetId),
+        ),
+        _storage.followUser(
+          collectionName: FirebaseFieldName.followers,
+          userId: targetId,
+          payload: FollowPayLoad(userId: currentId),
+        )
+      ]);
+
+      return followActions.every((success) => success);
     } catch (_) {
       return false;
     }

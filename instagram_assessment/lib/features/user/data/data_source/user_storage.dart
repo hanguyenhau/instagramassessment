@@ -36,7 +36,7 @@ class UserStorage {
         email: user.email,
         image: user.image,
       );
-      await _firestore.collection(FirebaseCollectionName.users).add(payload);
+      await _users.add(payload);
 
       return true;
     } catch (e) {
@@ -53,7 +53,8 @@ class UserStorage {
           .snapshots()
           .map((snapshot) => snapshot.docs
               .map((doc) => UserModel.fromJson(
-                  json: doc.data() as Map<String, dynamic>,))
+                    json: doc.data() as Map<String, dynamic>,
+                  ))
               .first);
 
   Stream<Iterable<UserModel>> allUsers() =>
@@ -63,13 +64,18 @@ class UserStorage {
             ),
           ));
 
-  Future<bool> followingTo(FollowPayLoad follow, UserId userId) async {
+  Future<bool> followUser({
+    required UserId userId,
+    required String collectionName,
+    required FollowPayLoad payload,
+  }) async {
     try {
-      await _users
-          .doc(userId)
-          .collection(FirebaseFieldName.following)
-          .add(follow);
-      return true;
+      final documentId = await _getDocumentId(userId);
+      if (documentId != null) {
+        await _users.doc(documentId).collection(collectionName).add(payload);
+        return true;
+      }
+      return false;
     } on FirebaseException catch (e) {
       throw e.message!;
     } catch (_) {
@@ -77,18 +83,23 @@ class UserStorage {
     }
   }
 
-  //this add follower for the user you follow
-  Future<bool> followerBy(FollowPayLoad follow, UserId userId) async {
+  Future<String?> _getDocumentId(UserId userId) async {
     try {
-      await _users
-          .doc(userId)
-          .collection(FirebaseFieldName.followers)
-          .add(follow);
-      return true;
+      QuerySnapshot<Object?> snapshot = await _users
+          .where(FirebaseFieldName.userId, isEqualTo: userId)
+          .limit(1)
+          .get();
+
+      // If document found, return its ID
+      if (snapshot.docs.isNotEmpty) {
+        return snapshot.docs.first.id;
+      } else {
+        return null; // Document not found
+      }
     } on FirebaseException catch (e) {
       throw e.message!;
     } catch (_) {
-      return false;
+      return null;
     }
   }
 }
