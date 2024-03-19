@@ -44,6 +44,11 @@ final disLikePostProvider =
   return commentController.disLikePost(postId: postId);
 });
 
+final retrieveUserPostProvider =
+    StreamProvider.family.autoDispose((ref, UserId userId) {
+  final commentController = ref.watch(postProvider.notifier);
+  return commentController.retrieveUserPost(userId: userId);
+});
 
 class PostController extends StateNotifier<IsLoading> {
   final PostRepository _repo;
@@ -91,6 +96,9 @@ class PostController extends StateNotifier<IsLoading> {
 
   Stream<bool> hasLike({required PostId postId}) =>
       _repo.hasLike(postId: postId, userId: _ref.read(userProvider)!);
+
+  Stream<Iterable<Post>> retrieveUserPost({required UserId userId}) =>
+      _repo.retrieveUserPost(userId: userId);
 
   Future<void> likePost({required PostId postId}) =>
       _repo.likePost(userId: _ref.read(userProvider)!, postId: postId);

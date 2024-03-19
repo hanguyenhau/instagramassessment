@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:instagram_assessment/config/core/constants/dimension.dart';
 import 'package:instagram_assessment/config/core/constants/text_messages.dart';
+import 'package:instagram_assessment/features/post/controller/post_controller.dart';
 import 'package:instagram_assessment/features/user/controller/user_controller.dart';
 import 'package:instagram_assessment/features/user/presentation/view/detail/component/header/component/user_image.dart';
 import 'package:instagram_assessment/models/typedef.dart';
@@ -33,17 +34,27 @@ class _UserDetailViewState extends ConsumerState<UserInfoHeader> {
                 UserImage(image: user.image),
               ],
             ),
-            const Column(
+            Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                Text(
-                  '1000',
-                  style: TextStyle(
-                    fontSize: Dimension.fontSize15,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                Text(
+                Consumer(builder: (context, ref, child) {
+                  final posts = ref.watch(
+                    retrieveUserPostProvider(user.uid),
+                  );
+
+                  return posts.when(
+                    data: (post) => Text(
+                      post.length.toString(),
+                      style: const TextStyle(
+                        fontSize: Dimension.fontSize15,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    error: (error, stackTrace) => const Text('Error'),
+                    loading: () =>  const SizedBox(),
+                  );
+                }),
+                const Text(
                   TextMessage.posts,
                   style: TextStyle(
                     fontSize: Dimension.fontSize12,
@@ -51,16 +62,26 @@ class _UserDetailViewState extends ConsumerState<UserInfoHeader> {
                 )
               ],
             ),
-            const Column(
+            Column(
               children: [
-                Text(
-                  '60',
-                  style: TextStyle(
-                    fontSize: Dimension.fontSize15,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                Text(
+                Consumer(builder: (context, ref, child) {
+                  final followers = ref.watch(
+                    getFollowersProvider(user.documentId),
+                  );
+
+                  return followers.when(
+                    data: (followStream) => Text(
+                      followStream.length.toString(),
+                      style: const TextStyle(
+                        fontSize: Dimension.fontSize15,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    error: (error, stackTrace) => const Text('Error'),
+                    loading: () =>  const SizedBox(),
+                  );
+                }),
+                const Text(
                   TextMessage.followers,
                   style: TextStyle(
                     fontSize: Dimension.fontSize12,
@@ -68,16 +89,26 @@ class _UserDetailViewState extends ConsumerState<UserInfoHeader> {
                 ),
               ],
             ),
-            const Column(
+            Column(
               children: [
-                Text(
-                  '4',
-                  style: TextStyle(
-                    fontSize: Dimension.fontSize15,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                Text(
+                Consumer(builder: (context, ref, child) {
+                  final followers = ref.watch(
+                    getFollowingsProvider(user.documentId),
+                  );
+
+                  return followers.when(
+                    data: (followStream) => Text(
+                      followStream.length.toString(),
+                      style: const TextStyle(
+                        fontSize: Dimension.fontSize15,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    error: (error, stackTrace) => const Text('Error'),
+                    loading: () => const SizedBox(),
+                  );
+                }),
+                const Text(
                   TextMessage.following,
                   style: TextStyle(
                     fontSize: Dimension.fontSize12,
@@ -89,7 +120,7 @@ class _UserDetailViewState extends ConsumerState<UserInfoHeader> {
         ),
       ),
       error: (error, stackTrace) => const Text('Error'),
-      loading: () => const Text('Loading'),
+      loading: () => const SizedBox(),
     );
   }
 }

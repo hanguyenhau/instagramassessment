@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -32,6 +30,16 @@ class PostStorage {
 
   Stream<Iterable<Post>> allPosts() => _post
       .orderBy(FirebaseFieldName.createAt, descending: true)
+      .snapshots()
+      .map((snapshot) => snapshot.docs.map(
+            (doc) => Post(
+              postId: doc.id,
+              json: doc.data() as Map<String, dynamic>,
+            ),
+          ));
+
+  Stream<Iterable<Post>> retrieveUserPost({required UserId userId}) => _post
+      .where(FirebaseFieldName.userId, isEqualTo: userId)
       .snapshots()
       .map((snapshot) => snapshot.docs.map(
             (doc) => Post(

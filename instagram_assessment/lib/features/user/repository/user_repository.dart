@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:instagram_assessment/config/core/constants/firebase_field_name.dart';
 import 'package:instagram_assessment/features/user/data/data_source/user_storage.dart';
+import 'package:instagram_assessment/models/follow.dart';
 import 'package:instagram_assessment/models/follow_payload.dart';
 import 'package:instagram_assessment/models/typedef.dart';
 import 'package:instagram_assessment/models/user.dart';
@@ -26,26 +27,39 @@ class UserRepository {
       _storage.getUserData(uId: uId);
 
   Future<bool> followingTo({
-    required UserId targetId,
+    required String targetDocumentId,
     required UserId currentId,
   }) async {
     try {
-      final followActions = await Future.wait([
-        _storage.followUser(
-          collectionName: FirebaseFieldName.following,
-          userId: currentId,
-          payload: FollowPayLoad(userId: targetId),
-        ),
-        _storage.followUser(
-          collectionName: FirebaseFieldName.followers,
-          userId: targetId,
-          payload: FollowPayLoad(userId: currentId),
-        )
-      ]);
-
-      return followActions.every((success) => success);
+      final currentDocumentId = await _getDocumentId(currentId);
+      if (currentDocumentId != null) {
+        final followActions = await Future.wait([
+          _storage.followUser(
+            collectionName: FirebaseFieldName.following,
+            uDocumentId: currentDocumentId,
+            payload: FollowPayLoad(userId: targetDocumentId),
+          ),
+          _storage.followUser(
+            collectionName: FirebaseFieldName.followers,
+            uDocumentId: targetDocumentId,
+            payload: FollowPayLoad(userId: currentDocumentId),
+          )
+        ]);
+        return followActions.every((success) => success);
+      }
+      return false;
     } catch (_) {
       return false;
     }
   }
+
+  Stream<Iterable<Follow>> getFollow({
+    required String? uDocumentId,
+    required String collectionName,
+  }) =>
+      _storage.getFollow(
+          uDocumentId: uDocumentId, collectionName: collectionName);
+
+  Future<String?> _getDocumentId(UserId userId) =>
+      _storage.getDocumentId(userId);
 }

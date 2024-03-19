@@ -8,12 +8,14 @@ class UserModel {
   final String name;
   final String email;
   final String image;
+  final String? documentId;
 
   const UserModel({
     required this.image,
     required this.uid,
     required this.name,
     required this.email,
+    this.documentId,
   });
 
   UserModel coppyWith({
@@ -30,11 +32,12 @@ class UserModel {
     );
   }
 
-  factory UserModel.fromJson({required Map<String, dynamic> json}) => UserModel(
+  factory UserModel.fromJson({required Map<String, dynamic> json, required String documentId}) => UserModel(
         uid: json[FirebaseFieldName.userId],
         name: json[FirebaseFieldName.displayName] ?? '',
         email: json[FirebaseFieldName.email],
         image: json[FirebaseFieldName.image],
+        documentId: documentId,
       );
 
   Map<String, dynamic> toJson() => {

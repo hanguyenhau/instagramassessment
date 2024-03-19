@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:instagram_assessment/config/core/constants/assets_path.dart';
@@ -42,17 +40,23 @@ class _UserMainViewState extends ConsumerState<UserDetailsView> {
                           children: [
                             TextButton(
                                 onPressed: () async {
-                                  log('message');
-                                  ref.read(followingToProvider(user.uid));
+                                  user.documentId != null
+                                      ? ref.read(
+                                          followingToProvider(user.documentId!))
+                                      : null;
                                 },
-                                child: UserDetailStyle.followButton),
+                                child: user.uid == ref.watch(userProvider)
+                                    ? UserDetailStyle.editButton
+                                    : UserDetailStyle.followButton),
                             TextButton(
                                 onPressed: () {},
                                 child: UserDetailStyle.messageButton),
-                            TextButton(
-                              onPressed: () {},
-                              child: UserDetailStyle.addFollowButton,
-                            ),
+                            user.uid == ref.watch(userProvider)
+                                ? const SizedBox()
+                                : TextButton(
+                                    onPressed: () {},
+                                    child: UserDetailStyle.addFollowButton,
+                                  ),
                           ],
                         ),
                         const ShowAllFollowUser(),

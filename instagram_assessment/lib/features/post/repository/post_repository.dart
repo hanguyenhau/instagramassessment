@@ -95,6 +95,9 @@ class PostRepository {
   Stream<Iterable<Like>> allLikePost(PostId postId) =>
       _postStorage.allLikePost(postId);
 
+  Stream<Iterable<Post>> retrieveUserPost({required UserId userId}) =>
+      _postStorage.retrieveUserPost(userId: userId);
+
   Stream<bool> hasLike({required UserId userId, required PostId postId}) =>
       _postStorage.hasLike(userId: userId, postId: postId);
 

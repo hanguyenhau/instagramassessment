@@ -9,8 +9,15 @@ import 'package:instagram_assessment/features/user/presentation/view/detail/comp
 class UserDetailStyle {
   static get followButton => Container(
       padding: UserDetailChildStyles.buttonPadding,
-      decoration: UserDetailChildStyles.buttonDecoration(AppColor.facebookColor),
+      decoration:
+          UserDetailChildStyles.buttonDecoration(AppColor.facebookColor),
       child: UserDetailChildStyles.textButton(TextMessage.follow));
+
+  static get editButton => Container(
+      padding: UserDetailChildStyles.buttonPadding,
+      decoration:
+          UserDetailChildStyles.buttonDecoration(AppColor.facebookColor),
+      child: UserDetailChildStyles.textButton(TextMessage.editProfile));
 
   static get messageButton => Container(
       padding: UserDetailChildStyles.buttonPadding,
