@@ -11,19 +11,25 @@ class UserDetailStyle {
       padding: UserDetailChildStyles.buttonPadding,
       decoration:
           UserDetailChildStyles.buttonDecoration(AppColor.facebookColor),
-      child: UserDetailChildStyles.textButton(TextMessage.follow));
+      child: UserDetailChildStyles.whiteText(TextMessage.follow));
+
+  static get unFollowButton => Container(
+      padding: UserDetailChildStyles.buttonPadding,
+      decoration:
+          UserDetailChildStyles.buttonDecoration(AppColor.callToActionButton),
+      child: UserDetailChildStyles.plainText(TextMessage.unFollow));
 
   static get editButton => Container(
       padding: UserDetailChildStyles.buttonPadding,
       decoration:
           UserDetailChildStyles.buttonDecoration(AppColor.facebookColor),
-      child: UserDetailChildStyles.textButton(TextMessage.editProfile));
+      child: UserDetailChildStyles.whiteText(TextMessage.editProfile));
 
   static get messageButton => Container(
       padding: UserDetailChildStyles.buttonPadding,
       decoration:
           UserDetailChildStyles.buttonDecoration(AppColor.callToActionButton),
-      child: UserDetailChildStyles.textButton(
+      child: UserDetailChildStyles.plainText(
         TextMessage.message,
       ));
 

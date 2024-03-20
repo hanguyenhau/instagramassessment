@@ -4,10 +4,11 @@ import 'package:instagram_assessment/config/core/constants/assets_path.dart';
 import 'package:instagram_assessment/config/core/constants/dimension.dart';
 import 'package:instagram_assessment/features/user/controller/user_controller.dart';
 import 'package:instagram_assessment/features/user/presentation/view/detail/appbar/user_detail_appbar.dart';
+import 'package:instagram_assessment/features/user/presentation/view/detail/component/button/toggle_follow_button.dart';
 import 'package:instagram_assessment/features/user/presentation/view/detail/component/show_all_posts_grid_view.dart';
-import 'package:instagram_assessment/features/user/presentation/view/detail/component/style/user_detail_style.dart';
 import 'package:instagram_assessment/features/user/presentation/view/detail/component/header/user_info_header.dart';
 import 'package:instagram_assessment/features/user/presentation/view/detail/component/show_all_follow_user.dart';
+import 'package:instagram_assessment/features/user/presentation/view/detail/component/style/user_detail_style.dart';
 import 'package:instagram_assessment/models/typedef.dart';
 
 class UserDetailsView extends ConsumerStatefulWidget {
@@ -24,34 +25,30 @@ class _UserMainViewState extends ConsumerState<UserDetailsView> {
     final userInfo = ref.watch(userByIdProvider(widget.userId));
 
     return userInfo.when(
-      data: (user) => Scaffold(
+      data: (uInfo) => Scaffold(
         body: DefaultTabController(
           length: Dimension.tabLengthDefault,
           child: NestedScrollView(
               headerSliverBuilder: (context, innerBoxIsScrolled) {
                 return [
-                  UserDetailAppbar(name: user.name),
+                  UserDetailAppbar(name: uInfo.name),
                   SliverList(
                     delegate: SliverChildListDelegate(
                       [
-                        UserInfoHeader(userId: widget.userId),
+                        UserInfoHeader(uInfo: uInfo),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
-                            TextButton(
-                                onPressed: () async {
-                                  user.documentId != null
-                                      ? ref.read(
-                                          followingToProvider(user.documentId!))
-                                      : null;
-                                },
-                                child: user.uid == ref.watch(userProvider)
-                                    ? UserDetailStyle.editButton
-                                    : UserDetailStyle.followButton),
+                            //FollowButton
+                            uInfo.uid == ref.watch(userProvider)
+                                ? TextButton(
+                                    onPressed: () async {},
+                                    child: UserDetailStyle.editButton)
+                                : ToggleFollowButton(uInfo: uInfo),
                             TextButton(
                                 onPressed: () {},
                                 child: UserDetailStyle.messageButton),
-                            user.uid == ref.watch(userProvider)
+                            uInfo.uid == ref.watch(userProvider)
                                 ? const SizedBox()
                                 : TextButton(
                                     onPressed: () {},

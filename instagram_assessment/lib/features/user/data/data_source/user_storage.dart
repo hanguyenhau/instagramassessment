@@ -65,7 +65,7 @@ class UserStorage {
             ),
           ));
 
-  Stream<Iterable<Follow>> getFollow({
+  Stream<Iterable<Follow>> retrieveFollows({
     required String? uDocumentId,
     required String collectionName,
   }) async* {
@@ -76,13 +76,54 @@ class UserStorage {
         );
   }
 
+  Stream<Iterable<Follow>> findFollowByUser({
+    required String? tDocumentId,
+    required UserId cUserId,
+  }) =>
+      _users
+          .doc(tDocumentId)
+          .collection(FirebaseFieldName.followers)
+          .where(FirebaseFieldName.userId, isEqualTo: cUserId)
+          .limit(1)
+          .snapshots()
+          .map(
+            (snapshot) => snapshot.docs.map(
+              (doc) => Follow.fromJson(json: doc.data(), followId: doc.id),
+            ),
+          );
+
   Future<bool> followUser({
-    required String uDocumentId,
+    required String documentId,
     required String collectionName,
     required FollowPayLoad payload,
   }) async {
     try {
-      await _users.doc(uDocumentId).collection(collectionName).add(payload);
+      await _users.doc(documentId).collection(collectionName).add(payload);
+      return true;
+    } on FirebaseException catch (e) {
+      throw e.message!;
+    } catch (_) {
+      return false;
+    }
+  }
+
+  Future<bool> unFollowUser({
+    required String documentId,
+    required String collectionName,
+    required UserId uid,
+  }) async {
+    try {
+      await _users
+          .doc(documentId)
+          .collection(collectionName)
+          .where(FirebaseFieldName.userId, isEqualTo: uid)
+          .get()
+          .then((snapshot) async {
+        for (final doc in snapshot.docs) {
+          await doc.reference.delete();
+        }
+      });
+
       return true;
     } on FirebaseException catch (e) {
       throw e.message!;

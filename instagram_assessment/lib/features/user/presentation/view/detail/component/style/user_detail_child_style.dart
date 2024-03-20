@@ -5,8 +5,8 @@ import 'package:instagram_assessment/config/core/constants/dimension.dart';
 @immutable
 class UserDetailChildStyles {
   static get buttonPadding => const EdgeInsets.only(
-      left: Dimension.width50,
-      right: Dimension.width50,
+      left: Dimension.width45,
+      right: Dimension.width45,
       top: Dimension.height7,
       bottom: Dimension.height7);
 
@@ -19,10 +19,16 @@ class UserDetailChildStyles {
         ),
       );
 
-  static textButton(String text) => Text(
+  static whiteText(String text) => Text(
         text,
         style: const TextStyle(
           color: AppColor.whiteColor,
+        ),
+      );
+  static plainText(String text) => Text(
+        text,
+        style: const TextStyle(
+          color: Colors.black87,
         ),
       );
 

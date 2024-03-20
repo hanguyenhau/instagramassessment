@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:instagram_assessment/config/core/constants/firebase_field_name.dart';
 import 'package:instagram_assessment/features/user/data/data_source/user_storage.dart';
+import 'package:instagram_assessment/features/user/data/follow_request.dart';
 import 'package:instagram_assessment/models/follow.dart';
 import 'package:instagram_assessment/models/follow_payload.dart';
 import 'package:instagram_assessment/models/typedef.dart';
@@ -26,39 +27,58 @@ class UserRepository {
   }) =>
       _storage.getUserData(uId: uId);
 
-  Future<bool> followingTo({
-    required String targetDocumentId,
-    required UserId currentId,
-  }) async {
+  Future<bool> followingTo({required FollowRequest request}) async {
     try {
-      final currentDocumentId = await _getDocumentId(currentId);
-      if (currentDocumentId != null) {
-        final followActions = await Future.wait([
-          _storage.followUser(
-            collectionName: FirebaseFieldName.following,
-            uDocumentId: currentDocumentId,
-            payload: FollowPayLoad(userId: targetDocumentId),
-          ),
-          _storage.followUser(
-            collectionName: FirebaseFieldName.followers,
-            uDocumentId: targetDocumentId,
-            payload: FollowPayLoad(userId: currentDocumentId),
-          )
-        ]);
-        return followActions.every((success) => success);
-      }
-      return false;
+      final followActions = await Future.wait([
+        _storage.followUser(
+          collectionName: FirebaseFieldName.following,
+          documentId: request.uCurrent.documentId!,
+          payload: FollowPayLoad(userId: request.uTarget.uid),
+        ),
+        _storage.followUser(
+          collectionName: FirebaseFieldName.followers,
+          documentId: request.uTarget.documentId!,
+          payload: FollowPayLoad(userId: request.uCurrent.uid),
+        )
+      ]);
+      return followActions.every((success) => success);
     } catch (_) {
       return false;
     }
   }
 
-  Stream<Iterable<Follow>> getFollow({
+  Future<bool> unFollowingTo({required FollowRequest request}) async {
+    try {
+      final followActions = await Future.wait([
+        _storage.unFollowUser(
+          collectionName: FirebaseFieldName.following,
+          documentId: request.uCurrent.documentId!,
+          uid: request.uTarget.uid,
+        ),
+        _storage.unFollowUser(
+          collectionName: FirebaseFieldName.followers,
+          documentId: request.uTarget.documentId!,
+          uid: request.uCurrent.uid,
+        )
+      ]);
+      return followActions.every((success) => success);
+    } catch (_) {
+      return false;
+    }
+  }
+
+  Stream<Iterable<Follow>> retrieveFollows({
     required String? uDocumentId,
     required String collectionName,
   }) =>
-      _storage.getFollow(
+      _storage.retrieveFollows(
           uDocumentId: uDocumentId, collectionName: collectionName);
+
+  Stream<Iterable<Follow>> findFollowByUser({
+    required String? tDocumentId,
+    required UserId cUserId,
+  }) =>
+      _storage.findFollowByUser(tDocumentId: tDocumentId, cUserId: cUserId);
 
   Future<String?> _getDocumentId(UserId userId) =>
       _storage.getDocumentId(userId);

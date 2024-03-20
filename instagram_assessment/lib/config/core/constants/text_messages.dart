@@ -19,6 +19,7 @@ class TextMessage {
   static const you = 'You';
 
   static const follow = 'Follow';
+  static const unFollow = 'UnFollow';
   static const editProfile = 'Edit Profile';
   static const message = 'Message';
   static const posts = 'Posts';
