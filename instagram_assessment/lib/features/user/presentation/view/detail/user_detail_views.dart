@@ -7,7 +7,7 @@ import 'package:instagram_assessment/features/user/presentation/view/detail/appb
 import 'package:instagram_assessment/features/user/presentation/view/detail/component/button/toggle_follow_button.dart';
 import 'package:instagram_assessment/features/user/presentation/view/detail/component/show_all_posts_grid_view.dart';
 import 'package:instagram_assessment/features/user/presentation/view/detail/component/header/user_info_header.dart';
-import 'package:instagram_assessment/features/user/presentation/view/detail/component/show_all_follow_user.dart';
+import 'package:instagram_assessment/features/user/presentation/view/detail/component/show_all_followings.dart';
 import 'package:instagram_assessment/features/user/presentation/view/detail/component/style/user_detail_style.dart';
 import 'package:instagram_assessment/models/typedef.dart';
 
@@ -56,7 +56,7 @@ class _UserMainViewState extends ConsumerState<UserDetailsView> {
                                   ),
                           ],
                         ),
-                        const ShowAllFollowUser(),
+                         ShowAllFollowings(uDocumentId: uInfo.documentId),
                       ],
                     ),
                   ),

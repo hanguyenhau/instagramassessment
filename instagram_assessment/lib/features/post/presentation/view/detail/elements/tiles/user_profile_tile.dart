@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:instagram_assessment/features/post/presentation/view/detail/elements/tiles/elements/user_image_view.dart';
 import 'package:instagram_assessment/features/user/controller/user_controller.dart';
-import 'package:instagram_assessment/features/user/presentation/view/other_user_image_test.dart';
 import 'package:instagram_assessment/models/typedef.dart';
-import 'package:instagram_assessment/config/core/constants/dimension.dart';
 
 class UserProfileTile extends ConsumerWidget {
   final UserId userId;
@@ -16,10 +15,8 @@ class UserProfileTile extends ConsumerWidget {
     return userInfo.when(
       data: (user) {
         return ListTile(
-          leading: OtherUserImageTest(
-            profileImage: user.image,
-            dimension: Dimension.height50,
-            borderWeight: Dimension.borderWeight2,
+          leading: UserImageView(
+            imageUrl: user.image,
           ),
           title: Text(
             user.name,
