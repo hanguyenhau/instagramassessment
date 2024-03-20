@@ -5,8 +5,8 @@ import 'package:instagram_assessment/config/core/constants/dimension.dart';
 @immutable
 class UserDetailChildStyles {
   static get buttonPadding => const EdgeInsets.only(
-      left: Dimension.width45,
-      right: Dimension.width45,
+      left: Dimension.width40,
+      right: Dimension.width40,
       top: Dimension.height7,
       bottom: Dimension.height7);
 

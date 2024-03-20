@@ -78,9 +78,9 @@ class _UserMainViewState extends ConsumerState<UserDetailsView> {
                 color: Colors.white,
                 child: TabBarView(
                   children: [
-                    ShowAllPostGridView(),
-                    ShowAllPostGridView(),
-                    ShowAllPostGridView(),
+                    ShowAllPostGridView(uid: uInfo.uid),
+                    ShowAllPostGridView(uid: uInfo.uid),
+                    ShowAllPostGridView(uid: uInfo.uid),
                   ],
                 ),
               )),

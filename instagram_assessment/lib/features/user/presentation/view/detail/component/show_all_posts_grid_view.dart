@@ -1,41 +1,42 @@
 import 'package:flutter/material.dart';
-import 'package:instagram_assessment/config/core/constants/assets_path.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:instagram_assessment/config/core/constants/dimension.dart';
+import 'package:instagram_assessment/features/post/controller/post_controller.dart';
+import 'package:instagram_assessment/models/typedef.dart';
 
-class ShowAllPostGridView extends StatelessWidget {
-  final List<String> images = [
-    AssetsPath.testPostImage,
-    AssetsPath.testPostImage,
-    AssetsPath.testPostImage,
-    AssetsPath.testPostImage,
-    AssetsPath.testPostImage,
-    AssetsPath.testPostImage,
-    AssetsPath.testPostImage,
-    AssetsPath.testPostImage,
-    // Add more image URLs as needed
-  ];
-  ShowAllPostGridView({
+class ShowAllPostGridView extends ConsumerWidget {
+  final UserId uid;
+
+  const ShowAllPostGridView({
     super.key,
+    required this.uid,
   });
 
   @override
-  Widget build(BuildContext context) {
-    return GridView.builder(
-      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: Dimension.crossAxisCount,
-        childAspectRatio: Dimension.childAspectRatio,
-        crossAxisSpacing: Dimension.crossAxisSpacing,
-        mainAxisExtent: Dimension.mainAxisExtent,
-        mainAxisSpacing: Dimension.mainAxisSpacing,
-      ),
-      itemCount: 7,
-      itemBuilder: (context, index) {
-        return // Adjust the height as needed
-            Image.asset(
-          images[index],
-          fit: BoxFit.cover,
+  Widget build(BuildContext context, WidgetRef ref) {
+    final streamPost = ref.watch(retrieveUserPostProvider(uid));
+    return streamPost.when(
+      data: (posts) {
+        return GridView.builder(
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: Dimension.crossAxisCount,
+            childAspectRatio: Dimension.childAspectRatio,
+            crossAxisSpacing: Dimension.crossAxisSpacing,
+            mainAxisExtent: Dimension.mainAxisExtent,
+            mainAxisSpacing: Dimension.mainAxisSpacing,
+          ),
+          itemCount: posts.length,
+          itemBuilder: (context, index) {
+            return // Adjust the height as needed
+                Image.network(
+              posts.toList()[index].fileUrl,
+              fit: BoxFit.cover,
+            );
+          },
         );
       },
+      error: (error, stackTrace) => const Text('Error'),
+      loading: () => const SizedBox(),
     );
   }
 }

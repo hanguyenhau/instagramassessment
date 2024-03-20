@@ -7,7 +7,7 @@ import 'package:instagram_assessment/config/core/extension/sorting_by_request.da
 import 'package:instagram_assessment/features/comment/data/model/date_sorting.dart';
 import 'package:instagram_assessment/features/picker/extension/get_collection_file_type_name.dart';
 import 'package:instagram_assessment/features/post/data/data_source/file_storage.dart';
-import 'package:instagram_assessment/features/post/data/data_source/post_source.dart';
+import 'package:instagram_assessment/features/post/data/data_source/post_storage.dart';
 import 'package:instagram_assessment/features/picker/model/file_type.dart';
 import 'package:instagram_assessment/models/like.dart';
 import 'package:instagram_assessment/models/like_payload.dart';
