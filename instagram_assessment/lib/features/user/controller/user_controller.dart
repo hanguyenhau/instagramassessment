@@ -62,6 +62,12 @@ final findFollowProvider =
   return userController.findFollowByUser(tDocumentId: tDocumentId);
 });
 
+final getDocumentUserId =
+    FutureProvider.family.autoDispose((ref, UserId uerId) {
+  final userController = ref.watch(userProvider.notifier);
+  return userController.getDocumentId(uerId);
+});
+
 class UserController extends StateNotifier<UserId?> {
   final UserRepository _repo;
   final Ref _ref;
@@ -108,4 +114,7 @@ class UserController extends StateNotifier<UserId?> {
     required String? tDocumentId,
   }) =>
       _repo.findFollowByUser(tDocumentId: tDocumentId, cUserId: state!);
+
+  Future<String?> getDocumentId(UserId userId) =>
+      _repo.getDocumentId(userId);
 }

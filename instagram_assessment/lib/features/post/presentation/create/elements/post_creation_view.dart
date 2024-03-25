@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:instagram_assessment/features/picker/model/thumbnail_request.dart';
+import 'package:instagram_assessment/features/picker/model/file_type.dart';
 import 'package:instagram_assessment/config/core/constants/text_messages.dart';
 import 'package:instagram_assessment/features/post/presentation/create/elements/thumbnail_post_image.dart';
 import 'package:instagram_assessment/features/post/presentation/create/elements/tiles/object_other_tile.dart';
@@ -9,11 +9,11 @@ import 'package:instagram_assessment/config/views/divider/horizontal_divider_vie
 
 class PostCreationView extends StatelessWidget {
   final TextEditingController postController;
-  final ThumbnailRequest thumbnailRequest;
+  final FileType fileType;
   const PostCreationView(
       {super.key,
       required this.postController,
-      required this.thumbnailRequest});
+      required this.fileType});
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +22,7 @@ class PostCreationView extends StatelessWidget {
       children: [
         //Thumnail Image
         Center(
-          child: ThumbnailPostImage(thumbnailRequest: thumbnailRequest),
+          child: ThumbnailPostImage(fileType: fileType),
         ),
         
         //text field

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:instagram_assessment/features/home/presentation/home_main_view.dart';
 import 'package:instagram_assessment/features/authentication/presentation/login/login_view.dart';
+import 'package:instagram_assessment/features/picker/presentation/crop/scrop_screen.dart';
 import 'package:instagram_assessment/features/user/presentation/view/detail/user_detail_views.dart';
 import 'package:routemaster/routemaster.dart';
 
@@ -13,6 +14,9 @@ final loggedInRoute = RouteMap(
     '/': (_) => const MaterialPage(child: HomePage()),
     '/u/:uid/': (routeData) => MaterialPage(
           child: UserDetailsView(userId: routeData.pathParameters['uid']!),
+        ),
+    '/i/crop/': (routeData) => const MaterialPage(
+          child: ScropScreen(),
         ),
   },
 );

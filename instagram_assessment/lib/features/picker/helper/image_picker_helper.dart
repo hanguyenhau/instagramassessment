@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:instagram_assessment/config/core/extension/to_file.dart';
+import 'package:instagram_assessment/config/core/extension/main_exception.dart';
 
 @immutable
 class ImagePickerHelper {

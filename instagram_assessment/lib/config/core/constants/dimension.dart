@@ -22,6 +22,7 @@ class Dimension {
   static const height50 = 50.0;
   static const height60 = 60.0;
   static const height75 = 75.0;
+  static const height80 = 80.0;
   static const height120 = 120.0;
 
   //width

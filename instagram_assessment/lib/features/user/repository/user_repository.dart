@@ -80,6 +80,6 @@ class UserRepository {
   }) =>
       _storage.findFollowByUser(tDocumentId: tDocumentId, cUserId: cUserId);
 
-  Future<String?> _getDocumentId(UserId userId) =>
+  Future<String?> getDocumentId(UserId userId) =>
       _storage.getDocumentId(userId);
 }

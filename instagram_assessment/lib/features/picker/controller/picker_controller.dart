@@ -8,37 +8,30 @@ import 'package:instagram_assessment/features/picker/extension/get_image_aspect_
 import 'package:instagram_assessment/features/picker/model/image_with_aspect_ratio.dart';
 import 'package:instagram_assessment/features/picker/model/thumbnail_request.dart';
 
-final imagePickerProvider = StateNotifierProvider<ImagePickerController, bool>(
+final imagePickerProvider = StateNotifierProvider<ImagePickerController, File?>(
   (ref) => ImagePickerController(),
 );
 
-final thumbnailProvider = FutureProvider.family
+final thumbnailAspectRatioProvider = FutureProvider.family
     .autoDispose<ImageWithAspectRatio, ThumbnailRequest>(
         (ref, ThumbnailRequest thumbnailRequest) async {
   final imagePickerController = ref.watch(imagePickerProvider.notifier);
   return imagePickerController.imageWithAspectRatio(thumbnailRequest);
 });
 
-class ImagePickerController extends StateNotifier<bool> {
-  ImagePickerController() : super(false);
+class ImagePickerController extends StateNotifier<File?> {
+  ImagePickerController() : super(null);
 
-  set isLoading(bool value) => state = value;
-
-  Future<File?> getFile() async {
-    isLoading = true;
+  Future getFile() async {
     try {
       final imageFile = await ImagePickerHelper.pickImageFromGallery();
       if (imageFile == null) {
-        isLoading = false;
-        return null;
+        state = null;
       }
-      return imageFile;
+      state = imageFile;
     } catch (e) {
-      isLoading = false;
-      return null;
-    } finally {
-      isLoading = false;
-    }
+      state = null;
+    } 
   }
 
   Future<ImageWithAspectRatio> imageWithAspectRatio(

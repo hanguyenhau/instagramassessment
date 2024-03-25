@@ -5,6 +5,7 @@ import 'package:instagram_assessment/features/picker/controller/picker_controlle
 import 'package:instagram_assessment/features/picker/model/file_type.dart';
 import 'package:instagram_assessment/config/core/constants/assets_path.dart';
 import 'package:instagram_assessment/config/core/constants/dimension.dart';
+import 'package:instagram_assessment/features/picker/presentation/image_picker_display.dart';
 import 'package:instagram_assessment/features/post/presentation/create/create_new_post.dart';
 import 'package:instagram_assessment/features/user/presentation/view/list/user_list_view.dart';
 import 'package:instagram_assessment/config/views/divider/horizontal_divider_view.dart';
@@ -38,31 +39,22 @@ class _HomePageState extends ConsumerState<HomePage> {
           //Add new Post
           TextButton(
             onPressed: () async {
-              final imageFile =
-                  await ref.watch(imagePickerProvider.notifier).getFile();
+              await ref.watch(imagePickerProvider.notifier).getFile();
 
-              if (imageFile == null) {
-                return;
-              }
-
-              if (!mounted) {
+              if (ref.watch(imagePickerProvider) == null || !mounted) {
                 return;
               }
 
               // go to create new post
-              Future.delayed(Duration.zero, () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (_) {
-                      return CreateNewPost(
-                        fileToPost: imageFile,
-                        fileType: FileType.image,
-                      );
-                    },
-                  ),
-                );
-              });
+
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (_) {
+                    return const ImagePickerDisplay();
+                  },
+                ),
+              );
             },
             child: Image.asset(
               AssetsPath.addButton,

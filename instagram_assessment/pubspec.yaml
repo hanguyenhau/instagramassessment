@@ -58,6 +58,7 @@ dependencies:
   fpdart: ^1.1.0
   routemaster: ^1.0.1
   sqflite: ^2.3.2
+  crop_image: ^1.0.12
 
 dev_dependencies:
   flutter_test:

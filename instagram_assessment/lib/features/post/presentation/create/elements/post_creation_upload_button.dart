@@ -1,8 +1,8 @@
 import 'dart:developer';
-import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:instagram_assessment/features/picker/controller/picker_controller.dart';
 import 'package:instagram_assessment/features/post/controller/post_controller.dart';
 import 'package:instagram_assessment/features/picker/model/file_type.dart';
 import 'package:instagram_assessment/features/post/presentation/create/elements/upload_button.dart';
@@ -10,7 +10,6 @@ import 'package:instagram_assessment/features/post/presentation/create/elements/
 class UploadPost extends StatelessWidget {
   final bool isPostButtonEnable;
   final WidgetRef ref;
-  final File fileToPost;
   final FileType fileType;
   final String message;
 
@@ -18,7 +17,6 @@ class UploadPost extends StatelessWidget {
       {super.key,
       required this.isPostButtonEnable,
       required this.ref,
-      required this.fileToPost,
       required this.fileType,
       required this.message});
 
@@ -28,12 +26,11 @@ class UploadPost extends StatelessWidget {
         onPressed: isPostButtonEnable
             ? () async {
                 //save post to firebase
-                final isUpload = await ref
-                    .read(postProvider.notifier)
-                    .uploadPost(
-                        file: fileToPost,
-                        filetype: fileType,
-                        messenger: message,
+                final isUpload =
+                    await ref.read(postProvider.notifier).uploadPost(
+                          file: ref.watch(imagePickerProvider)!,
+                          filetype: fileType,
+                          messenger: message,
                         );
 
                 if (isUpload && context.mounted) {

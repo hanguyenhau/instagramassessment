@@ -1,19 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:instagram_assessment/features/picker/controller/picker_controller.dart';
+import 'package:instagram_assessment/features/picker/model/file_type.dart';
 import 'package:instagram_assessment/features/picker/model/thumbnail_request.dart';
 
 class ThumbnailPostImage extends ConsumerWidget {
-  final ThumbnailRequest thumbnailRequest;
+  final FileType fileType;
 
   const ThumbnailPostImage({
     super.key,
-    required this.thumbnailRequest,
+    required this.fileType,
   });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final thumbnail = ref.watch(thumbnailProvider(thumbnailRequest));
+    final thumbnailRequest = ThumbnailRequest(fileToPost: ref.watch(imagePickerProvider)!, fileType: fileType);
+    final thumbnail = ref.watch(thumbnailAspectRatioProvider(thumbnailRequest));
     return thumbnail.when(
       data: (imageWithAspectRatio) => AspectRatio(
         aspectRatio: imageWithAspectRatio.aspectRatio,

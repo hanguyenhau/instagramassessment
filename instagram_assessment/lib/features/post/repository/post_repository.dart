@@ -3,7 +3,7 @@ import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:instagram_assessment/config/core/extension/sorting_by_request.dart';
+import 'package:instagram_assessment/config/core/extension/main_exception.dart';
 import 'package:instagram_assessment/features/comment/data/model/date_sorting.dart';
 import 'package:instagram_assessment/features/picker/extension/get_collection_file_type_name.dart';
 import 'package:instagram_assessment/features/post/data/data_source/file_storage.dart';
@@ -14,7 +14,6 @@ import 'package:instagram_assessment/models/like_payload.dart';
 import 'package:instagram_assessment/models/post.dart';
 import 'package:instagram_assessment/models/post_payload.dart';
 import 'package:instagram_assessment/models/typedef.dart';
-import 'package:instagram_assessment/config/core/extension/get_image_data_aspect_ratio.dart';
 import 'package:uuid/uuid.dart';
 
 final postRepositoryProvider = Provider(

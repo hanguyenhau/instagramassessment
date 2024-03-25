@@ -3,7 +3,7 @@ import 'dart:typed_data';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:instagram_assessment/config/core/constants/dimension.dart';
-import 'package:instagram_assessment/config/core/extension/could_not_build_thumbnail_exception.dart';
+import 'package:instagram_assessment/config/core/extension/main_exception.dart';
 import 'package:instagram_assessment/features/post/repository/post_repository.dart';
 import 'package:instagram_assessment/features/user/controller/user_controller.dart';
 import 'package:instagram_assessment/models/like.dart';
