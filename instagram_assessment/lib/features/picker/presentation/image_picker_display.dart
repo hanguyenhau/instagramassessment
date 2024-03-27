@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:instagram_assessment/features/picker/controller/picker_controller.dart';
 import 'package:instagram_assessment/features/picker/model/file_type.dart';
 import 'package:instagram_assessment/features/post/presentation/create/elements/thumbnail_post_image.dart';
 import 'package:routemaster/routemaster.dart';
@@ -23,10 +24,14 @@ class ImagePickerDisplay extends ConsumerWidget {
             Navigator.of(context).pop();
           },
         ),
-        actions: [TextButton(onPressed: (){}, child: const Text('Save'))],
+        actions: [TextButton(onPressed: () {}, child: const Text('Save'))],
       ),
       backgroundColor: Colors.black,
-      body: const Center(child: ThumbnailPostImage(fileType: FileType.image)),
+      body: Center(
+          child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 10),
+        child: Image.file(ref.watch(imagePickerProvider)!),
+      )),
       bottomNavigationBar: Container(
         width: double.infinity,
         height: 58,

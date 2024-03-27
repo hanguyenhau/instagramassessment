@@ -1,7 +1,13 @@
+import 'dart:typed_data';
+import 'dart:ui';
+
 import 'package:crop_image/crop_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:instagram_assessment/config/core/constants/dimension.dart';
+import 'package:instagram_assessment/config/core/extension/main_exception.dart';
 import 'package:instagram_assessment/features/picker/controller/picker_controller.dart';
+import 'dart:ui' as ui;
 
 class ScropScreen extends ConsumerStatefulWidget {
   const ScropScreen({super.key});
@@ -44,7 +50,21 @@ class _CropScreenState extends ConsumerState<ScropScreen> {
             Navigator.of(context).pop();
           },
         ),
-        actions: [IconButton(onPressed: () {}, icon: const Icon(Icons.done))],
+        actions: [
+          IconButton(
+              onPressed: () async {
+                final ui.Image bitmap = await controller.croppedBitmap();
+                final ByteData? data =
+                    await bitmap.toByteData(format: ImageByteFormat.png);
+                final Uint8List bytes = data!.buffer.asUint8List();
+                ref
+                    .read(imagePickerProvider.notifier)
+                    .updateFile(await bytes.imageToFile());
+                if (!mounted) return;
+                Navigator.of(context).pop();
+              },
+              icon: const Icon(Icons.done))
+        ],
       ),
       backgroundColor: Colors.black,
       body: Center(
@@ -54,62 +74,64 @@ class _CropScreenState extends ConsumerState<ScropScreen> {
         alwaysMove: true,
         gridThickWidth: 6,
       )),
-      bottomNavigationBar: Container(
-        width: double.infinity,
-        height: 58,
-        color: Colors.black,
-        child: SafeArea(
-            child: SingleChildScrollView(
-          scrollDirection: Axis.horizontal,
-          child: Row(
-            children: [
-              _bottomBarItem(
-                  onPress: () {
-                    controller.rotateLeft();
-                  },
-                  child: const Icon(
-                    Icons.rotate_90_degrees_ccw_outlined,
-                    color: Colors.white,
-                  )),
-              _bottomBarItem(
-                  onPress: () {
-                    controller.rotateRight();
-                  },
-                  child: const Icon(Icons.rotate_90_degrees_cw_outlined,
-                      color: Colors.white)),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 5),
-                child: Container(
-                  color: Colors.white,
-                  height: 30,
-                  width: 1,
-                ),
-              ),
-              _bottomBarItem(
-                  onPress: () {},
-                  child: const Text('Free',
-                      style: TextStyle(color: Colors.white))),
-              _bottomBarItem(
-                  onPress: () {},
-                  child:
-                      const Text('2.1', style: TextStyle(color: Colors.white))),
-              _bottomBarItem(
-                  onPress: () {},
-                  child:
-                      const Text('1.2', style: TextStyle(color: Colors.white))),
-              _bottomBarItem(
-                  onPress: () {},
-                  child:
-                      const Text('4.3', style: TextStyle(color: Colors.white))),
-              _bottomBarItem(
-                  onPress: () {},
-                  child: const Text('16.9',
-                      style: TextStyle(color: Colors.white))),
-            ],
-          ),
-        )),
-      ),
+      bottomNavigationBar: _buildBottomNavigationBar(),
     );
+  }
+
+  Widget _buildBottomNavigationBar() {
+    return Container(
+      width: double.infinity,
+      height: Dimension.height60,
+      color: Colors.black,
+      child: SafeArea(
+          child: SingleChildScrollView(
+        scrollDirection: Axis.horizontal,
+        child: Row(
+          children: _buildBottomBarCropItem(),
+        ),
+      )),
+    );
+  }
+
+  List<Widget> _buildBottomBarCropItem() {
+    return [
+      _bottomBarItem(
+          onPress: () {
+            controller.rotateLeft();
+          },
+          child: const Icon(
+            Icons.rotate_90_degrees_ccw_outlined,
+            color: Colors.white,
+          )),
+      _bottomBarItem(
+          onPress: () {
+            controller.rotateRight();
+          },
+          child: const Icon(Icons.rotate_90_degrees_cw_outlined,
+              color: Colors.white)),
+      Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 5),
+        child: Container(
+          color: Colors.white,
+          height: 30,
+          width: 1,
+        ),
+      ),
+      ...[
+        [1, '1:1'],
+        [2, '2:1'],
+        [1 / 2, '1:2'],
+        [4 / 3, '4:3'],
+        [3 / 4, '3:4'],
+        [16 / 9, '16:9'],
+        [9 / 16, '9:16'],
+      ].map((data) => _bottomBarItem(
+          child: Text(
+            data[1] as String,
+            style: const TextStyle(color: Colors.white),
+          ),
+          onPress: () => _setAspectRatio(data[0] as double)))
+    ];
   }
 
   Widget _bottomBarItem({required child, required onPress}) {
@@ -122,5 +144,10 @@ class _CropScreenState extends ConsumerState<ScropScreen> {
         ),
       ),
     );
+  }
+
+  void _setAspectRatio(double ratio) {
+    controller.aspectRatio = ratio;
+    controller.crop = const Rect.fromLTRB(0.1, 0.1, 0.9, 0.9);
   }
 }

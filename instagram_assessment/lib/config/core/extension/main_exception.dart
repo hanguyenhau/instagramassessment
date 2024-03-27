@@ -6,18 +6,19 @@ import 'package:flutter/material.dart' as material;
 import 'package:image_picker/image_picker.dart';
 import 'package:instagram_assessment/features/comment/data/model/date_sorting.dart';
 import 'package:instagram_assessment/features/picker/extension/get_image_aspect_ratio.dart';
+import 'package:path_provider/path_provider.dart';
 
-class CouldNotBuildThumbnailException implements Exception{
+class CouldNotBuildThumbnailException implements Exception {
   final message = "Could not build thumbnail";
   const CouldNotBuildThumbnailException();
 }
 
-extension DismissKeyBoard on Widget{
+extension DismissKeyBoard on Widget {
   void dismissKeyboard() => FocusManager.instance.primaryFocus?.unfocus();
 }
 
-extension GetImageDataAspectRatio on Uint8List{
-  Future<double> getImageDataAspectRatio(){
+extension GetImageDataAspectRatio on Uint8List {
+  Future<double> getImageDataAspectRatio() {
     final image = material.Image.memory(this);
     return image.getImageAspecRatio();
   }
@@ -53,7 +54,22 @@ extension SortingByRequest on Iterable<dynamic> {
   }
 }
 
-extension ToFile on Future<XFile?>{
+extension ToFile on Future<XFile?> {
   Future<File?> toFile() => then((value) => value?.path)
-        .then((value) => value != null ? File(value) : null);
+      .then((value) => value != null ? File(value) : null);
+}
+
+extension ImageToFile on Uint8List {
+  Future<File> imageToFile() async {
+    Directory tempDir = await getTemporaryDirectory();
+
+    // Create a temporary file path
+    String tempFilePath = '${tempDir.path}/temp_image.png';
+
+    // Write the bytes to the file
+    await File(tempFilePath).writeAsBytes(this);
+
+    // Return the temporary File object
+    return File(tempFilePath);
+  }
 }

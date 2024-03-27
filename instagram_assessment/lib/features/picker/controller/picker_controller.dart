@@ -34,6 +34,8 @@ class ImagePickerController extends StateNotifier<File?> {
     } 
   }
 
+  void updateFile(File? image) => state = image;
+
   Future<ImageWithAspectRatio> imageWithAspectRatio(
       ThumbnailRequest thumbnailRequest) async {
     final Image image;
