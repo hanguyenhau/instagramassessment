@@ -26,17 +26,17 @@ class UploadPost extends StatelessWidget {
         onPressed: isPostButtonEnable
             ? () async {
                 //save post to firebase
-                final isUpload =
-                    await ref.read(postProvider.notifier).uploadPost(
-                          file: ref.watch(imagePickerProvider)!,
-                          filetype: fileType,
-                          messenger: message,
-                        );
+                // final isUpload =
+                //     await ref.read(postProvider.notifier).uploadPost(
+                //           file: ref.watch(imagePickerProvider)!,
+                //           filetype: fileType,
+                //           messenger: message,
+                //         );
 
-                if (isUpload && context.mounted) {
-                  log('Upload success');
-                  Navigator.of(context).pop();
-                }
+                // if (isUpload && context.mounted) {
+                //   log('Upload success');
+                //   Navigator.of(context).pop();
+                // }
               }
             : null,
         child: UploadButton(

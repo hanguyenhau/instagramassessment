@@ -8,6 +8,6 @@ import 'package:instagram_assessment/config/core/extension/main_exception.dart';
 class ImagePickerHelper {
   static final ImagePicker _imagePicker = ImagePicker();
 
-  static Future<File?> pickImageFromGallery() async =>
-      await _imagePicker.pickImage(source: ImageSource.gallery).toFile();
+  static Future<Uint8List?> pickImageFromGallery() async =>
+      await _imagePicker.pickImage(source: ImageSource.gallery).toUint8List();
 }

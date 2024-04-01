@@ -1,4 +1,5 @@
-import 'dart:io';
+import 'dart:developer';
+import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -8,7 +9,7 @@ import 'package:instagram_assessment/features/picker/extension/get_image_aspect_
 import 'package:instagram_assessment/features/picker/model/image_with_aspect_ratio.dart';
 import 'package:instagram_assessment/features/picker/model/thumbnail_request.dart';
 
-final imagePickerProvider = StateNotifierProvider<ImagePickerController, File?>(
+final imagePickerProvider = StateNotifierProvider<ImagePickerController, Uint8List?>(
   (ref) => ImagePickerController(),
 );
 
@@ -19,7 +20,7 @@ final thumbnailAspectRatioProvider = FutureProvider.family
   return imagePickerController.imageWithAspectRatio(thumbnailRequest);
 });
 
-class ImagePickerController extends StateNotifier<File?> {
+class ImagePickerController extends StateNotifier<Uint8List ?> {
   ImagePickerController() : super(null);
 
   Future getFile() async {
@@ -34,7 +35,12 @@ class ImagePickerController extends StateNotifier<File?> {
     } 
   }
 
-  void updateFile(File? image) => state = image;
+  void updateFile(Uint8List? image) {
+     state = image;
+     if(image == state){
+      log('message');
+     }
+  }
 
   Future<ImageWithAspectRatio> imageWithAspectRatio(
       ThumbnailRequest thumbnailRequest) async {

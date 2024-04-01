@@ -2,11 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:instagram_assessment/features/authentication/controller/auth_controller.dart';
 import 'package:instagram_assessment/features/picker/controller/picker_controller.dart';
-import 'package:instagram_assessment/features/picker/model/file_type.dart';
 import 'package:instagram_assessment/config/core/constants/assets_path.dart';
 import 'package:instagram_assessment/config/core/constants/dimension.dart';
 import 'package:instagram_assessment/features/picker/presentation/image_picker_display.dart';
-import 'package:instagram_assessment/features/post/presentation/create/create_new_post.dart';
 import 'package:instagram_assessment/features/user/presentation/view/list/user_list_view.dart';
 import 'package:instagram_assessment/config/views/divider/horizontal_divider_view.dart';
 import 'package:instagram_assessment/features/post/presentation/view/show_all_posts_view.dart';
@@ -46,6 +44,7 @@ class _HomePageState extends ConsumerState<HomePage> {
               }
 
               // go to create new post
+              
 
               Navigator.push(
                 context,

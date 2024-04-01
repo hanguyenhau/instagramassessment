@@ -28,7 +28,7 @@ class ImagePickerDisplay extends ConsumerWidget {
       body: Center(
           child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 10),
-        child: Image.file(
+        child: Image.memory(
           ref.watch(imagePickerProvider)!,
           fit: BoxFit.cover,
         ),

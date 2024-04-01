@@ -29,6 +29,12 @@ class _CropScreenState extends ConsumerState<ScropScreen> {
   }
 
   @override
+  void dispose() {
+    controller.dispose(); // Dispose of the CropController
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final imageProvider = ref.watch(imagePickerProvider);
     if (imageProvider == null) {
@@ -56,7 +62,7 @@ class _CropScreenState extends ConsumerState<ScropScreen> {
                 final bytes = await _cropAndConvertImage();
                 ref
                     .read(imagePickerProvider.notifier)
-                    .updateFile(await bytes.imageToFile());
+                    .updateFile(bytes);
                 if (!mounted) return;
                 Navigator.of(context).pop();
               },
@@ -66,7 +72,7 @@ class _CropScreenState extends ConsumerState<ScropScreen> {
       backgroundColor: Colors.black,
       body: Center(
           child: CropImage(
-        image: Image.file(imageProvider),
+        image: Image.memory(imageProvider),
         controller: controller,
         alwaysMove: true,
         gridThickWidth: 6,
@@ -115,8 +121,8 @@ class _CropScreenState extends ConsumerState<ScropScreen> {
         ),
       ),
       ...[
-        [1, '1:1'],
-        [2, '2:1'],
+        [1.0, '1:1'],
+        [2.0, '2:1'],
         [1 / 2, '1:2'],
         [4 / 3, '4:3'],
         [3 / 4, '3:4'],

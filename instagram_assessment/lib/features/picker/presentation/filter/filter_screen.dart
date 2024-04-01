@@ -58,7 +58,7 @@ class _FilterScreenState extends ConsumerState<FilterScreen> {
                 Uint8List? bytes = await screenshotController.capture();
                 ref
                     .read(imagePickerProvider.notifier)
-                    .updateFile(await bytes!.imageToFile());
+                    .updateFile(bytes);
                 if (!mounted) return;
                 Navigator.of(context).pop();
               },
@@ -69,7 +69,7 @@ class _FilterScreenState extends ConsumerState<FilterScreen> {
       body: Center(
         child: Screenshot(controller: screenshotController, child: ColorFiltered(
           colorFilter: ColorFilter.matrix(currentFilter.matrix),
-          child: Image.file(imageProvider),
+          child: Image.memory(imageProvider),
         )),
       ),
       bottomNavigationBar: _buildBottomNavigationBar(),
@@ -114,7 +114,7 @@ class _FilterScreenState extends ConsumerState<FilterScreen> {
                 colorFilter: ColorFilter.matrix(
                   filter.matrix,
                 ),
-                child: Image.file(
+                child: Image.memory(
                   imageProvider,
                   fit: BoxFit.cover,
                   width: 50,

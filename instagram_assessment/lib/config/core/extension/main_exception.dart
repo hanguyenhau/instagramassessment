@@ -1,4 +1,6 @@
 import 'dart:io';
+import 'dart:math';
+import 'dart:typed_data';
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
@@ -57,6 +59,10 @@ extension SortingByRequest on Iterable<dynamic> {
 extension ToFile on Future<XFile?> {
   Future<File?> toFile() => then((value) => value?.path)
       .then((value) => value != null ? File(value) : null);
+}
+
+extension XfileToUint8 on Future<XFile?> {
+  Future<Uint8List?> toUint8List() async => then((value) => value?.readAsBytes());
 }
 
 extension ImageToFile on Uint8List {
