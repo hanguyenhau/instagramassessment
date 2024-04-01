@@ -1,15 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:instagram_assessment/features/picker/controller/picker_controller.dart';
-import 'package:instagram_assessment/features/picker/model/file_type.dart';
-import 'package:instagram_assessment/features/post/presentation/create/elements/thumbnail_post_image.dart';
 import 'package:routemaster/routemaster.dart';
 
 class ImagePickerDisplay extends ConsumerWidget {
   const ImagePickerDisplay({super.key});
 
-  void _navigateToScropView(BuildContext context) =>
-      Routemaster.of(context).push('/i/crop');
+  void _navigateToRouteView({required BuildContext context,required String route}) =>
+      Routemaster.of(context).push('/i/$route');
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -30,7 +28,10 @@ class ImagePickerDisplay extends ConsumerWidget {
       body: Center(
           child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 10),
-        child: Image.file(ref.watch(imagePickerProvider)!),
+        child: Image.file(
+          ref.watch(imagePickerProvider)!,
+          fit: BoxFit.cover,
+        ),
       )),
       bottomNavigationBar: Container(
         width: double.infinity,
@@ -42,7 +43,10 @@ class ImagePickerDisplay extends ConsumerWidget {
           child: Row(
             children: [
               _bottomBarItem(Icons.crop_rotate, 'Crop', onPress: () {
-                _navigateToScropView(context);
+                _navigateToRouteView(context: context, route: 'crop');
+              }),
+              _bottomBarItem(Icons.filter_vintage_outlined, 'Filters', onPress: () {
+                 _navigateToRouteView(context: context, route: 'filter');
               }),
             ],
           ),

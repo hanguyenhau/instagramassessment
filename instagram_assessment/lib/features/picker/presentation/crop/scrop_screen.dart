@@ -53,10 +53,7 @@ class _CropScreenState extends ConsumerState<ScropScreen> {
         actions: [
           IconButton(
               onPressed: () async {
-                final ui.Image bitmap = await controller.croppedBitmap();
-                final ByteData? data =
-                    await bitmap.toByteData(format: ImageByteFormat.png);
-                final Uint8List bytes = data!.buffer.asUint8List();
+                final bytes = await _cropAndConvertImage();
                 ref
                     .read(imagePickerProvider.notifier)
                     .updateFile(await bytes.imageToFile());
@@ -149,5 +146,11 @@ class _CropScreenState extends ConsumerState<ScropScreen> {
   void _setAspectRatio(double ratio) {
     controller.aspectRatio = ratio;
     controller.crop = const Rect.fromLTRB(0.1, 0.1, 0.9, 0.9);
+  }
+
+  Future<Uint8List> _cropAndConvertImage() async {
+    final ui.Image bitmap = await controller.croppedBitmap();
+    final ByteData? data = await bitmap.toByteData(format: ImageByteFormat.png);
+    return data!.buffer.asUint8List();
   }
 }

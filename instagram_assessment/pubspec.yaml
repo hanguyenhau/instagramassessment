@@ -60,6 +60,7 @@ dependencies:
   sqflite: ^2.3.2
   crop_image: ^1.0.12
   path_provider: ^2.1.2
+  screenshot: ^2.3.0
 
 dev_dependencies:
   flutter_test:
