@@ -5,7 +5,7 @@ import 'package:crop_image/crop_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:instagram_assessment/config/core/constants/dimension.dart';
-import 'package:instagram_assessment/config/core/extension/main_exception.dart';
+
 import 'package:instagram_assessment/features/picker/controller/picker_controller.dart';
 import 'dart:ui' as ui;
 

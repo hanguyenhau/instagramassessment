@@ -1,77 +1,52 @@
-import 'dart:typed_data';
-
 import 'package:colorfilter_generator/addons.dart';
 import 'package:colorfilter_generator/colorfilter_generator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:instagram_assessment/config/core/constants/app_colors.dart';
 import 'package:instagram_assessment/features/picker/controller/picker_controller.dart';
 import 'package:screenshot/screenshot.dart';
 
 class AdjustScreen extends ConsumerStatefulWidget {
-  const AdjustScreen({super.key});
+  const AdjustScreen({Key? key}) : super(key: key);
 
   @override
   ConsumerState<AdjustScreen> createState() => _AdjustScreenState();
 }
 
 class _AdjustScreenState extends ConsumerState<AdjustScreen> {
-  double _brightness = 0;
-  double _contrast = 0;
-  double _saturation = 0;
-  double _hue = 0;
-  double _sepia = 0;
-
   late ColorFilterGenerator _colorFilterGenerator;
+  final ScreenshotController _screenshotController = ScreenshotController();
 
-  final ScreenshotController screenshotController = ScreenshotController();
+  final Map<String, double> _adjustments = {
+    'brightness': 0.0,
+    'contrast': 0.0,
+    'saturation': 0.0,
+    'hue': 0.0,
+    'sepia': 0.0,
+  };
 
-  bool _showBightness = false;
-  bool _showConstrast = false;
-  bool _showSaturation = false;
-  bool _showHue = false;
-  bool _showSepia = false;
+  String _selectedAdjustment = 'brightness';
+
+  void _showSlider(String adjustment) {
+    setState(() {
+      _selectedAdjustment = adjustment;
+    });
+  }
+
+  void _updateColorFilterGenerator() {
+    _colorFilterGenerator = ColorFilterGenerator(name: 'Adjust', filters: [
+      ColorFilterAddons.brightness(_adjustments['brightness']!),
+      ColorFilterAddons.contrast(_adjustments['contrast']!),
+      ColorFilterAddons.saturation(_adjustments['saturation']!),
+      ColorFilterAddons.hue(_adjustments['hue']!),
+      ColorFilterAddons.sepia(_adjustments['sepia']!),
+    ]);
+  }
 
   @override
   void initState() {
     _updateColorFilterGenerator();
     super.initState();
-  }
-
-  void _showSlider(
-      {bool? brightness,
-      bool? contrast,
-      bool? saturation,
-      bool? hue,
-      bool? sepia}) {
-    setState(() {
-      _showBightness = brightness ?? false;
-      _showConstrast = contrast ?? false;
-      _showSaturation = saturation ?? false;
-      _showHue = hue ?? false;
-      _showSepia = sepia ?? false;
-    });
-  }
-
-  void _resetAdjustments() {
-    setState(() {
-      _brightness = 0;
-      _contrast = 0;
-      _saturation = 0;
-      _hue = 0;
-      _sepia = 0;
-    });
-
-    _updateColorFilterGenerator();
-  }
-
-  void _updateColorFilterGenerator() {
-    _colorFilterGenerator = ColorFilterGenerator(name: 'Adjust', filters: [
-      ColorFilterAddons.brightness(_brightness),
-      ColorFilterAddons.contrast(_contrast),
-      ColorFilterAddons.saturation(_saturation),
-      ColorFilterAddons.hue(_hue),
-      ColorFilterAddons.sepia(_sepia),
-    ]);
   }
 
   @override
@@ -89,13 +64,15 @@ class _AdjustScreenState extends ConsumerState<AdjustScreen> {
         ),
         actions: [
           IconButton(
-              onPressed: () async {
-                Uint8List? bytes = await screenshotController.capture();
-                ref.read(imagePickerProvider.notifier).updateFile(bytes);
-                if (!mounted) return;
+            onPressed: () async {
+              final bytes = await _screenshotController.capture();
+              ref.read(imagePickerProvider.notifier).updateFile(bytes);
+              if (mounted) {
                 Navigator.of(context).pop();
-              },
-              icon: const Icon(Icons.done))
+              }
+            },
+            icon: const Icon(Icons.done),
+          )
         ],
       ),
       backgroundColor: Colors.black,
@@ -105,7 +82,7 @@ class _AdjustScreenState extends ConsumerState<AdjustScreen> {
             child: Padding(
               padding: const EdgeInsets.symmetric(vertical: 10),
               child: Screenshot(
-                controller: screenshotController,
+                controller: _screenshotController,
                 child: ColorFiltered(
                   colorFilter: ColorFilter.matrix(_colorFilterGenerator.matrix),
                   child: Image.memory(
@@ -121,77 +98,88 @@ class _AdjustScreenState extends ConsumerState<AdjustScreen> {
             child: Row(
               children: [
                 Expanded(
-                    child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    _buildSlider(label: 'Brightness', value: _brightness, onChanged: (value) => setState(() {
-                      _brightness = value;
-                      _updateColorFilterGenerator();
-                    }), show: _showBightness),
-                    _buildSlider(label: 'Contrast', value: _contrast, onChanged: (value) => setState(() {
-                      _contrast = value;
-                      _updateColorFilterGenerator();
-                    }), show: _showConstrast),
-                    _buildSlider(label: 'Saturation', value: _saturation, onChanged: (value) => setState(() {
-                      _saturation = value;
-                      _updateColorFilterGenerator();
-                    }), show: _showSaturation),
-                    _buildSlider(label: 'Hue', value: _hue, onChanged: (value) => setState(() {
-                      _hue = value;
-                      _updateColorFilterGenerator();
-                    }), show: _showHue),
-                    _buildSlider(label: 'Sepia', value: _sepia, onChanged: (value) => setState(() {
-                      _sepia = value;
-                      _updateColorFilterGenerator();
-                    }), show: _showSepia),
-                    
-                  ],
-                )),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: _adjustments.entries
+                        .map((adjust) => _buildSlider(
+                            label: adjust.key.capitalize(),
+                            value: adjust.value,
+                            onChanged: (value) => setState(() {
+                                  _adjustments[adjust.key] = value;
+                                  _updateColorFilterGenerator();
+                                }),
+                            show: adjust.key == _selectedAdjustment))
+                        .toList(),
+                  ),
+                ),
                 TextButton(
-                    onPressed: _resetAdjustments,
-                    child: const Text(
-                      'Reset',
-                      style: TextStyle(color: Colors.white),
-                    ))
+                  onPressed: _resetAdjustments,
+                  child: const Text(
+                    'Reset',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                )
               ],
             ),
           )
         ],
       ),
-      bottomNavigationBar: Container(
-        width: double.infinity,
-        height: 58,
-        color: Colors.black,
-        child: SafeArea(
-            child: SingleChildScrollView(
-          scrollDirection: Axis.horizontal,
-          child: Row(
-            children: [
-              _bottomBarItem(Icons.brightness_4_rounded, 'Brightness',
-                  onPress: () {
-                _showSlider(brightness: true);
-              }),
-              _bottomBarItem(Icons.contrast, 'Contrast', onPress: () {
-                _showSlider(contrast: true);
-              }),
-              _bottomBarItem(Icons.water_drop, 'Saturation', onPress: () {
-                _showSlider(saturation: true);
-              }),
-              _bottomBarItem(Icons.filter_tilt_shift, '   Hue   ', onPress: () {
-                _showSlider(hue: true);
-              }),
-              _bottomBarItem(Icons.motion_photos_on, '   Sepia   ',
-                  onPress: () {
-                _showSlider(sepia: true);
-              }),
-            ],
-          ),
-        )),
+      bottomNavigationBar: _buildBottomNavigationBar(),
+    );
+  }
+
+  Widget _buildSlider({
+    required String label,
+    required double value,
+    required ValueChanged<double> onChanged,
+    required bool show,
+  }) {
+    return Visibility(
+      visible: show,
+      child: Slider(
+        value: value,
+        label: label,
+        max: 1,
+        min: -0.9,
+        thumbColor: AppColor.facebookColor,
+        activeColor: AppColor.facebookColor,
+        onChanged: onChanged,
       ),
     );
   }
 
-  Widget _bottomBarItem(IconData icon, String title, {required onPress}) {
+  Widget _buildBottomNavigationBar() {
+    return Container(
+      width: double.infinity,
+      height: 58,
+      color: Colors.black,
+      child: SafeArea(
+        child: SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          child: Row(
+            children: _adjustments.entries.map((entry) {
+              final key = entry.key;
+              return _bottomBarItem(
+                icon: _getIconForAdjustment(key),
+                title: key.capitalize(),
+                onPress: () {
+                  _showSlider(key);
+                },
+                selected: key == _selectedAdjustment,
+              );
+            }).toList(),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _bottomBarItem({
+    required IconData icon,
+    required String title,
+    required VoidCallback onPress,
+    required bool selected,
+  }) {
     return InkWell(
       onTap: onPress,
       child: Padding(
@@ -201,14 +189,16 @@ class _AdjustScreenState extends ConsumerState<AdjustScreen> {
           children: [
             Icon(
               icon,
-              color: Colors.white,
+              color: selected ? AppColor.facebookColor : Colors.white,
             ),
             const SizedBox(
               height: 10,
             ),
             Text(
               title,
-              style: const TextStyle(color: Colors.white),
+              style: TextStyle(
+                color: selected ? AppColor.facebookColor : Colors.white,
+              ),
             )
           ],
         ),
@@ -216,20 +206,35 @@ class _AdjustScreenState extends ConsumerState<AdjustScreen> {
     );
   }
 
-  Widget _buildSlider(
-      {required String label,
-      required double value,
-      required ValueChanged<double> onChanged,
-      required bool show}) {
-    return Visibility(
-      visible: show,
-      child: Slider(
-        value: value,
-        label: label,
-        max: 1,
-        min: -0.9,
-        onChanged: onChanged,
-      ),
-    );
+  IconData _getIconForAdjustment(String adjustment) {
+    switch (adjustment) {
+      case 'brightness':
+        return Icons.brightness_4_rounded;
+      case 'contrast':
+        return Icons.contrast;
+      case 'saturation':
+        return Icons.water_drop;
+      case 'hue':
+        return Icons.filter_tilt_shift;
+      case 'sepia':
+        return Icons.motion_photos_on;
+      default:
+        return Icons.error;
+    }
+  }
+
+  void _resetAdjustments() {
+    setState(() {
+      _adjustments.forEach((key, _) {
+        _adjustments[key] = 0.0;
+      });
+    });
+    _updateColorFilterGenerator();
+  }
+}
+
+extension StringExtension on String {
+  String capitalize() {
+    return "${this[0].toUpperCase()}${substring(1)}";
   }
 }

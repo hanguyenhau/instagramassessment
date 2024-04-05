@@ -4,6 +4,7 @@ import 'package:instagram_assessment/features/authentication/presentation/login/
 import 'package:instagram_assessment/features/picker/presentation/adjust/adjust_screen.dart';
 import 'package:instagram_assessment/features/picker/presentation/crop/scrop_screen.dart';
 import 'package:instagram_assessment/features/picker/presentation/filter/filter_screen.dart';
+import 'package:instagram_assessment/features/picker/presentation/fit/fit_screen.dart';
 import 'package:instagram_assessment/features/picker/presentation/image_picker_display.dart';
 import 'package:instagram_assessment/features/user/presentation/view/detail/user_detail_views.dart';
 import 'package:routemaster/routemaster.dart';
@@ -29,6 +30,9 @@ final loggedInRoute = RouteMap(
         ),
     '/i/adjust/': (routeData) => const MaterialPage(
           child: AdjustScreen(),
+        ),
+    '/i/fit/': (routeData) => const MaterialPage(
+          child: FitScreen(),
         ),
   },
 );

@@ -51,6 +51,9 @@ class ImagePickerDisplay extends ConsumerWidget {
               _bottomBarItem(Icons.tune, 'Adjust', onPress: () {
                  _navigateToRouteView(context: context, route: 'adjust');
               }),
+              _bottomBarItem(Icons.fit_screen_sharp, 'Fit', onPress: () {
+                 _navigateToRouteView(context: context, route: '/fit');
+              }),
             ],
           ),
         )),
