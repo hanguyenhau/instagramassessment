@@ -48,6 +48,9 @@ class ImagePickerDisplay extends ConsumerWidget {
               _bottomBarItem(Icons.filter_vintage_outlined, 'Filters', onPress: () {
                  _navigateToRouteView(context: context, route: 'filter');
               }),
+              _bottomBarItem(Icons.tune, 'Adjust', onPress: () {
+                 _navigateToRouteView(context: context, route: 'adjust');
+              }),
             ],
           ),
         )),
@@ -72,7 +75,7 @@ class ImagePickerDisplay extends ConsumerWidget {
             ),
             Text(
               title,
-              style: TextStyle(color: Colors.white),
+              style: const TextStyle(color: Colors.white),
             )
           ],
         ),

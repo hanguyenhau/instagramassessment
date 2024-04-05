@@ -3,7 +3,6 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:instagram_assessment/config/core/constants/dimension.dart';
-import 'package:instagram_assessment/config/core/extension/main_exception.dart';
 import 'package:instagram_assessment/features/picker/controller/picker_controller.dart';
 import 'package:instagram_assessment/features/picker/presentation/filter/data/filters_list.dart';
 import 'package:instagram_assessment/features/picker/presentation/filter/model/filter.dart';
@@ -20,7 +19,7 @@ class _FilterScreenState extends ConsumerState<FilterScreen> {
   late Filter currentFilter;
   late List<Filter> filters;
 
-  ScreenshotController screenshotController = ScreenshotController();
+  final ScreenshotController screenshotController = ScreenshotController();
 
 
   @override

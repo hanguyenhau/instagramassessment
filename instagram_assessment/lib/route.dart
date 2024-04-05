@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:instagram_assessment/features/home/presentation/home_main_view.dart';
 import 'package:instagram_assessment/features/authentication/presentation/login/login_view.dart';
+import 'package:instagram_assessment/features/picker/presentation/adjust/adjust_screen.dart';
 import 'package:instagram_assessment/features/picker/presentation/crop/scrop_screen.dart';
 import 'package:instagram_assessment/features/picker/presentation/filter/filter_screen.dart';
 import 'package:instagram_assessment/features/picker/presentation/image_picker_display.dart';
@@ -25,6 +26,9 @@ final loggedInRoute = RouteMap(
         ),
     '/i/filter/': (routeData) => const MaterialPage(
           child: FilterScreen(),
+        ),
+    '/i/adjust/': (routeData) => const MaterialPage(
+          child: AdjustScreen(),
         ),
   },
 );

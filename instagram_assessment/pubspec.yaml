@@ -61,6 +61,7 @@ dependencies:
   crop_image: ^1.0.12
   path_provider: ^2.1.2
   screenshot: ^2.3.0
+  colorfilter_generator: ^0.0.8
 
 dev_dependencies:
   flutter_test:

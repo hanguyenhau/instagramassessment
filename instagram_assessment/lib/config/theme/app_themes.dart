@@ -6,6 +6,9 @@ ThemeData theme() {
     // fontFamily: 'Muli',
     appBarTheme: appBarTheme(),
     useMaterial3: true,
+    sliderTheme: const SliderThemeData(
+      showValueIndicator: ShowValueIndicator.always
+    )
   );
 }
 
