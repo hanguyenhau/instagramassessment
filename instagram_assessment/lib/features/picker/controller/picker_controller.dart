@@ -35,6 +35,18 @@ class ImagePickerController extends StateNotifier<Uint8List ?> {
     } 
   }
 
+  Future<Uint8List?> getFileFromPicker() async {
+    try {
+      final imageFile = await ImagePickerHelper.pickImageFromGallery();
+      if (imageFile == null) {
+        return null;
+      }
+      return imageFile;
+    } catch (e) {
+      return null;
+    } 
+  }
+
   void updateFile(Uint8List? image) {
      state = image;
      if(image == state){
