@@ -3,10 +3,14 @@ import 'dart:typed_data';
 import 'package:blur/blur.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:instagram_assessment/config/core/constants/app_colors.dart';
-import 'package:instagram_assessment/config/core/helper/pixel_helper.dart';
+import 'package:instagram_assessment/features/picker/controller/fit/blur_image_controller.dart';
+import 'package:instagram_assessment/features/picker/controller/fit/color_image_controller.dart';
+import 'package:instagram_assessment/features/picker/controller/fit/ratio_image_controller.dart';
 import 'package:instagram_assessment/features/picker/controller/picker_controller.dart';
-import 'package:instagram_assessment/features/picker/presentation/fit/fit.dart';
+import 'package:instagram_assessment/features/picker/model/fit.dart';
+import 'package:instagram_assessment/features/picker/presentation/fit/component/blur_widget.dart';
+import 'package:instagram_assessment/features/picker/presentation/fit/component/color_widget.dart';
+import 'package:instagram_assessment/features/picker/presentation/fit/component/ratio_widget.dart';
 import 'package:screenshot/screenshot.dart';
 
 class FitScreen extends ConsumerStatefulWidget {
@@ -26,23 +30,6 @@ class _FitScreenState extends ConsumerState<FitScreen> {
 
   Fit _selectedFit = Fit.ratio;
 
-  double _blurValue = 0;
-
-  Uint8List? _backgroundImage;
-  Color _backgroundColor = Colors.white;
-
-  double _ratioValue = 1;
-
-  final Map<String, double> _ratio = {
-    '1:1': 1 / 1,
-    '1:2': 1 / 2,
-    '2:1': 2 / 1,
-    '4:3': 4 / 3,
-    '3:4': 3 / 4,
-    '16:9': 16 / 9,
-    '9:16': 9 / 16,
-  };
-
   void _activeFitWidget({required Fit selected}) {
     setState(() {
       _selectedFit = selected;
@@ -60,7 +47,6 @@ class _FitScreenState extends ConsumerState<FitScreen> {
         ),
       );
     }
-    _backgroundImage ??= imageProvider;
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
@@ -88,26 +74,28 @@ class _FitScreenState extends ConsumerState<FitScreen> {
       backgroundColor: Colors.black,
       body: Center(
         child: AspectRatio(
-          aspectRatio: _ratioValue,
+          aspectRatio: ref.watch(ratioFitProvider),
           child: Screenshot(
               controller: _screenshotController,
               child: Stack(
                 children: [
+                  //change background by color if color fit is chose
                   if (_selectedFit == Fit.color)
                     Container(
-                      color: _backgroundColor,
+                      color: ref.watch(colorFitProvider),
                     ),
+                  //change background by blur if blur fit is chose
                   if (_selectedFit == Fit.blur)
                     Container(
                       decoration: BoxDecoration(
                         image: DecorationImage(
                           fit: BoxFit.cover,
-                          image: MemoryImage(_backgroundImage!),
+                          image: MemoryImage(ref.watch(blurBackgroundProvider)),
                         ),
                       ),
                     ).blurred(
                       colorOpacity: 0,
-                      blur: _blurValue,
+                      blur: ref.watch(blurFitProvider),
                     ),
                   Center(
                     child: Image.memory(imageProvider),
@@ -133,22 +121,23 @@ class _FitScreenState extends ConsumerState<FitScreen> {
           Expanded(
             child: Stack(
               children: [
-                if (_selectedFit == Fit.ratio) ratioWidget(),
-                if (_selectedFit == Fit.blur) blurWidget(),
+                if (_selectedFit == Fit.ratio) const RatioWidget(),
+                if (_selectedFit == Fit.blur) const BlurWidget(),
                 if (_selectedFit == Fit.color)
-                  colorWidget(imageProvider: imageProvider),
+                  ColorWidget(imageProvider: imageProvider),
               ],
             ),
           ),
           Row(
             children: [
-              _bottomBarItem(Icons.aspect_ratio, 'Ratio', onPress: () {
+              _bottomBarItem(Icons.aspect_ratio, Fit.ratio.name, onPress: () {
                 _activeFitWidget(selected: Fit.ratio);
               }),
-              _bottomBarItem(Icons.blur_linear, 'Blur', onPress: () {
+              _bottomBarItem(Icons.blur_linear, Fit.blur.name, onPress: () {
                 _activeFitWidget(selected: Fit.blur);
               }),
-              _bottomBarItem(Icons.color_lens_outlined, 'Color', onPress: () {
+              _bottomBarItem(Icons.color_lens_outlined, Fit.color.name,
+                  onPress: () {
                 _activeFitWidget(selected: Fit.color);
               }),
             ],
@@ -182,101 +171,5 @@ class _FitScreenState extends ConsumerState<FitScreen> {
         ),
       ),
     ));
-  }
-
-  Widget ratioWidget() {
-    return SingleChildScrollView(
-      scrollDirection: Axis.horizontal,
-      child: Row(
-        children: _ratio.entries
-            .map(
-              (entry) => TextButton(
-                  onPressed: () {
-                    setState(() {
-                      _ratioValue = entry.value;
-                    });
-                  },
-                  child: Text(entry.key)),
-            )
-            .toList(),
-      ),
-    );
-  }
-
-  Widget blurWidget() {
-    return Container(
-      color: Colors.black,
-      child: Center(
-        child: Row(children: [
-          IconButton(
-              onPressed: () async {
-                _backgroundImage = await ref
-                    .read(imagePickerProvider.notifier)
-                    .getFileFromPicker();
-
-                if (_backgroundImage == null || !mounted) {
-                  return;
-                }
-                setState(() {});
-              },
-              icon: const Icon(
-                Icons.photo_library_outlined,
-                color: Colors.white,
-              )),
-          Expanded(
-              child: Slider(
-            value: _blurValue,
-            label: _blurValue.toStringAsFixed(2),
-            max: 100,
-            min: 0,
-            onChanged: (value) {
-              setState(() {
-                _blurValue = value;
-              });
-            },
-          ))
-        ]),
-      ),
-    );
-  }
-
-  Widget colorWidget({required Uint8List imageProvider}) {
-    return Container(
-      color: Colors.black,
-      child: Center(
-        child: Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
-          IconButton(
-              onPressed: () async {
-                PixelHelperImage().colorPicker(
-                  context,
-                  backgroundColor: _backgroundColor,
-                  onPick: (color) {
-                    setState(() {
-                      _backgroundColor = color;
-                    });
-                  },
-                );
-              },
-              icon: Icon(
-                Icons.color_lens_outlined,
-                color: AppColor.facebookColor,
-              )),
-          IconButton(
-              onPressed: () async {
-                PixelHelperImage().show(context,
-                    backgroundColor: _backgroundColor,
-                    image: imageProvider, onPick: (color) {
-                  setState(() {
-                    _backgroundColor = color;
-                  });
-                });
-              },
-              icon: Icon(
-                Icons.colorize,
-                color: AppColor.facebookColor,
-              )),
-        ]),
-      ),
-    );
   }
 }

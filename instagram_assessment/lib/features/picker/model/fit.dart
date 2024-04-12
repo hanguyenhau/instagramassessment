@@ -1,4 +1,4 @@
-enum Fit{
+enum Fit {
   ratio,
   blur,
   color,
