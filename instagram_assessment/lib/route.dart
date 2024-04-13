@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:instagram_assessment/features/home/presentation/home_main_view.dart';
 import 'package:instagram_assessment/features/authentication/presentation/login/login_view.dart';
 import 'package:instagram_assessment/features/picker/presentation/adjust/adjust_screen.dart';
+import 'package:instagram_assessment/features/picker/presentation/blur/blur_screen.dart';
 import 'package:instagram_assessment/features/picker/presentation/crop/scrop_screen.dart';
 import 'package:instagram_assessment/features/picker/presentation/filter/filter_screen.dart';
 import 'package:instagram_assessment/features/picker/presentation/fit/fit_screen.dart';
@@ -37,6 +38,9 @@ final loggedInRoute = RouteMap(
         ),
     '/i/tint/': (routeData) => const MaterialPage(
           child: TintScreen(),
+        ),
+    '/i/blur/': (routeData) => const MaterialPage(
+          child: BlurScreen(),
         ),
   },
 );

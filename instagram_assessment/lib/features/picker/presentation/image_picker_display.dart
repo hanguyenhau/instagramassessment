@@ -6,7 +6,8 @@ import 'package:routemaster/routemaster.dart';
 class ImagePickerDisplay extends ConsumerWidget {
   const ImagePickerDisplay({super.key});
 
-  void _navigateToRouteView({required BuildContext context,required String route}) =>
+  void _navigateToRouteView(
+          {required BuildContext context, required String route}) =>
       Routemaster.of(context).push('/i/$route');
 
   @override
@@ -45,17 +46,21 @@ class ImagePickerDisplay extends ConsumerWidget {
               _bottomBarItem(Icons.crop_rotate, 'Crop', onPress: () {
                 _navigateToRouteView(context: context, route: 'crop');
               }),
-              _bottomBarItem(Icons.filter_vintage_outlined, 'Filters', onPress: () {
-                 _navigateToRouteView(context: context, route: 'filter');
+              _bottomBarItem(Icons.filter_vintage_outlined, 'Filters',
+                  onPress: () {
+                _navigateToRouteView(context: context, route: 'filter');
               }),
               _bottomBarItem(Icons.tune, 'Adjust', onPress: () {
-                 _navigateToRouteView(context: context, route: 'adjust');
+                _navigateToRouteView(context: context, route: 'adjust');
               }),
               _bottomBarItem(Icons.fit_screen_sharp, 'Fit', onPress: () {
-                 _navigateToRouteView(context: context, route: '/fit');
+                _navigateToRouteView(context: context, route: '/fit');
               }),
               _bottomBarItem(Icons.border_color_outlined, 'Tint', onPress: () {
-                 _navigateToRouteView(context: context, route: '/tint');
+                _navigateToRouteView(context: context, route: '/tint');
+              }),
+              _bottomBarItem(Icons.blur_circular, 'Blur', onPress: () {
+                _navigateToRouteView(context: context, route: '/blur');
               }),
             ],
           ),
