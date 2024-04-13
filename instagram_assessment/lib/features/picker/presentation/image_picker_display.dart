@@ -54,6 +54,9 @@ class ImagePickerDisplay extends ConsumerWidget {
               _bottomBarItem(Icons.fit_screen_sharp, 'Fit', onPress: () {
                  _navigateToRouteView(context: context, route: '/fit');
               }),
+              _bottomBarItem(Icons.border_color_outlined, 'Tint', onPress: () {
+                 _navigateToRouteView(context: context, route: '/tint');
+              }),
             ],
           ),
         )),

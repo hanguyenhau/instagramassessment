@@ -6,6 +6,7 @@ import 'package:instagram_assessment/features/picker/presentation/crop/scrop_scr
 import 'package:instagram_assessment/features/picker/presentation/filter/filter_screen.dart';
 import 'package:instagram_assessment/features/picker/presentation/fit/fit_screen.dart';
 import 'package:instagram_assessment/features/picker/presentation/image_picker_display.dart';
+import 'package:instagram_assessment/features/picker/presentation/tint/tint_screen.dart';
 import 'package:instagram_assessment/features/user/presentation/view/detail/user_detail_views.dart';
 import 'package:routemaster/routemaster.dart';
 
@@ -33,6 +34,9 @@ final loggedInRoute = RouteMap(
         ),
     '/i/fit/': (routeData) => const MaterialPage(
           child: FitScreen(),
+        ),
+    '/i/tint/': (routeData) => const MaterialPage(
+          child: TintScreen(),
         ),
   },
 );
