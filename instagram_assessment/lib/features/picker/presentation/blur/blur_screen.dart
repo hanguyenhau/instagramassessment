@@ -41,7 +41,7 @@ class _FitScreenState extends ConsumerState<BlurScreen> {
       appBar: AppBar(
         elevation: 0,
         backgroundColor: Colors.black,
-        title: const Text('Tint'),
+        title: const Text('Blur'),
         centerTitle: true,
         leading: CloseButton(
           onPressed: () {

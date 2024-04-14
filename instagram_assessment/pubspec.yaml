@@ -65,6 +65,7 @@ dependencies:
   blur: ^3.1.0
   pixel_color_picker: ^1.0.0
   flex_color_picker: ^3.4.1
+  lindi_sticker_widget: ^0.1.1
 
 dev_dependencies:
   flutter_test:
@@ -121,6 +122,8 @@ flutter:
   - assets/animations/error.json
   - assets/animations/loading.json
   - assets/animations/small_error.json
+
+  - assets/stickers/
   
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
