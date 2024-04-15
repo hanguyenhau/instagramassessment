@@ -1,11 +1,10 @@
-import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 import 'package:instagram_assessment/features/picker/model/file_type.dart';
 
 @immutable
 class ThumbnailRequest {
-  final File fileToPost;
+  final Uint8List fileToPost;
   final FileType fileType;
 
   const ThumbnailRequest({

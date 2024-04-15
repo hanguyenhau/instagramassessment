@@ -79,3 +79,14 @@ extension ImageToFile on Uint8List {
     return File(tempFilePath);
   }
 }
+
+extension Uint8ListToFile on Uint8List{
+  Future<File> uint8ListToFile(String filePath) async {
+    // Create a File object with the provided filePath
+    final file = File(filePath);
+
+    // Write the Uint8List data into the file
+    await file.writeAsBytes(this);
+    return file;
+  }
+}

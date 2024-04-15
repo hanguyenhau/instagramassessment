@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:instagram_assessment/features/picker/controller/picker_controller.dart';
+import 'package:instagram_assessment/features/picker/model/file_type.dart';
+import 'package:instagram_assessment/features/post/presentation/create/create_new_post.dart';
 import 'package:routemaster/routemaster.dart';
 
 class ImagePickerDisplay extends ConsumerWidget {
@@ -23,7 +25,24 @@ class ImagePickerDisplay extends ConsumerWidget {
             Navigator.of(context).pop();
           },
         ),
-        actions: [TextButton(onPressed: () {}, child: const Text('Save'))],
+        actions: [
+          TextButton(
+              onPressed: () {
+                Future.delayed(Duration.zero, () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (_) {
+                        return const CreateNewPost(
+                          fileType: FileType.image,
+                        );
+                      },
+                    ),
+                  );
+                });
+              },
+              child: const Text('Create'))
+        ],
       ),
       backgroundColor: Colors.black,
       body: Center(
@@ -62,7 +81,8 @@ class ImagePickerDisplay extends ConsumerWidget {
               _bottomBarItem(Icons.blur_circular, 'Blur', onPress: () {
                 _navigateToRouteView(context: context, route: '/blur');
               }),
-              _bottomBarItem(Icons.emoji_emotions_outlined, 'Sticker', onPress: () {
+              _bottomBarItem(Icons.emoji_emotions_outlined, 'Sticker',
+                  onPress: () {
                 _navigateToRouteView(context: context, route: '/sticker');
               }),
               _bottomBarItem(Icons.text_fields, 'Text', onPress: () {
@@ -70,6 +90,9 @@ class ImagePickerDisplay extends ConsumerWidget {
               }),
               _bottomBarItem(Icons.draw, 'Draw', onPress: () {
                 _navigateToRouteView(context: context, route: '/draw');
+              }),
+              _bottomBarItem(Icons.star_outline, 'Mask', onPress: () {
+                _navigateToRouteView(context: context, route: '/mask');
               }),
             ],
           ),

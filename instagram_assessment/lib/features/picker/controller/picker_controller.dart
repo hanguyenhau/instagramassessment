@@ -59,14 +59,14 @@ class ImagePickerController extends StateNotifier<Uint8List ?> {
     final Image image;
     switch (thumbnailRequest.fileType) {
       case FileType.image:
-        image = Image.file(
+        image = Image.memory(
           thumbnailRequest.fileToPost,
           fit: BoxFit.fitHeight,
         );
         break;
 
       case FileType.video:
-        image = Image.file(
+        image = Image.memory(
           thumbnailRequest.fileToPost,
           fit: BoxFit.fitHeight,
         );

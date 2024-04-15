@@ -14,20 +14,20 @@ class ThumbnailPostImage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return Container();
-    // final thumbnailRequest = ThumbnailRequest(
-    //     fileToPost: ref.watch(imagePickerProvider)!, fileType: fileType);
-    // final thumbnail = ref.watch(thumbnailAspectRatioProvider(thumbnailRequest));
-    // return thumbnail.when(
-    //   data: (imageWithAspectRatio) => Padding(
-    //     padding: const EdgeInsets.symmetric(vertical: 10),
-    //     child: AspectRatio(
-    //       aspectRatio: imageWithAspectRatio.aspectRatio,
-    //       child: imageWithAspectRatio.image,
-    //     ),
-    //   ),
-    //   error: (error, stackTrace) => Container(),
-    //   loading: () => const SizedBox(),
-    // );
+
+    final thumbnailRequest = ThumbnailRequest(
+        fileToPost: ref.watch(imagePickerProvider)!, fileType: fileType);
+    final thumbnail = ref.watch(thumbnailAspectRatioProvider(thumbnailRequest));
+    return thumbnail.when(
+      data: (imageWithAspectRatio) => Padding(
+        padding: const EdgeInsets.symmetric(vertical: 10),
+        child: AspectRatio(
+          aspectRatio: imageWithAspectRatio.aspectRatio,
+          child: imageWithAspectRatio.image,
+        ),
+      ),
+      error: (error, stackTrace) => Container(),
+      loading: () => const SizedBox(),
+    );
   }
 }

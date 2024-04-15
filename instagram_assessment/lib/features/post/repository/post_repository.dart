@@ -1,4 +1,3 @@
-import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
@@ -39,7 +38,7 @@ class PostRepository {
   Future<bool> savePost({
     required UserId userId,
     required Uint8List thumbnailUint8List,
-    required File file,
+    required Uint8List file,
     required FileType filetype,
     required String messenger,
   }) async {

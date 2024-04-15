@@ -16,7 +16,7 @@ class DrawScreen extends ConsumerStatefulWidget {
 
 class _FitScreenState extends ConsumerState<DrawScreen> {
   ScreenshotController screenshotController = ScreenshotController();
-  PainterController _controller = PainterController();
+  final PainterController _controller = PainterController();
 
   @override
   void initState() {
@@ -50,10 +50,11 @@ class _FitScreenState extends ConsumerState<DrawScreen> {
         actions: [
           IconButton(
             onPressed: () async {
-              // ref.read(imagePickerProvider.notifier).updateFile(bytes);
-              // if (mounted) {
-              //   Navigator.of(context).pop();
-              // }
+              final bytes = await screenshotController.capture();
+              ref.read(imagePickerProvider.notifier).updateFile(bytes);
+              if (mounted) {
+                Navigator.of(context).pop();
+              }
             },
             icon: const Icon(Icons.done),
           )

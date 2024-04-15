@@ -44,8 +44,6 @@ class _HomePageState extends ConsumerState<HomePage> {
               }
 
               // go to create new post
-              
-
               Navigator.push(
                 context,
                 MaterialPageRoute(

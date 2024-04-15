@@ -1,4 +1,4 @@
-import 'dart:io';
+
 import 'dart:typed_data';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -66,7 +66,7 @@ class PostController extends StateNotifier<IsLoading> {
   Stream<Iterable<Like>> allLike(PostId postId) => _repo.allLikePost(postId);
 
   Future<bool> uploadPost({
-    required File file,
+    required Uint8List file,
     required FileType filetype,
     required String messenger,
   }) async {
@@ -106,8 +106,8 @@ class PostController extends StateNotifier<IsLoading> {
   Future<void> disLikePost({required PostId postId}) =>
       _repo.disLikePost(userId: _ref.read(userProvider)!, postId: postId);
 
-  Uint8List _imageTypeUpload({required File file}) {
-    final fileAsImage = img.decodeImage(file.readAsBytesSync());
+  Uint8List _imageTypeUpload({required Uint8List file}) {
+    final fileAsImage = img.decodeImage(file);
     if (fileAsImage == null) {
       isLoading = false;
       throw const CouldNotBuildThumbnailException();

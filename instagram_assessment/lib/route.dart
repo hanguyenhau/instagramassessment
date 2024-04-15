@@ -8,6 +8,7 @@ import 'package:instagram_assessment/features/picker/presentation/draw/draw_scre
 import 'package:instagram_assessment/features/picker/presentation/filter/filter_screen.dart';
 import 'package:instagram_assessment/features/picker/presentation/fit/fit_screen.dart';
 import 'package:instagram_assessment/features/picker/presentation/image_picker_display.dart';
+import 'package:instagram_assessment/features/picker/presentation/mask/mask_screen.dart';
 import 'package:instagram_assessment/features/picker/presentation/sticker/sticker_screen.dart';
 import 'package:instagram_assessment/features/picker/presentation/text/text_screen.dart';
 import 'package:instagram_assessment/features/picker/presentation/tint/tint_screen.dart';
@@ -53,6 +54,9 @@ final loggedInRoute = RouteMap(
         ),
     '/i/draw/': (routeData) => const MaterialPage(
           child: DrawScreen(),
+        ),
+    '/i/mask/': (routeData) => const MaterialPage(
+          child: MaskScreen(),
         ),
   },
 );
