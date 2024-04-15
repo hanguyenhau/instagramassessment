@@ -65,6 +65,9 @@ class ImagePickerDisplay extends ConsumerWidget {
               _bottomBarItem(Icons.emoji_emotions_outlined, 'Sticker', onPress: () {
                 _navigateToRouteView(context: context, route: '/sticker');
               }),
+              _bottomBarItem(Icons.text_fields, 'Text', onPress: () {
+                _navigateToRouteView(context: context, route: '/text');
+              }),
             ],
           ),
         )),
