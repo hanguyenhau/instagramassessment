@@ -68,6 +68,9 @@ class ImagePickerDisplay extends ConsumerWidget {
               _bottomBarItem(Icons.text_fields, 'Text', onPress: () {
                 _navigateToRouteView(context: context, route: '/text');
               }),
+              _bottomBarItem(Icons.draw, 'Draw', onPress: () {
+                _navigateToRouteView(context: context, route: '/draw');
+              }),
             ],
           ),
         )),

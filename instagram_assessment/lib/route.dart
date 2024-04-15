@@ -4,6 +4,7 @@ import 'package:instagram_assessment/features/authentication/presentation/login/
 import 'package:instagram_assessment/features/picker/presentation/adjust/adjust_screen.dart';
 import 'package:instagram_assessment/features/picker/presentation/blur/blur_screen.dart';
 import 'package:instagram_assessment/features/picker/presentation/crop/scrop_screen.dart';
+import 'package:instagram_assessment/features/picker/presentation/draw/draw_screen.dart';
 import 'package:instagram_assessment/features/picker/presentation/filter/filter_screen.dart';
 import 'package:instagram_assessment/features/picker/presentation/fit/fit_screen.dart';
 import 'package:instagram_assessment/features/picker/presentation/image_picker_display.dart';
@@ -47,8 +48,11 @@ final loggedInRoute = RouteMap(
     '/i/sticker/': (routeData) => const MaterialPage(
           child: StickerScreen(),
         ),
-        '/i/text/': (routeData) => const MaterialPage(
+    '/i/text/': (routeData) => const MaterialPage(
           child: TextScreen(),
+        ),
+    '/i/draw/': (routeData) => const MaterialPage(
+          child: DrawScreen(),
         ),
   },
 );

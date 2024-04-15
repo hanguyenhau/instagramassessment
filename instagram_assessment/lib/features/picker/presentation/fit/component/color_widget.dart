@@ -5,7 +5,7 @@ import 'package:instagram_assessment/config/core/helper/pixel_helper.dart';
 import 'package:instagram_assessment/features/picker/controller/fit/color_image_controller.dart';
 
 class ColorWidget extends ConsumerWidget {
-  final imageProvider;
+  final dynamic imageProvider;
   const ColorWidget({required this.imageProvider, super.key});
 
   @override
