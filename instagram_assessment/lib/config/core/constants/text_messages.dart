@@ -49,5 +49,19 @@ class TextMessage {
   static const image = 'image';
   static const video = 'video';
 
+  static const photoEditor = 'Photo Editor';
+  static const create = 'Create';
+
+  static const crop = 'Crop';
+  static const filters = 'Filters';
+  static const adjust = 'Adjust';
+  static const fit = 'Fit';
+  static const tint = 'Tint';
+  static const blur = 'Blur';
+  static const sticker = 'Sticker';
+  static const text = 'Text';
+  static const draw = 'Draw';
+  static const mask = 'Mask';
+
   const TextMessage._();
 }

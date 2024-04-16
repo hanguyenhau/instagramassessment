@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:instagram_assessment/features/home/presentation/home_main_view.dart';
 import 'package:instagram_assessment/features/authentication/presentation/login/login_view.dart';
+import 'package:instagram_assessment/features/picker/model/picker_type.dart';
 import 'package:instagram_assessment/features/picker/presentation/adjust/adjust_screen.dart';
 import 'package:instagram_assessment/features/picker/presentation/blur/blur_screen.dart';
 import 'package:instagram_assessment/features/picker/presentation/crop/scrop_screen.dart';
@@ -25,37 +26,37 @@ final loggedInRoute = RouteMap(
     '/u/:uid/': (routeData) => MaterialPage(
           child: UserDetailsView(userId: routeData.pathParameters['uid']!),
         ),
-    '/i/picker/': (routeData) => const MaterialPage(
+    '/i/Picker/': (routeData) => const MaterialPage(
           child: ImagePickerDisplay(),
         ),
-    '/i/crop/': (routeData) => const MaterialPage(
+    '/i/${Picker.crop.name}/': (routeData) => const MaterialPage(
           child: ScropScreen(),
         ),
-    '/i/filter/': (routeData) => const MaterialPage(
+    '/i/${Picker.filter.name}/': (routeData) => const MaterialPage(
           child: FilterScreen(),
         ),
-    '/i/adjust/': (routeData) => const MaterialPage(
+    '/i/${Picker.adjust.name}/': (routeData) => const MaterialPage(
           child: AdjustScreen(),
         ),
-    '/i/fit/': (routeData) => const MaterialPage(
+    '/i/${Picker.fit.name}/': (routeData) => const MaterialPage(
           child: FitScreen(),
         ),
-    '/i/tint/': (routeData) => const MaterialPage(
+    '/i/${Picker.tint.name}/': (routeData) => const MaterialPage(
           child: TintScreen(),
         ),
-    '/i/blur/': (routeData) => const MaterialPage(
+    '/i/${Picker.blur.name}/': (routeData) => const MaterialPage(
           child: BlurScreen(),
         ),
-    '/i/sticker/': (routeData) => const MaterialPage(
+    '/i/${Picker.sticker.name}/': (routeData) => const MaterialPage(
           child: StickerScreen(),
         ),
-    '/i/text/': (routeData) => const MaterialPage(
+    '/i/${Picker.text.name}/': (routeData) => const MaterialPage(
           child: TextScreen(),
         ),
-    '/i/draw/': (routeData) => const MaterialPage(
+    '/i/${Picker.draw.name}/': (routeData) => const MaterialPage(
           child: DrawScreen(),
         ),
-    '/i/mask/': (routeData) => const MaterialPage(
+    '/i/${Picker.mask.name}/': (routeData) => const MaterialPage(
           child: MaskScreen(),
         ),
   },

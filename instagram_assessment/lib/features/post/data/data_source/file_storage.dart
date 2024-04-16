@@ -4,7 +4,6 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:instagram_assessment/config/core/constants/firebase_collection_name.dart';
-import 'package:instagram_assessment/config/core/extension/main_exception.dart';
 import 'package:instagram_assessment/config/core/providers/firebase_provider.dart';
 import 'package:instagram_assessment/models/typedef.dart';
 
@@ -36,8 +35,7 @@ class FileStorage {
       required Uint8List file}) async {
     final originalFileRef =
         getOriginalRef(userId: userId, fileName: fileName, fileType: fileType);
-    final originalFileUploadTask =
-        await originalFileRef.putFile(await file.uint8ListToFile(fileName));
+    final originalFileUploadTask = await originalFileRef.putData(file);
     return originalFileUploadTask.ref.name;
   }
 

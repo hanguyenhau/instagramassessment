@@ -7,7 +7,7 @@ import 'package:instagram_assessment/features/picker/controller/fit/blur_image_c
 import 'package:instagram_assessment/features/picker/controller/fit/color_image_controller.dart';
 import 'package:instagram_assessment/features/picker/controller/fit/ratio_image_controller.dart';
 import 'package:instagram_assessment/features/picker/controller/picker_controller.dart';
-import 'package:instagram_assessment/features/picker/model/fit.dart';
+import 'package:instagram_assessment/features/picker/model/picker_type.dart';
 import 'package:instagram_assessment/features/picker/presentation/fit/component/blur_widget.dart';
 import 'package:instagram_assessment/features/picker/presentation/fit/component/color_widget.dart';
 import 'package:instagram_assessment/features/picker/presentation/fit/component/ratio_widget.dart';

@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:instagram_assessment/config/core/constants/dimension.dart';
+import 'package:instagram_assessment/config/core/constants/text_messages.dart';
 import 'package:instagram_assessment/features/picker/controller/picker_controller.dart';
 import 'package:instagram_assessment/features/picker/model/file_type.dart';
+import 'package:instagram_assessment/features/picker/model/picker_type.dart';
 import 'package:instagram_assessment/features/post/presentation/create/create_new_post.dart';
 import 'package:routemaster/routemaster.dart';
 
@@ -18,7 +21,7 @@ class ImagePickerDisplay extends ConsumerWidget {
       appBar: AppBar(
         elevation: 0,
         backgroundColor: Colors.black,
-        title: const Text('Photo Editor'),
+        title: const Text(TextMessage.photoEditor),
         centerTitle: true,
         leading: CloseButton(
           onPressed: () {
@@ -41,7 +44,7 @@ class ImagePickerDisplay extends ConsumerWidget {
                   );
                 });
               },
-              child: const Text('Create'))
+              child: const Text(TextMessage.create))
         ],
       ),
       backgroundColor: Colors.black,
@@ -55,44 +58,44 @@ class ImagePickerDisplay extends ConsumerWidget {
       )),
       bottomNavigationBar: Container(
         width: double.infinity,
-        height: 58,
+        height: Dimension.height60,
         color: Colors.black,
         child: SafeArea(
             child: SingleChildScrollView(
           scrollDirection: Axis.horizontal,
           child: Row(
             children: [
-              _bottomBarItem(Icons.crop_rotate, 'Crop', onPress: () {
-                _navigateToRouteView(context: context, route: 'crop');
+              _bottomBarItem(Icons.crop_rotate, TextMessage.crop, onPress: () {
+                _navigateToRouteView(context: context, route: '/${Picker.crop.name}');
               }),
-              _bottomBarItem(Icons.filter_vintage_outlined, 'Filters',
+              _bottomBarItem(Icons.filter_vintage_outlined, TextMessage.filters,
                   onPress: () {
-                _navigateToRouteView(context: context, route: 'filter');
+                _navigateToRouteView(context: context, route:'/${Picker.filter.name}');
               }),
-              _bottomBarItem(Icons.tune, 'Adjust', onPress: () {
-                _navigateToRouteView(context: context, route: 'adjust');
+              _bottomBarItem(Icons.tune, TextMessage.adjust, onPress: () {
+                _navigateToRouteView(context: context, route: '/${Picker.adjust.name}');
               }),
-              _bottomBarItem(Icons.fit_screen_sharp, 'Fit', onPress: () {
-                _navigateToRouteView(context: context, route: '/fit');
+              _bottomBarItem(Icons.fit_screen_sharp, TextMessage.fit, onPress: () {
+                _navigateToRouteView(context: context, route: '/${Picker.fit.name}');
               }),
-              _bottomBarItem(Icons.border_color_outlined, 'Tint', onPress: () {
-                _navigateToRouteView(context: context, route: '/tint');
+              _bottomBarItem(Icons.border_color_outlined, TextMessage.tint, onPress: () {
+                _navigateToRouteView(context: context, route: '/${Picker.tint.name}');
               }),
-              _bottomBarItem(Icons.blur_circular, 'Blur', onPress: () {
-                _navigateToRouteView(context: context, route: '/blur');
+              _bottomBarItem(Icons.blur_circular, TextMessage.blur, onPress: () {
+                _navigateToRouteView(context: context, route: '/${Picker.blur.name}');
               }),
-              _bottomBarItem(Icons.emoji_emotions_outlined, 'Sticker',
+              _bottomBarItem(Icons.emoji_emotions_outlined, TextMessage.sticker,
                   onPress: () {
-                _navigateToRouteView(context: context, route: '/sticker');
+                _navigateToRouteView(context: context, route: '/${Picker.sticker.name}');
               }),
-              _bottomBarItem(Icons.text_fields, 'Text', onPress: () {
-                _navigateToRouteView(context: context, route: '/text');
+              _bottomBarItem(Icons.text_fields, TextMessage.text, onPress: () {
+                _navigateToRouteView(context: context, route: '/${Picker.text.name}');
               }),
-              _bottomBarItem(Icons.draw, 'Draw', onPress: () {
-                _navigateToRouteView(context: context, route: '/draw');
+              _bottomBarItem(Icons.draw, TextMessage.draw, onPress: () {
+                _navigateToRouteView(context: context, route: '/${Picker.draw.name}');
               }),
-              _bottomBarItem(Icons.star_outline, 'Mask', onPress: () {
-                _navigateToRouteView(context: context, route: '/mask');
+              _bottomBarItem(Icons.star_outline, TextMessage.mask, onPress: () {
+                _navigateToRouteView(context: context, route:'/${Picker.mask.name}');
               }),
             ],
           ),
@@ -105,7 +108,7 @@ class ImagePickerDisplay extends ConsumerWidget {
     return InkWell(
       onTap: onPress,
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 10),
+        padding: const EdgeInsets.symmetric(horizontal: Dimension.height10),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -114,7 +117,7 @@ class ImagePickerDisplay extends ConsumerWidget {
               color: Colors.white,
             ),
             const SizedBox(
-              height: 10,
+              height: Dimension.height10,
             ),
             Text(
               title,

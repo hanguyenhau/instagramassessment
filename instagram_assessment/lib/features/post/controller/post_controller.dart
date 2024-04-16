@@ -1,9 +1,11 @@
 
+import 'dart:developer';
 import 'dart:typed_data';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:instagram_assessment/config/core/constants/dimension.dart';
 import 'package:instagram_assessment/config/core/extension/main_exception.dart';
+import 'package:instagram_assessment/features/picker/controller/picker_controller.dart';
 import 'package:instagram_assessment/features/post/repository/post_repository.dart';
 import 'package:instagram_assessment/features/user/controller/user_controller.dart';
 import 'package:instagram_assessment/models/like.dart';
@@ -66,7 +68,6 @@ class PostController extends StateNotifier<IsLoading> {
   Stream<Iterable<Like>> allLike(PostId postId) => _repo.allLikePost(postId);
 
   Future<bool> uploadPost({
-    required Uint8List file,
     required FileType filetype,
     required String messenger,
   }) async {
@@ -77,7 +78,7 @@ class PostController extends StateNotifier<IsLoading> {
     switch (filetype) {
       //Type Image
       case FileType.image:
-        thumbnailUint8List = _imageTypeUpload(file: file);
+        thumbnailUint8List = _imageTypeUpload(file: _ref.watch(imagePickerProvider)!);
         break;
 
       case FileType.video:
@@ -87,10 +88,11 @@ class PostController extends StateNotifier<IsLoading> {
     final result = _repo.savePost(
         userId: _ref.read(userProvider)!,
         thumbnailUint8List: thumbnailUint8List,
-        file: file,
+        file: _ref.watch(imagePickerProvider)!,
         filetype: filetype,
         messenger: messenger);
     isLoading = false;
+    log(_ref.read(userProvider)!);
     return result;
   }
 
