@@ -51,6 +51,7 @@ class TextMessage {
 
   static const photoEditor = 'Photo Editor';
   static const create = 'Create';
+  static const reset = 'Reset';
 
   static const crop = 'Crop';
   static const filters = 'Filters';

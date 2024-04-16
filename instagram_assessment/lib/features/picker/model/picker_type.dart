@@ -16,3 +16,11 @@ enum Fit {
   blur,
   color,
 }
+
+enum Adjust {
+  brightness,
+  contrast,
+  saturation,
+  hue,
+  sepia,
+}

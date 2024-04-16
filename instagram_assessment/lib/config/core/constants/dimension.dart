@@ -27,6 +27,7 @@ class Dimension {
 
   //width
   static const width0 = 0.0;
+  static const width1 = 1.0;
   static const width2dot2 = 2.2;
   static const width2 = 2.0;
   static const width5 = 5.0;

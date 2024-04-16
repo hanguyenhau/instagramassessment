@@ -5,37 +5,17 @@ import 'package:crop_image/crop_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:instagram_assessment/config/core/constants/dimension.dart';
+import 'package:instagram_assessment/config/core/constants/text_messages.dart';
+import 'package:instagram_assessment/features/picker/controller/crop/crop_controller.dart';
 
 import 'package:instagram_assessment/features/picker/controller/picker_controller.dart';
 import 'dart:ui' as ui;
 
-class ScropScreen extends ConsumerStatefulWidget {
+class ScropScreen extends ConsumerWidget {
   const ScropScreen({super.key});
 
   @override
-  ConsumerState<ScropScreen> createState() => _CropScreenState();
-}
-
-class _CropScreenState extends ConsumerState<ScropScreen> {
-  late final CropController controller;
-
-  @override
-  void initState() {
-    super.initState();
-    controller = CropController(
-      aspectRatio: 1,
-      defaultCrop: const Rect.fromLTRB(0.1, 0.1, 0.9, 0.9),
-    );
-  }
-
-  @override
-  void dispose() {
-    controller.dispose(); // Dispose of the CropController
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final imageProvider = ref.watch(imagePickerProvider);
     if (imageProvider == null) {
       return const Scaffold(
@@ -49,7 +29,7 @@ class _CropScreenState extends ConsumerState<ScropScreen> {
       appBar: AppBar(
         elevation: 0,
         backgroundColor: Colors.black,
-        title: const Text('Crop'),
+        title: const Text(TextMessage.crop),
         centerTitle: true,
         leading: CloseButton(
           onPressed: () {
@@ -59,11 +39,8 @@ class _CropScreenState extends ConsumerState<ScropScreen> {
         actions: [
           IconButton(
               onPressed: () async {
-                final bytes = await _cropAndConvertImage();
-                ref
-                    .read(imagePickerProvider.notifier)
-                    .updateFile(bytes);
-                if (!mounted) return;
+                final bytes = await _cropAndConvertImage(ref: ref);
+                ref.read(imagePickerProvider.notifier).updateFile(bytes);
                 Navigator.of(context).pop();
               },
               icon: const Icon(Icons.done))
@@ -73,15 +50,15 @@ class _CropScreenState extends ConsumerState<ScropScreen> {
       body: Center(
           child: CropImage(
         image: Image.memory(imageProvider),
-        controller: controller,
+        controller: ref.watch(cropProvider),
         alwaysMove: true,
         gridThickWidth: 6,
       )),
-      bottomNavigationBar: _buildBottomNavigationBar(),
+      bottomNavigationBar: _buildBottomNavigationBar(ref: ref),
     );
   }
 
-  Widget _buildBottomNavigationBar() {
+  Widget _buildBottomNavigationBar({required WidgetRef ref}) {
     return Container(
       width: double.infinity,
       height: Dimension.height60,
@@ -90,17 +67,17 @@ class _CropScreenState extends ConsumerState<ScropScreen> {
           child: SingleChildScrollView(
         scrollDirection: Axis.horizontal,
         child: Row(
-          children: _buildBottomBarCropItem(),
+          children: _buildBottomBarCropItem(ref: ref),
         ),
       )),
     );
   }
 
-  List<Widget> _buildBottomBarCropItem() {
+  List<Widget> _buildBottomBarCropItem({required WidgetRef ref}) {
     return [
       _bottomBarItem(
           onPress: () {
-            controller.rotateLeft();
+            ref.read(cropProvider).rotateLeft();
           },
           child: const Icon(
             Icons.rotate_90_degrees_ccw_outlined,
@@ -108,7 +85,7 @@ class _CropScreenState extends ConsumerState<ScropScreen> {
           )),
       _bottomBarItem(
           onPress: () {
-            controller.rotateRight();
+            ref.read(cropProvider).rotateRight();
           },
           child: const Icon(Icons.rotate_90_degrees_cw_outlined,
               color: Colors.white)),
@@ -116,24 +93,20 @@ class _CropScreenState extends ConsumerState<ScropScreen> {
         padding: const EdgeInsets.symmetric(horizontal: 5),
         child: Container(
           color: Colors.white,
-          height: 30,
-          width: 1,
+          height: Dimension.height30,
+          width: Dimension.width1,
         ),
       ),
-      ...[
-        [1.0, '1:1'],
-        [2.0, '2:1'],
-        [1 / 2, '1:2'],
-        [4 / 3, '4:3'],
-        [3 / 4, '3:4'],
-        [16 / 9, '16:9'],
-        [9 / 16, '9:16'],
-      ].map((data) => _bottomBarItem(
-          child: Text(
-            data[1] as String,
-            style: const TextStyle(color: Colors.white),
-          ),
-          onPress: () => _setAspectRatio(data[0] as double)))
+      ...ref
+          .read(cropProvider.notifier)
+          .cropLists()
+          .entries
+          .map((data) => _bottomBarItem(
+              child: Text(
+                data.value,
+                style: const TextStyle(color: Colors.white),
+              ),
+              onPress: () => _setAspectRatio(ratio: data.key, ref: ref)))
     ];
   }
 
@@ -141,7 +114,7 @@ class _CropScreenState extends ConsumerState<ScropScreen> {
     return InkWell(
       onTap: onPress,
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 10),
+        padding: const EdgeInsets.symmetric(horizontal: Dimension.height10),
         child: Center(
           child: child,
         ),
@@ -149,13 +122,13 @@ class _CropScreenState extends ConsumerState<ScropScreen> {
     );
   }
 
-  void _setAspectRatio(double ratio) {
-    controller.aspectRatio = ratio;
-    controller.crop = const Rect.fromLTRB(0.1, 0.1, 0.9, 0.9);
+  void _setAspectRatio({required double ratio, required WidgetRef ref}) {
+    ref.read(cropProvider).aspectRatio = ratio;
+    ref.read(cropProvider).crop = const Rect.fromLTRB(0.1, 0.1, 0.9, 0.9);
   }
 
-  Future<Uint8List> _cropAndConvertImage() async {
-    final ui.Image bitmap = await controller.croppedBitmap();
+  Future<Uint8List> _cropAndConvertImage({required WidgetRef ref}) async {
+    final ui.Image bitmap = await ref.read(cropProvider).croppedBitmap();
     final ByteData? data = await bitmap.toByteData(format: ImageByteFormat.png);
     return data!.buffer.asUint8List();
   }

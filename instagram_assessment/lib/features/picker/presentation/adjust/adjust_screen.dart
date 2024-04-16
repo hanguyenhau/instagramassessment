@@ -1,9 +1,11 @@
-import 'package:colorfilter_generator/addons.dart';
-import 'package:colorfilter_generator/colorfilter_generator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:instagram_assessment/config/core/constants/app_colors.dart';
+import 'package:instagram_assessment/config/core/constants/dimension.dart';
+import 'package:instagram_assessment/config/core/constants/text_messages.dart';
+import 'package:instagram_assessment/features/picker/controller/adjust/adjust_controller.dart';
 import 'package:instagram_assessment/features/picker/controller/picker_controller.dart';
+import 'package:instagram_assessment/features/picker/model/picker_type.dart';
 import 'package:screenshot/screenshot.dart';
 
 class AdjustScreen extends ConsumerStatefulWidget {
@@ -14,39 +16,14 @@ class AdjustScreen extends ConsumerStatefulWidget {
 }
 
 class _AdjustScreenState extends ConsumerState<AdjustScreen> {
-  late ColorFilterGenerator _colorFilterGenerator;
   final ScreenshotController _screenshotController = ScreenshotController();
 
-  final Map<String, double> _adjustments = {
-    'brightness': 0.0,
-    'contrast': 0.0,
-    'saturation': 0.0,
-    'hue': 0.0,
-    'sepia': 0.0,
-  };
+  Adjust _selectedAdjustment = Adjust.brightness;
 
-  String _selectedAdjustment = 'brightness';
-
-  void _showSlider(String adjustment) {
+  void _selectAdjustment(Adjust adjustment) {
     setState(() {
       _selectedAdjustment = adjustment;
     });
-  }
-
-  void _updateColorFilterGenerator() {
-    _colorFilterGenerator = ColorFilterGenerator(name: 'Adjust', filters: [
-      ColorFilterAddons.brightness(_adjustments['brightness']!),
-      ColorFilterAddons.contrast(_adjustments['contrast']!),
-      ColorFilterAddons.saturation(_adjustments['saturation']!),
-      ColorFilterAddons.hue(_adjustments['hue']!),
-      ColorFilterAddons.sepia(_adjustments['sepia']!),
-    ]);
-  }
-
-  @override
-  void initState() {
-    _updateColorFilterGenerator();
-    super.initState();
   }
 
   @override
@@ -55,7 +32,7 @@ class _AdjustScreenState extends ConsumerState<AdjustScreen> {
       appBar: AppBar(
         elevation: 0,
         backgroundColor: Colors.black,
-        title: const Text('Adjust'),
+        title: const Text(TextMessage.adjust),
         centerTitle: true,
         leading: CloseButton(
           onPressed: () {
@@ -80,11 +57,12 @@ class _AdjustScreenState extends ConsumerState<AdjustScreen> {
         children: [
           Center(
             child: Padding(
-              padding: const EdgeInsets.symmetric(vertical: 10),
+              padding: const EdgeInsets.symmetric(vertical: Dimension.width10),
               child: Screenshot(
                 controller: _screenshotController,
                 child: ColorFiltered(
-                  colorFilter: ColorFilter.matrix(_colorFilterGenerator.matrix),
+                  colorFilter: ColorFilter.matrix(
+                      ref.watch(colorFilterGeneratorProvider).matrix),
                   child: Image.memory(
                     ref.watch(imagePickerProvider)!,
                     fit: BoxFit.cover,
@@ -100,22 +78,26 @@ class _AdjustScreenState extends ConsumerState<AdjustScreen> {
                 Expanded(
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
-                    children: _adjustments.entries
+                    children: ref
+                        .watch(adjustProvider)
+                        .entries
                         .map((adjust) => _buildSlider(
-                            label: adjust.key.capitalize(),
+                            label: adjust.key.name,
                             value: adjust.value,
                             onChanged: (value) => setState(() {
-                                  _adjustments[adjust.key] = value;
-                                  _updateColorFilterGenerator();
+                                  ref
+                                      .read(adjustProvider.notifier)
+                                      .updateAdjustment(
+                                          adjust: adjust.key, value: value);
                                 }),
                             show: adjust.key == _selectedAdjustment))
                         .toList(),
                   ),
                 ),
                 TextButton(
-                  onPressed: _resetAdjustments,
+                  onPressed: () => ref.read(adjustProvider.notifier).resetAdjustments(),
                   child: const Text(
-                    'Reset',
+                    TextMessage.reset,
                     style: TextStyle(color: Colors.white),
                   ),
                 )
@@ -151,19 +133,19 @@ class _AdjustScreenState extends ConsumerState<AdjustScreen> {
   Widget _buildBottomNavigationBar() {
     return Container(
       width: double.infinity,
-      height: 58,
+      height: Dimension.height60,
       color: Colors.black,
       child: SafeArea(
         child: SingleChildScrollView(
           scrollDirection: Axis.horizontal,
           child: Row(
-            children: _adjustments.entries.map((entry) {
+            children: ref.read(adjustProvider).entries.map((entry) {
               final key = entry.key;
               return _bottomBarItem(
                 icon: _getIconForAdjustment(key),
-                title: key.capitalize(),
+                title: key.name,
                 onPress: () {
-                  _showSlider(key);
+                  _selectAdjustment(key);
                 },
                 selected: key == _selectedAdjustment,
               );
@@ -192,7 +174,7 @@ class _AdjustScreenState extends ConsumerState<AdjustScreen> {
               color: selected ? AppColor.facebookColor : Colors.white,
             ),
             const SizedBox(
-              height: 10,
+              height: Dimension.height10,
             ),
             Text(
               title,
@@ -206,35 +188,20 @@ class _AdjustScreenState extends ConsumerState<AdjustScreen> {
     );
   }
 
-  IconData _getIconForAdjustment(String adjustment) {
+  IconData _getIconForAdjustment(Adjust adjustment) {
     switch (adjustment) {
-      case 'brightness':
+      case Adjust.brightness:
         return Icons.brightness_4_rounded;
-      case 'contrast':
+      case Adjust.contrast:
         return Icons.contrast;
-      case 'saturation':
+      case Adjust.saturation:
         return Icons.water_drop;
-      case 'hue':
+      case Adjust.hue:
         return Icons.filter_tilt_shift;
-      case 'sepia':
+      case Adjust.sepia:
         return Icons.motion_photos_on;
       default:
         return Icons.error;
     }
-  }
-
-  void _resetAdjustments() {
-    setState(() {
-      _adjustments.forEach((key, _) {
-        _adjustments[key] = 0.0;
-      });
-    });
-    _updateColorFilterGenerator();
-  }
-}
-
-extension StringExtension on String {
-  String capitalize() {
-    return "${this[0].toUpperCase()}${substring(1)}";
   }
 }
